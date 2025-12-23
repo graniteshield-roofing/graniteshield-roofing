@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// This specific line forces Vercel to use the correct server for emails
+// ✅ THESE TWO LINES FIX THE BUILD ERROR
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
-// Initialize Resend with your API Key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
@@ -12,7 +12,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { name, phone, zip, projectType, timeframe, notes } = body;
 
-    // Send the email
     const data = await resend.emails.send({
       from: 'GraniteShield Leads <onboarding@resend.dev>',
       to: 'info@graniteshieldroofing.com',
@@ -30,7 +29,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
-    console.error('Lead submission failed:', error);
+    console.error('Email error:', error);
     return NextResponse.json({ success: false, error }, { status: 500 });
   }
 }
