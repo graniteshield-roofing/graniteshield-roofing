@@ -12,9 +12,9 @@ export default function HomePage() {
 
   // HERO images
   const heroDesktop =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766305128/southern-maine-standing-seam-metal-roof-cumberland-center-maine-graniteshield-hero.png_fsvxil.png';
+    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766470992/roofing-siding-and-exterior-renovation-southern-maine-granite-shield.jpg.png';
   const heroMobile =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_1200/v1766305128/southern-maine-standing-seam-metal-roof-cumberland-center-maine-graniteshield-hero.png_fsvxil.png';
+    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_1200/v1766470992/roofing-siding-and-exterior-renovation-southern-maine-granite-shield.jpg.png';
 
   const serviceAreas = [
     'Cumberland Center',
