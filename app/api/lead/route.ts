@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// ✅ THESE TWO LINES FIX THE BUILD ERROR
+// ---------------------------------------------------------
+// ⬇️ THESE TWO LINES ARE THE FIX FOR YOUR BUILD ERROR ⬇️
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+// ---------------------------------------------------------
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -12,6 +14,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { name, phone, zip, projectType, timeframe, notes } = body;
 
+    // Send the email
     const data = await resend.emails.send({
       from: 'GraniteShield Leads <onboarding@resend.dev>',
       to: 'info@graniteshieldroofing.com',
