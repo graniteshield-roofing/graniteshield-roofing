@@ -11,9 +11,10 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { name, phone, zip, projectType, timeframe, notes } = body;
 
+    // Send the email
     const data = await resend.emails.send({
       from: 'GraniteShield Leads <onboarding@resend.dev>',
-      to: 'info@graniteshieldroofing.com',
+      to: 'info@graniteshieldroofing.com', // Leads go here
       subject: `🔥 New Lead: ${name} - ${projectType}`,
       html: `
         <h1>New Website Lead</h1>
