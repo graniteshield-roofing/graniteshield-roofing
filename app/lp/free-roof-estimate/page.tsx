@@ -47,7 +47,6 @@ export default function FreeRoofEstimatePage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ✅ supports /free-roof-estimate?service=roof-repair etc
   useEffect(() => {
     const service = searchParams.get('service') || searchParams.get('project');
     if (!service) return;
@@ -108,81 +107,23 @@ export default function FreeRoofEstimatePage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Facebook Pixel (if present)
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Lead', {
-        content_name: 'Free Roof Estimate',
-        content_category: 'Roofing Services',
-        project_type: formData.projectType,
-        urgency: formData.urgency,
-        zip: formData.zip,
-      });
-    }
-
-    // Google tag (if present)
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'generate_lead', {
-        event_category: 'engagement',
-        event_label: 'Free Roof Estimate Form',
-        project_type: formData.projectType,
-        urgency: formData.urgency,
-        zip: formData.zip,
-      });
-    }
-
-    // ✅ FIXED: Send to API route via Resend
     try {
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          timeframe: formData.urgency, // Mapping urgency to timeframe field expected by API
+          timeframe: formData.urgency,
         }),
       });
 
       if (!res.ok) throw new Error('Failed to submit form');
-
-      // Success -> Redirect
       router.push('/thank-you');
     } catch (error) {
       console.error('Submission error:', error);
-      alert(
-        'There was an error sending your request. Please call us directly at ' +
-          BUSINESS_CONFIG.contact.phone
-      );
+      alert('Error submitting form. Please call us directly.');
       setIsSubmitting(false);
     }
-  };
-
-  const renderProgressIndicator = () => {
-    const steps: Step[] = [1, 2, 3];
-    return (
-      <div className="flex items-center justify-center mb-6">
-        <div className="flex items-center space-x-2">
-          {steps.map((s, index) => (
-            <div key={s} className="flex items-center">
-              <div
-                className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                  step >= s
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-slate-200 text-slate-600'
-                } font-semibold text-sm`}
-              >
-                {s}
-              </div>
-              {index < steps.length - 1 && (
-                <div
-                  className={`w-12 h-1 ${
-                    step > s ? 'bg-blue-600' : 'bg-slate-200'
-                  }`}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
   };
 
   return (
@@ -204,7 +145,6 @@ export default function FreeRoofEstimatePage() {
 
       <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          {/* LEFT: Trust + proof */}
           <div className="order-2 lg:order-1">
             <div className="mb-8">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 leading-tight">
@@ -215,22 +155,6 @@ export default function FreeRoofEstimatePage() {
                 installs, tight detailing, and clear communication from start to
                 finish.
               </p>
-            </div>
-
-            <div className="hidden lg:block mb-8">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full rounded-xl shadow-2xl"
-                poster="https://res.cloudinary.com/durhnu8rr/image/upload/v1766122267/hjqpee.jpg"
-              >
-                <source
-                  src="https://res.cloudinary.com/durhnu8rr/video/upload/v1766122276/yyffek.mp4"
-                  type="video/mp4"
-                />
-              </video>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
@@ -252,34 +176,42 @@ export default function FreeRoofEstimatePage() {
             </div>
           </div>
 
-          {/* RIGHT: Form */}
           <div className="order-1 lg:order-2">
-            <div className="lg:hidden mb-6">
-              <img
-                src="https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_1200/v1766116351/20251014_195630846_iOS_onmn27.heic"
-                alt="Standing seam metal roof installation in Southern Maine by GraniteShield Roofing"
-                className="w-full rounded-xl shadow-2xl"
-                loading="eager"
-                fetchPriority="high"
-              />
-            </div>
-
             <Card className="shadow-xl">
               <CardContent className="p-6 sm:p-8">
-                {renderProgressIndicator()}
+                {/* Progress Indicators */}
+                <div className="flex items-center justify-center mb-6">
+                  <div className="flex items-center space-x-2">
+                    {[1, 2, 3].map((s, index) => (
+                      <div key={s} className="flex items-center">
+                        <div
+                          className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                            step >= s
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-slate-200 text-slate-600'
+                          } font-semibold text-sm`}
+                        >
+                          {s}
+                        </div>
+                        {index < 2 && (
+                          <div
+                            className={`w-12 h-1 ${
+                              step > s ? 'bg-blue-600' : 'bg-slate-200'
+                            }`}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
                 <form onSubmit={handleSubmit}>
-                  {/* STEP 1 */}
                   {step === 1 && (
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-2xl font-bold text-slate-900 mb-2">
                           What do you need help with?
                         </h2>
-                        <p className="text-slate-600 mb-6">
-                          Quick tap — no long form.
-                        </p>
-
                         <RadioGroup
                           value={formData.projectType}
                           onValueChange={(value) =>
@@ -299,17 +231,14 @@ export default function FreeRoofEstimatePage() {
                               />
                               <Label
                                 htmlFor={type.value}
-                                className="flex-1 cursor-pointer"
+                                className="flex-1 cursor-pointer font-semibold text-slate-900"
                               >
-                                <div className="font-semibold text-slate-900">
-                                  {type.label}
-                                </div>
+                                {type.label}
                               </Label>
                             </div>
                           ))}
                         </RadioGroup>
                       </div>
-
                       <Button
                         type="button"
                         onClick={handleNext}
@@ -317,28 +246,17 @@ export default function FreeRoofEstimatePage() {
                         className="w-full"
                         size="lg"
                       >
-                        Continue → See Availability{' '}
-                        <ArrowRight className="ml-2 h-5 w-5" />
+                        Continue <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
-
-                      <div className="flex items-center justify-center gap-2 text-sm text-slate-600">
-                        <Clock className="h-4 w-4 text-blue-600" />
-                        <span>24–48 hour scheduling • $0 assessment fee</span>
-                      </div>
                     </div>
                   )}
 
-                  {/* STEP 2 */}
                   {step === 2 && (
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-2xl font-bold text-slate-900 mb-2">
                           How soon?
                         </h2>
-                        <p className="text-slate-600 mb-6">
-                          This helps us prioritize your request.
-                        </p>
-
                         <RadioGroup
                           value={formData.urgency}
                           onValueChange={(value) =>
@@ -358,17 +276,14 @@ export default function FreeRoofEstimatePage() {
                               />
                               <Label
                                 htmlFor={option.value}
-                                className="flex-1 cursor-pointer"
+                                className="flex-1 cursor-pointer font-semibold text-slate-900"
                               >
-                                <div className="font-semibold text-slate-900">
-                                  {option.label}
-                                </div>
+                                {option.label}
                               </Label>
                             </div>
                           ))}
                         </RadioGroup>
                       </div>
-
                       <div className="flex gap-4">
                         <Button
                           type="button"
@@ -376,6 +291,88 @@ export default function FreeRoofEstimatePage() {
                           variant="outline"
                           className="flex-1"
                           size="lg"
-                          disabled={isSubmitting}
                         >
-                          <ArrowLeft className="
+                          Back
+                        </Button>
+                        <Button
+                          type="button"
+                          onClick={handleNext}
+                          disabled={!canContinueStep2}
+                          className="flex-1"
+                          size="lg"
+                        >
+                          Continue
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {step === 3 && (
+                    <div className="space-y-6">
+                      <h2 className="text-2xl font-bold text-slate-900 mb-2">
+                        Your Contact Info
+                      </h2>
+                      <div className="space-y-4">
+                        <Input
+                          value={formData.name}
+                          onChange={(e) =>
+                            setFormData({ ...formData, name: e.target.value })
+                          }
+                          placeholder="Full Name"
+                          required
+                        />
+                        <Input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) =>
+                            setFormData({ ...formData, phone: e.target.value })
+                          }
+                          placeholder="Phone Number"
+                          required
+                        />
+                        <Input
+                          value={formData.zip}
+                          onChange={(e) =>
+                            setFormData({ ...formData, zip: e.target.value })
+                          }
+                          placeholder="Zip Code"
+                          required
+                        />
+                        <Input
+                          value={formData.notes}
+                          onChange={(e) =>
+                            setFormData({ ...formData, notes: e.target.value })
+                          }
+                          placeholder="Notes (Optional)"
+                        />
+                      </div>
+                      <div className="flex gap-4">
+                        <Button
+                          type="button"
+                          onClick={handleBack}
+                          variant="outline"
+                          className="flex-1"
+                          size="lg"
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          type="submit"
+                          className="flex-1"
+                          size="lg"
+                          disabled={!canSubmit || isSubmitting}
+                        >
+                          {isSubmitting ? 'Sending...' : 'Get Free Assessment'}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
