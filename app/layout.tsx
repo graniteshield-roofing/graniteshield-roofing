@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 const siteUrl = 'https://graniteshieldroofing.com';
 const ogImage =
-  'https://res.cloudinary.com/durhnu8rr/image/upload/v1766122201/Untitled_1640_x_720_px_Mobile_Video_1_pnhryl.jpg';
+  'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766470992/roofing-siding-and-exterior-renovation-southern-maine-granite-shield.jpg.png';
 
 /**
  * ✅ Next.js 13 viewport export (NO TYPE)
