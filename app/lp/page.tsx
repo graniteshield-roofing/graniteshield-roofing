@@ -44,6 +44,8 @@ export default function LandingPage() {
     notes: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const projectTypes = useMemo(
     () => [
       {
@@ -175,6 +177,7 @@ export default function LandingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     // Facebook Pixel (if present)
     if (typeof window !== 'undefined' && (window as any).fbq) {
@@ -198,10 +201,26 @@ export default function LandingPage() {
       });
     }
 
-    // TODO: Send to CRM/webhook here
-    // await fetch('/api/lead', { method: 'POST', body: JSON.stringify(formData) })
+    // ✅ FIXED: Send data to our API route (Resend)
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    router.push('/thank-you');
+      if (!res.ok) throw new Error('Failed to submit form');
+
+      // Success -> Redirect to Thank You
+      router.push('/thank-you');
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert(
+        'There was a problem sending your request. Please call us directly at ' +
+          BUSINESS_CONFIG.contact.phone
+      );
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -487,6 +506,7 @@ export default function LandingPage() {
                       variant="outline"
                       className="flex-1"
                       size="lg"
+                      disabled={isSubmitting}
                     >
                       <ArrowLeft className="mr-2 h-5 w-5" /> Back
                     </Button>
@@ -494,10 +514,12 @@ export default function LandingPage() {
                       type="submit"
                       className="flex-1"
                       size="lg"
-                      disabled={!canSubmit}
+                      disabled={!canSubmit || isSubmitting}
                     >
-                      Get Free Assessment{' '}
-                      <CheckCircle2 className="ml-2 h-5 w-5" />
+                      {isSubmitting ? 'Sending...' : 'Get Free Assessment'}
+                      {!isSubmitting && (
+                        <CheckCircle2 className="ml-2 h-5 w-5" />
+                      )}
                     </Button>
                   </div>
 
