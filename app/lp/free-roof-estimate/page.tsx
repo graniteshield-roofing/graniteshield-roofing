@@ -45,6 +45,8 @@ export default function FreeRoofEstimatePage() {
     notes: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // ✅ supports /free-roof-estimate?service=roof-repair etc
   useEffect(() => {
     const service = searchParams.get('service') || searchParams.get('project');
@@ -104,6 +106,7 @@ export default function FreeRoofEstimatePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     // Facebook Pixel (if present)
     if (typeof window !== 'undefined' && (window as any).fbq) {
@@ -127,9 +130,29 @@ export default function FreeRoofEstimatePage() {
       });
     }
 
-    // TODO: send to CRM/webhook here
+    // ✅ FIXED: Send to API route via Resend
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          timeframe: formData.urgency, // Mapping urgency to timeframe field expected by API
+        }),
+      });
 
-    router.push('/thank-you');
+      if (!res.ok) throw new Error('Failed to submit form');
+
+      // Success -> Redirect
+      router.push('/thank-you');
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert(
+        'There was an error sending your request. Please call us directly at ' +
+          BUSINESS_CONFIG.contact.phone
+      );
+      setIsSubmitting(false);
+    }
   };
 
   const renderProgressIndicator = () => {
@@ -353,211 +376,6 @@ export default function FreeRoofEstimatePage() {
                           variant="outline"
                           className="flex-1"
                           size="lg"
+                          disabled={isSubmitting}
                         >
-                          <ArrowLeft className="mr-2 h-5 w-5" /> Back
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={handleNext}
-                          disabled={!canContinueStep2}
-                          className="flex-1"
-                          size="lg"
-                        >
-                          Continue <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </div>
-
-                      <div className="flex items-center justify-center gap-2 text-sm text-slate-600">
-                        <Clock className="h-4 w-4 text-blue-600" />
-                        <span>24–48 hour scheduling • $0 assessment fee</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* STEP 3 */}
-                  {step === 3 && (
-                    <div className="space-y-6">
-                      <div>
-                        <h2 className="text-2xl font-bold text-slate-900 mb-2">
-                          Where should we send your estimate?
-                        </h2>
-                        <p className="text-slate-600 mb-6">
-                          Name + phone + zip. That’s it.
-                        </p>
-
-                        <div className="space-y-4">
-                          <div>
-                            <Label htmlFor="name">Full Name *</Label>
-                            <Input
-                              id="name"
-                              value={formData.name}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  name: e.target.value,
-                                })
-                              }
-                              placeholder="Justin"
-                              required
-                            />
-                          </div>
-
-                          <div>
-                            <Label htmlFor="phone">Phone Number *</Label>
-                            <Input
-                              id="phone"
-                              type="tel"
-                              value={formData.phone}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  phone: e.target.value,
-                                })
-                              }
-                              placeholder="(207) 530-8362"
-                              required
-                            />
-                          </div>
-
-                          <div>
-                            <Label htmlFor="zip">Zip Code *</Label>
-                            <Input
-                              id="zip"
-                              inputMode="numeric"
-                              value={formData.zip}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  zip: e.target.value,
-                                })
-                              }
-                              placeholder="04074"
-                              required
-                            />
-                          </div>
-
-                          <div>
-                            <Label htmlFor="notes">
-                              Optional: What’s going on?
-                            </Label>
-                            <Input
-                              id="notes"
-                              value={formData.notes}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  notes: e.target.value,
-                                })
-                              }
-                              placeholder="Leak near chimney / replacing in spring / etc."
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4">
-                        <Button
-                          type="button"
-                          onClick={handleBack}
-                          variant="outline"
-                          className="flex-1"
-                          size="lg"
-                        >
-                          <ArrowLeft className="mr-2 h-5 w-5" /> Back
-                        </Button>
-                        <Button
-                          type="submit"
-                          className="flex-1"
-                          size="lg"
-                          disabled={!canSubmit}
-                        >
-                          Get Free Assessment{' '}
-                          <CheckCircle2 className="ml-2 h-5 w-5" />
-                        </Button>
-                      </div>
-
-                      <div className="flex items-center justify-center gap-2 text-sm text-slate-600">
-                        <Clock className="h-4 w-4 text-blue-600" />
-                        <span>24–48 hour scheduling • $0 assessment fee</span>
-                      </div>
-                    </div>
-                  )}
-                </form>
-
-                {/* TRUST MINI STRIP */}
-                <div className="mt-6 pt-6 border-t border-slate-200">
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="flex items-center justify-center mb-2">
-                        <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
-                        <span className="ml-1 text-lg font-bold text-slate-900">
-                          5.0
-                        </span>
-                      </div>
-                      <div className="text-xs text-slate-600">8 Reviews</div>
-                    </div>
-                    <div>
-                      <div className="flex items-center justify-center mb-2">
-                        <Award className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <div className="text-xs text-slate-600">
-                        Expert Quality
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex items-center justify-center mb-2">
-                        <Shield className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <div className="text-xs text-slate-600">
-                        Licensed & Insured
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CALL OPTION */}
-                <div className="mt-6 text-center">
-                  <div className="flex items-center justify-center gap-2 text-sm text-slate-600">
-                    <Phone className="h-4 w-4 text-blue-600" />
-                    <span>Prefer to call?</span>
-                    <a
-                      href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
-                      className="text-blue-600 font-semibold hover:text-blue-700"
-                    >
-                      {BUSINESS_CONFIG.contact.phone}
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      <footer className="bg-white border-t border-slate-200 py-6 mt-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-sm text-slate-700">
-              <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-              <span className="font-semibold">5.0 Rating</span>
-              <span className="text-slate-400">•</span>
-              <span>Owner-Operated Quality</span>
-              <span className="text-slate-400">•</span>
-              <span>Licensed & Insured</span>
-            </div>
-            <a
-              href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
-              className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-2"
-            >
-              <Phone className="h-4 w-4" />
-              {BUSINESS_CONFIG.contact.phone}
-            </a>
-          </div>
-          <div className="text-center text-sm text-slate-500 mt-4">
-            © {new Date().getFullYear()} GraniteShield Roofing
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+                          <ArrowLeft className="
