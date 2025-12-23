@@ -15,7 +15,9 @@ const siteUrl = 'https://graniteshieldroofing.com';
 const ogImage =
   'https://res.cloudinary.com/durhnu8rr/image/upload/v1766122201/Untitled_1640_x_720_px_Mobile_Video_1_pnhryl.jpg';
 
-// ✅ FIX: remove Viewport typing (Next 13.5.1 doesn't export it)
+/**
+ * ✅ Next.js 13 viewport export (NO TYPE)
+ */
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -23,6 +25,9 @@ export const viewport = {
   colorScheme: 'light',
 };
 
+/**
+ * ✅ Metadata (correct for Next 13)
+ */
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
