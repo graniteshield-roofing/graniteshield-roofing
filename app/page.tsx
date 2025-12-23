@@ -10,10 +10,9 @@ import { BUSINESS_CONFIG } from '@/lib/business-config';
 export default function HomePage() {
   const baseUrl = 'https://graniteshieldroofing.com';
 
-  // ✅ One optimized HERO image (no mobile/desktop swap)
-  // Fixes blur: q_85 + dpr_auto + fill + sizes="100vw"
-  const heroImage =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_85,dpr_auto,w_2400,c_fill,g_auto/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
+  // ✅ Use ONE hero image and let Cloudinary + Next handle responsive sizing
+  const heroImg =
+    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
 
   const serviceAreas = [
     'Cumberland Center',
@@ -40,7 +39,7 @@ export default function HomePage() {
     },
     {
       title: 'Shingle Roofing',
-      desc: 'High-performance shingle systems installed with clean flashing, ventilation (when applicable), and tight detailing.',
+      desc: 'High-performance shingle systems with clean flashing, ventilation (when applicable), and tight detailing.',
       href: '/services/shingle-roofing',
       funnel: '/lp?service=shingle-roofing',
     },
@@ -115,7 +114,7 @@ export default function HomePage() {
     url: baseUrl,
     telephone: BUSINESS_CONFIG.contact.phoneRaw,
     description:
-      'Owner-operated roofing and exterior contractor serving Southern Maine. Standing seam metal roofing, shingle roofing, roof replacement, roof repair, siding, and windows — built for Maine weather.',
+      "Owner-operated roofing and exterior contractor serving Southern Maine. Standing seam metal roofing, shingle roofing, roof replacement, roof repair, siding, and windows — built for Maine weather.",
     areaServed: serviceAreas.map((a) => ({
       '@type': 'City',
       name: a,
@@ -133,10 +132,7 @@ export default function HomePage() {
     mainEntity: faqs.map((f) => ({
       '@type': 'Question',
       name: f.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: f.a,
-      },
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
   };
 
@@ -158,108 +154,125 @@ export default function HomePage() {
 
       {/* ✅ HERO */}
       <section className="relative overflow-hidden bg-slate-950">
-        {/* Stabilize hero height so it doesn't “breathe” */}
-        <div className="relative h-[72vh] min-h-[520px] max-h-[760px]">
+        {/* Better mobile height + desktop height */}
+        <div className="relative min-h-[78vh] sm:min-h-[74vh] lg:min-h-[640px]">
           {/* Background image */}
           <div className="absolute inset-0">
             <Image
-              src={heroImage}
-              alt="Roofing, siding, and exterior renovation in Southern Maine by GraniteShield Roofing"
+              src={heroImg}
+              alt="Roofing and exterior contractor in Southern Maine — metal roofing, shingles, siding, and windows"
               fill
               priority
               sizes="100vw"
-              className="object-cover"
+              className="object-cover object-center"
             />
-            {/* Readability overlays */}
-            <div className="absolute inset-0 bg-black/55" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/30 to-black/70" />
+            {/* Stronger contrast so text is crisp */}
+            <div className="absolute inset-0 bg-black/45" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/20 to-black/70" />
           </div>
 
           {/* Content */}
-          <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:py-14 sm:px-6 lg:px-8">
-            {/* ✅ Glass panel so text always pops */}
-            <div className="max-w-3xl rounded-2xl bg-black/45 backdrop-blur-md p-6 sm:p-8 border border-white/10 shadow-2xl">
-              <Badge className="mb-5 bg-blue-600 text-white border-0">
-                Owner-Operated • Southern Maine • Licensed & Insured
-              </Badge>
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {/* This keeps content off the edges on mobile and centered on desktop */}
+            <div className="pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14">
+              {/* Glass panel for readability */}
+              <div className="max-w-xl sm:max-w-2xl rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-2xl p-5 sm:p-8">
+                <Badge className="mb-4 bg-blue-600 text-white border-0">
+                  Owner-Operated • Southern Maine • Licensed & Insured
+                </Badge>
 
-              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-                Roofing & Exteriors Built for{' '}
-                <span className="text-blue-300">Southern Maine</span>
-              </h1>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
+                  Roofing & Exteriors Built for{' '}
+                  <span className="text-blue-300">Southern Maine</span>
+                </h1>
 
-              <p className="mt-4 text-lg sm:text-xl text-slate-200">
-                Standing seam metal roofing, shingle systems, roof replacements, repairs,
-                siding, and windows — clean installs, tight detailing, and real accountability
-                from the owner on-site.
-              </p>
+                <p className="mt-4 text-base sm:text-lg text-slate-100 leading-relaxed">
+                  Standing seam metal roofing, shingle systems, roof replacements, repairs, siding, and windows —
+                  clean installs, tight detailing, and real accountability from the owner on-site.
+                </p>
 
-              <div className="mt-7 flex flex-col sm:flex-row gap-4">
-                <Button variant="cta" size="lg" asChild>
-                  <Link href="/lp">
-                    Get Free Exterior Assessment <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
+                {/* CTA row */}
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                  <Button variant="cta" size="lg" asChild className="h-12 sm:h-14">
+                    <Link href="/lp">
+                      Get Free Exterior Assessment <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
 
-                <Button
-                  size="lg"
-                  variant="outline"
-                  asChild
-                  className="bg-transparent text-white border-white hover:bg-white hover:text-slate-900"
-                >
-                  <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
-                    <Phone className="mr-2 h-5 w-5" />
-                    Call {BUSINESS_CONFIG.contact.phone}
-                  </a>
-                </Button>
-              </div>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    asChild
+                    className="h-12 sm:h-14 bg-transparent text-white border-white/70 hover:bg-white hover:text-slate-900"
+                  >
+                    <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
+                      <Phone className="mr-2 h-5 w-5" />
+                      Call {BUSINESS_CONFIG.contact.phone}
+                    </a>
+                  </Button>
+                </div>
 
-              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-200">
-                <span className="inline-flex items-center gap-2">
-                  <span aria-hidden>⭐</span> 5.0 (8 reviews)
-                </span>
-                <span className="opacity-70">•</span>
-                <span>Most assessments scheduled in 24–48 hours</span>
-                <span className="opacity-70">•</span>
-                <span>$0 assessment fee</span>
-              </div>
+                {/* Trust line */}
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-100">
+                  <span className="inline-flex items-center gap-2">
+                    <span aria-hidden>⭐</span> 5.0 (8 reviews)
+                  </span>
+                  <span className="opacity-60">•</span>
+                  <span>Most assessments scheduled in 24–48 hours</span>
+                  <span className="opacity-60">•</span>
+                  <span>$0 assessment fee</span>
+                </div>
 
-              <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-200">
-                {['Licensed & Insured', 'Clean Install + Cleanup', 'Owner Oversight'].map(
-                  (text) => (
+                {/* Bullets */}
+                <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-slate-100">
+                  {['Licensed & Insured', 'Clean Install + Cleanup', 'Owner Oversight'].map((text) => (
                     <div key={text} className="flex items-center gap-2">
                       <CheckCircle2 className="h-5 w-5 text-amber-300" />
                       {text}
                     </div>
-                  )
-                )}
-              </div>
+                  ))}
+                </div>
 
-              <div className="mt-5 flex items-start gap-2 text-slate-200 text-sm">
-                <MapPin className="h-4 w-4 mt-0.5 text-slate-300" />
-                <p>Serving Southern Maine: {serviceAreas.join(', ')} and surrounding towns.</p>
+                <div className="mt-4 flex items-start gap-2 text-slate-100 text-sm">
+                  <MapPin className="h-4 w-4 mt-0.5 text-slate-200" />
+                  <p className="leading-relaxed">
+                    Serving Southern Maine: {serviceAreas.join(', ')} and surrounding towns.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* subtle bottom fade into white section */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white" />
         </div>
       </section>
 
       {/* SERVICES */}
-      <section className="py-16 bg-white">
+      <section className="py-14 sm:py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 sm:mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              Roofing & Exterior Services
+            </h2>
+            <p className="mt-2 text-slate-600 max-w-2xl">
+              High-performance systems built for Maine weather — metal, shingles, repairs, siding, and windows.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s) => (
-              <Card key={`${s.title}-${s.href}`}>
+              <Card key={`${s.title}-${s.href}`} className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 flex flex-col h-full">
-                  <h2 className="text-xl font-semibold">{s.title}</h2>
-                  <p className="mt-2 text-slate-600">{s.desc}</p>
+                  <h3 className="text-xl font-semibold text-slate-900">{s.title}</h3>
+                  <p className="mt-2 text-slate-600 leading-relaxed">{s.desc}</p>
 
                   <div className="mt-auto pt-6 flex flex-col gap-3">
-                    <Button asChild variant="cta" className="w-full">
+                    <Button asChild variant="cta" className="w-full h-11">
                       <Link href={s.funnel}>Request Free Assessment</Link>
                     </Button>
 
-                    <Button asChild variant="outline" className="w-full">
+                    <Button asChild variant="outline" className="w-full h-11">
                       <Link href={s.href}>
                         View Details <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
@@ -270,12 +283,11 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-12 max-w-3xl text-slate-600 text-sm leading-relaxed">
-            GraniteShield Roofing & Exteriors is an owner-operated roofing and exterior contractor
-            serving Southern Maine, including Portland, Scarborough, Saco, Biddeford, Auburn, and
-            surrounding communities. We install standing seam metal roofing and high-performance
-            shingle systems, handle full roof replacements and emergency repairs, and deliver clean
-            exterior upgrades built for Maine’s climate.
+          <div className="mt-10 max-w-3xl text-slate-600 text-sm leading-relaxed">
+            GraniteShield Roofing & Exteriors is an owner-operated contractor serving Southern Maine, including Portland,
+            Scarborough, Saco, Biddeford, Auburn, and surrounding communities. We install standing seam metal roofing and
+            high-performance shingle systems, handle full roof replacements and fast repairs, and deliver clean exterior
+            upgrades built for Maine’s climate.
           </div>
         </div>
       </section>
