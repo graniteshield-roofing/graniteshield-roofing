@@ -20,6 +20,9 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 
+// ✅ Formspree ID Configured
+const FORMSPREE_ID = "xykgljyv";
+
 type Step = 1 | 2 | 3;
 
 type FormData = {
@@ -108,13 +111,14 @@ export default function FreeRoofEstimatePage() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/api/lead', {
+      // ✅ Send directly to Formspree
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          timeframe: formData.urgency,
-        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData),
       });
 
       if (!res.ok) throw new Error('Failed to submit form');
@@ -179,7 +183,6 @@ export default function FreeRoofEstimatePage() {
           <div className="order-1 lg:order-2">
             <Card className="shadow-xl">
               <CardContent className="p-6 sm:p-8">
-                {/* Progress Indicators */}
                 <div className="flex items-center justify-center mb-6">
                   <div className="flex items-center space-x-2">
                     {[1, 2, 3].map((s, index) => (
