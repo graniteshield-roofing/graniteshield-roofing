@@ -19,6 +19,9 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 
+// ✅ Formspree ID Configured
+const FORMSPREE_ID = "xykgljyv";
+
 type Step = 1 | 2 | 3;
 
 type FormData = {
@@ -128,8 +131,6 @@ export default function LandingPage() {
     []
   );
 
-  // ✅ Auto-select service from URL, supports:
-  // /lp?service=roof-repair  OR /lp?project=standing-seam
   useEffect(() => {
     const service = searchParams.get('service') || searchParams.get('project');
     if (!service) return;
@@ -201,17 +202,19 @@ export default function LandingPage() {
       });
     }
 
-    // ✅ FIXED: Send data to our API route (Resend)
+    // ✅ FIXED: Send to Formspree
     try {
-      const res = await fetch('/api/lead', {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(formData),
       });
 
       if (!res.ok) throw new Error('Failed to submit form');
 
-      // Success -> Redirect to Thank You
       router.push('/thank-you');
     } catch (error) {
       console.error('Form submission error:', error);
@@ -225,7 +228,6 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Top bar */}
       <header className="bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="font-bold text-slate-900">GraniteShield</div>
