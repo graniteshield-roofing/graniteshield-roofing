@@ -273,9 +273,7 @@ export function SiteFooter() {
 
           <p className="mt-2">
             Licensed & Insured Maine Roofing Contractor
-            {BUSINESS_CONFIG?.credentials?.licenseNumber ? (
-              <> | {BUSINESS_CONFIG.credentials.licenseNumber}</>
-            ) : null}
+            
           </p>
         </div>
       </div>
