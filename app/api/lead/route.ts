@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// THIS LINE FIXES THE BUILD ERROR:
+// ✅ THIS LINE FIXES THE BUILD ERROR
 export const runtime = 'nodejs';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
