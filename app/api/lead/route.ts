@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// ✅ THIS LINE FIXES THE BUILD ERROR
+// ✅ THIS LINE IS REQUIRED FOR EMAILS TO WORK ON VERCEL
 export const runtime = 'nodejs';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -11,10 +11,9 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { name, phone, zip, projectType, timeframe, notes } = body;
 
-    // Send the email
     const data = await resend.emails.send({
       from: 'GraniteShield Leads <onboarding@resend.dev>',
-      to: 'info@graniteshieldroofing.com', // Leads go here
+      to: 'info@graniteshieldroofing.com',
       subject: `🔥 New Lead: ${name} - ${projectType}`,
       html: `
         <h1>New Website Lead</h1>
