@@ -15,7 +15,8 @@ const siteUrl = 'https://graniteshieldroofing.com';
 const ogImage =
   'https://res.cloudinary.com/durhnu8rr/image/upload/v1766122201/Untitled_1640_x_720_px_Mobile_Video_1_pnhryl.jpg';
 
-export const viewport: Viewport = {
+// ✅ FIX: remove Viewport typing (Next 13.5.1 doesn't export it)
+export const viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: '#0f172a',
