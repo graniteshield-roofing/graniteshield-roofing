@@ -1,15 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import {
-  ArrowRight,
-  Phone,
-  CheckCircle2,
-  Zap,
-  Clock,
-  AlertTriangle,
-  Shield,
-  MapPin,
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, MapPin } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
@@ -19,6 +11,7 @@ import {
   FAQSchema,
 } from '@/components/schema-markup';
 import { RelatedServices } from '@/components/related-services';
+
 
 export const metadata: Metadata = {
   title: `24/7 Emergency Roof Repair in Southern Maine | ${BUSINESS_CONFIG.name}`,
