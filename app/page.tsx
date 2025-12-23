@@ -10,11 +10,10 @@ import { BUSINESS_CONFIG } from '@/lib/business-config';
 export default function HomePage() {
   const baseUrl = 'https://graniteshieldroofing.com';
 
-  // HERO images - Optimized with your new Cloudinary URL
-  const heroDesktop =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
-  const heroMobile =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_1200/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
+  // ✅ One optimized HERO image (no mobile/desktop swap)
+  // Fixes blur: q_85 + dpr_auto + fill + sizes="100vw"
+  const heroImage =
+    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_85,dpr_auto,w_2400,c_fill,g_auto/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
 
   const serviceAreas = [
     'Cumberland Center',
@@ -111,11 +110,7 @@ export default function HomePage() {
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
-    '@type': [
-      'LocalBusiness',
-      'HomeAndConstructionBusiness',
-      'RoofingContractor',
-    ],
+    '@type': ['LocalBusiness', 'HomeAndConstructionBusiness', 'RoofingContractor'],
     name: BUSINESS_CONFIG.name,
     url: baseUrl,
     telephone: BUSINESS_CONFIG.contact.phoneRaw,
@@ -154,42 +149,37 @@ export default function HomePage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* HERO */}
+      {/* ✅ HERO */}
       <section className="relative overflow-hidden bg-slate-950">
-        <div className="relative min-h-[62vh] md:min-h-[520px]">
+        {/* Stabilize hero height so it doesn't “breathe” */}
+        <div className="relative h-[72vh] min-h-[520px] max-h-[760px]">
+          {/* Background image */}
           <div className="absolute inset-0">
             <Image
-              src={heroMobile}
-              alt="Roofing contractor installing a standing seam metal roof in Cumberland Center, Maine"
-              width={1600}
-              height={900}
+              src={heroImage}
+              alt="Roofing, siding, and exterior renovation in Southern Maine by GraniteShield Roofing"
+              fill
               priority
-              className="h-full w-full object-cover md:hidden"
+              sizes="100vw"
+              className="object-cover"
             />
-            <Image
-              src={heroDesktop}
-              alt="Roofing contractor installing a standing seam metal roof in Cumberland Center, Maine"
-              width={2400}
-              height={1350}
-              priority
-              className="hidden h-full w-full object-cover md:block"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/40 to-black/65" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-black/10" />
+            {/* Readability overlays */}
+            <div className="absolute inset-0 bg-black/55" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/30 to-black/70" />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:py-16 sm:px-6 lg:px-8">
-            <div className="max-w-3xl">
-              <Badge className="mb-6 bg-blue-600 text-white border-0">
+          {/* Content */}
+          <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:py-14 sm:px-6 lg:px-8">
+            {/* ✅ Glass panel so text always pops */}
+            <div className="max-w-3xl rounded-2xl bg-black/45 backdrop-blur-md p-6 sm:p-8 border border-white/10 shadow-2xl">
+              <Badge className="mb-5 bg-blue-600 text-white border-0">
                 Owner-Operated • Southern Maine • Licensed & Insured
               </Badge>
 
@@ -198,17 +188,16 @@ export default function HomePage() {
                 <span className="text-blue-300">Southern Maine</span>
               </h1>
 
-              <p className="mt-5 text-lg sm:text-xl text-slate-200">
-                Standing seam metal roofing, shingle systems, roof replacements,
-                repairs, siding, and windows — clean installs, tight detailing,
-                and real accountability from the owner on-site.
+              <p className="mt-4 text-lg sm:text-xl text-slate-200">
+                Standing seam metal roofing, shingle systems, roof replacements, repairs,
+                siding, and windows — clean installs, tight detailing, and real accountability
+                from the owner on-site.
               </p>
 
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <div className="mt-7 flex flex-col sm:flex-row gap-4">
                 <Button variant="cta" size="lg" asChild>
                   <Link href="/lp">
-                    Get Free Exterior Assessment{' '}
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    Get Free Exterior Assessment <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
 
@@ -235,25 +224,20 @@ export default function HomePage() {
                 <span>$0 assessment fee</span>
               </div>
 
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-200">
-                {[
-                  'Licensed & Insured',
-                  'Clean Install + Cleanup',
-                  'Owner Oversight',
-                ].map((text) => (
-                  <div key={text} className="flex items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-amber-300" />
-                    {text}
-                  </div>
-                ))}
+              <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-200">
+                {['Licensed & Insured', 'Clean Install + Cleanup', 'Owner Oversight'].map(
+                  (text) => (
+                    <div key={text} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-amber-300" />
+                      {text}
+                    </div>
+                  )
+                )}
               </div>
 
-              <div className="mt-6 flex items-start gap-2 text-slate-200 text-sm max-w-2xl">
+              <div className="mt-5 flex items-start gap-2 text-slate-200 text-sm">
                 <MapPin className="h-4 w-4 mt-0.5 text-slate-300" />
-                <p>
-                  Serving Southern Maine: {serviceAreas.join(', ')} and
-                  surrounding towns.
-                </p>
+                <p>Serving Southern Maine: {serviceAreas.join(', ')} and surrounding towns.</p>
               </div>
             </div>
           </div>
@@ -267,7 +251,7 @@ export default function HomePage() {
             {services.map((s) => (
               <Card key={`${s.title}-${s.href}`}>
                 <CardContent className="p-6 flex flex-col h-full">
-                  <h3 className="text-xl font-semibold">{s.title}</h3>
+                  <h2 className="text-xl font-semibold">{s.title}</h2>
                   <p className="mt-2 text-slate-600">{s.desc}</p>
 
                   <div className="mt-auto pt-6 flex flex-col gap-3">
@@ -287,12 +271,11 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 max-w-3xl text-slate-600 text-sm leading-relaxed">
-            GraniteShield Roofing & Exteriors is an owner-operated roofing and
-            exterior contractor serving Southern Maine, including Portland,
-            Scarborough, Saco, Biddeford, Auburn, and surrounding communities.
-            We install standing seam metal roofing and high-performance shingle
-            systems, handle full roof replacements and emergency repairs, and
-            deliver clean exterior upgrades built for Maine’s climate.
+            GraniteShield Roofing & Exteriors is an owner-operated roofing and exterior contractor
+            serving Southern Maine, including Portland, Scarborough, Saco, Biddeford, Auburn, and
+            surrounding communities. We install standing seam metal roofing and high-performance
+            shingle systems, handle full roof replacements and emergency repairs, and deliver clean
+            exterior upgrades built for Maine’s climate.
           </div>
         </div>
       </section>
