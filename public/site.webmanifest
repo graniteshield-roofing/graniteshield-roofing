@@ -1,0 +1,22 @@
+{
+  "name": "GraniteShield Roofing",
+  "short_name": "GraniteShield",
+  "description": "Owner-operated roofing & exteriors in Southern Maine. Standing seam metal roofing, roof replacement, siding, and windows.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
