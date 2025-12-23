@@ -1,6 +1,6 @@
 // app/layout.tsx
 import './globals.css';
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { SiteHeader } from '@/components/site-header';
