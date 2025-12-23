@@ -10,11 +10,11 @@ import { BUSINESS_CONFIG } from '@/lib/business-config';
 export default function HomePage() {
   const baseUrl = 'https://graniteshieldroofing.com';
 
-  // HERO images
+  // HERO images - Optimized with your new Cloudinary URL
   const heroDesktop =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766470992/roofing-siding-and-exterior-renovation-southern-maine-granite-shield.jpg.png';
+    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
   const heroMobile =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_1200/v1766470992/roofing-siding-and-exterior-renovation-southern-maine-granite-shield.jpg.png';
+    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_1200/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
 
   const serviceAreas = [
     'Cumberland Center',
