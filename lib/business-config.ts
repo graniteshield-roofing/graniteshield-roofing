@@ -20,7 +20,6 @@ export const BUSINESS_CONFIG = {
   },
 
   address: {
-    // Service-area business (no street address for SEO safety)
     street: '',
     city: 'Southern Maine',
     state: 'Maine',
@@ -100,33 +99,20 @@ export const BUSINESS_CONFIG = {
   },
 } as const;
 
-/* ========================
-   TYPES
-========================= */
 export type BusinessConfig = typeof BUSINESS_CONFIG;
 
 /* ========================
-   SAFE HELPERS (USED ACROSS SITE)
+   HELPERS (USED SITE-WIDE)
 ========================= */
 
-/**
- * Used in footer, contact page, schema, etc.
- * NO street address (service-area business compliant)
- */
 export function getFormattedAddress() {
   return `${BUSINESS_CONFIG.serviceArea.region}, ${BUSINESS_CONFIG.address.stateAbbr}`;
 }
 
-/**
- * Used for footer + schema
- */
 export function getServiceAreaText() {
   return BUSINESS_CONFIG.serviceAreaText;
 }
 
-/* ========================
-   SCHEMA HELPERS
-========================= */
 export function getSchemaAddress() {
   return {
     '@type': 'PostalAddress',
