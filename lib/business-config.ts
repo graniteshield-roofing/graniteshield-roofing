@@ -19,6 +19,22 @@ export const BUSINESS_CONFIG = {
     email: 'info@graniteshieldroofing.com',
   },
 
+  /* ========================
+     HOURS (⛔ REQUIRED BY CONTACT PAGE)
+  ========================= */
+  hours: {
+    monday: '7:00 AM – 6:00 PM',
+    tuesday: '7:00 AM – 6:00 PM',
+    wednesday: '7:00 AM – 6:00 PM',
+    thursday: '7:00 AM – 6:00 PM',
+    friday: '7:00 AM – 6:00 PM',
+    saturday: '8:00 AM – 4:00 PM',
+    sunday: 'Closed',
+  },
+
+  /* ========================
+     ADDRESS (SERVICE-AREA SAFE)
+  ========================= */
   address: {
     street: '',
     city: 'Southern Maine',
@@ -31,14 +47,20 @@ export const BUSINESS_CONFIG = {
   /* ========================
      SERVICE AREA
   ========================= */
-  serviceAreaShort:
-    'Southern Maine (Cumberland, York & Androscoggin Counties)',
+  serviceArea: {
+    region: 'Southern Maine',
+    counties: [
+      'Cumberland County',
+      'York County',
+      'Androscoggin County',
+    ],
+  },
 
   serviceAreaText:
     'Serving Southern Maine including Cumberland Center, Portland, Scarborough, Falmouth, Yarmouth, Cape Elizabeth, South Portland, Westbrook, Biddeford, Saco, Auburn, Turner, and surrounding towns.',
 
   /* ========================
-     GEO COORDINATES
+     GEO
   ========================= */
   location: {
     latitude: 43.859,
@@ -46,7 +68,7 @@ export const BUSINESS_CONFIG = {
   },
 
   /* ========================
-     SOCIAL PROFILES
+     SOCIAL
   ========================= */
   social: {
     facebook: 'https://facebook.com/graniteshieldroofing',
@@ -54,10 +76,9 @@ export const BUSINESS_CONFIG = {
   },
 
   /* ========================
-     REVIEWS / REPUTATION
+     REVIEWS
   ========================= */
   reputation: {
-    googlePlaceId: '/g/11xm1p5ldx',
     googleReviewUrl:
       'https://www.google.com/search?q=GraniteShield+Roofing+reviews',
     rating: 5.0,
@@ -81,20 +102,12 @@ export const BUSINESS_CONFIG = {
   ],
 
   /* ========================
-     BRANDING / SEO
+     BRANDING
   ========================= */
   branding: {
     tagline: "Southern Maine's Most Trusted Exterior Contractor",
     description:
-      'GraniteShield Roofing & Exteriors is an owner-operated roofing contractor serving Southern Maine, specializing in standing seam metal roofing, roof replacement, siding, and windows. Clean installs, clear communication, and real accountability.',
-    keywords: [
-      'roofing contractor southern maine',
-      'standing seam metal roofing maine',
-      'roof replacement maine',
-      'metal roofing contractor maine',
-      'siding contractor southern maine',
-      'window replacement maine',
-    ],
+      'GraniteShield Roofing & Exteriors is an owner-operated roofing contractor serving Southern Maine, specializing in standing seam metal roofing, roof replacement, siding, and windows.',
     logoUrl: 'https://graniteshieldroofing.com/logo.png',
   },
 } as const;
@@ -104,7 +117,6 @@ export type BusinessConfig = typeof BUSINESS_CONFIG;
 /* ========================
    HELPERS (USED SITE-WIDE)
 ========================= */
-
 export function getFormattedAddress() {
   return `${BUSINESS_CONFIG.serviceArea.region}, ${BUSINESS_CONFIG.address.stateAbbr}`;
 }
