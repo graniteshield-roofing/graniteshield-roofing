@@ -1,3 +1,4 @@
+// ✅ Competitive upgrade for SEO-rich AI-readable schema injection
 import {
   BUSINESS_CONFIG,
   getSchemaAddress,
@@ -19,12 +20,11 @@ export function OrganizationSchema() {
 
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'RoofingContractor',
+    '@type': ['LocalBusiness', 'RoofingContractor'],
     '@id': ORG_ID,
     name: BUSINESS_CONFIG.name,
     legalName: BUSINESS_CONFIG.legalName,
     url: SITE_URL,
-
     logo: {
       '@type': 'ImageObject',
       url: LOGO_URL,
@@ -33,17 +33,13 @@ export function OrganizationSchema() {
       '@type': 'ImageObject',
       url: OG_IMAGE_URL,
     },
-
     description: BUSINESS_CONFIG.branding.description,
     telephone: BUSINESS_CONFIG.contact.phone,
     email: BUSINESS_CONFIG.contact.email,
-
     address: getSchemaAddress(),
     geo: getSchemaGeo(),
-
     priceRange: '$$',
     foundingDate: BUSINESS_CONFIG.founded.toString(),
-
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: BUSINESS_CONFIG.reputation.rating,
@@ -51,7 +47,6 @@ export function OrganizationSchema() {
       bestRating: '5',
       worstRating: '1',
     },
-
     areaServed: [
       {
         '@type': 'AdministrativeArea',
@@ -62,7 +57,6 @@ export function OrganizationSchema() {
         name: `${county}, ${BUSINESS_CONFIG.address.stateAbbr}`,
       })),
     ],
-
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Exterior Services',
@@ -75,7 +69,6 @@ export function OrganizationSchema() {
         },
       })),
     },
-
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -96,7 +89,6 @@ export function OrganizationSchema() {
         closes: '00:00',
       },
     ],
-
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };
 
@@ -269,7 +261,6 @@ export function PersonSchema({
   );
 }
 
-// ✅ NEW: The "Hyper-Local" Connector for Town Pages
 export function LocalServiceSchema({
   townName,
   townSlug,
@@ -281,10 +272,9 @@ export function LocalServiceSchema({
 }) {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'Service',
+    '@type': ['Service', 'LocalBusiness'],
     serviceType: 'Roofing Contractor',
-    // KEY: This links this specific page back to your main Organization ID defined above
-    provider: { '@id': ORG_ID }, 
+    provider: { '@id': ORG_ID },
     areaServed: {
       '@type': 'City',
       name: townName,
