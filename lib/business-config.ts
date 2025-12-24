@@ -20,6 +20,7 @@ export const BUSINESS_CONFIG = {
   },
 
   address: {
+    // Service-area business (no street address for SEO safety)
     street: '',
     city: 'Southern Maine',
     state: 'Maine',
@@ -28,64 +29,45 @@ export const BUSINESS_CONFIG = {
     county: 'Cumberland County',
   },
 
-  serviceAreaShort: 'Southern Maine (Cumberland, York & Androscoggin Counties)',
+  /* ========================
+     SERVICE AREA
+  ========================= */
+  serviceAreaShort:
+    'Southern Maine (Cumberland, York & Androscoggin Counties)',
 
   serviceAreaText:
     'Serving Southern Maine including Cumberland Center, Portland, Scarborough, Falmouth, Yarmouth, Cape Elizabeth, South Portland, Westbrook, Biddeford, Saco, Auburn, Turner, and surrounding towns.',
 
+  /* ========================
+     GEO COORDINATES
+  ========================= */
   location: {
     latitude: 43.859,
     longitude: -70.103,
   },
 
+  /* ========================
+     SOCIAL PROFILES
+  ========================= */
   social: {
     facebook: 'https://facebook.com/graniteshieldroofing',
     instagram: 'https://instagram.com/graniteshieldroofing',
   },
 
+  /* ========================
+     REVIEWS / REPUTATION
+  ========================= */
   reputation: {
     googlePlaceId: '/g/11xm1p5ldx',
-    googleReviewUrl: 'https://www.google.com/search?q=GraniteShield+Roofing+reviews',
+    googleReviewUrl:
+      'https://www.google.com/search?q=GraniteShield+Roofing+reviews',
     rating: 5.0,
     reviewCount: 8,
   },
 
-  credentials: {
-    certifications: [],
-    accreditations: [],
-    insurance: 'Fully Licensed & Insured',
-  },
-
-  serviceArea: {
-    primaryCities: [
-      'Cumberland Center',
-      'Portland',
-      'Scarborough',
-      'Falmouth',
-      'Yarmouth',
-      'Cape Elizabeth',
-      'South Portland',
-      'Westbrook',
-      'Biddeford',
-      'Saco',
-      'Auburn',
-      'Turner',
-    ],
-    counties: ['Cumberland County', 'York County', 'Androscoggin County'],
-    state: 'Maine',
-    region: 'Southern Maine',
-  },
-
-  hours: {
-    monday: '7:00 AM – 6:00 PM',
-    tuesday: '7:00 AM – 6:00 PM',
-    wednesday: '7:00 AM – 6:00 PM',
-    thursday: '7:00 AM – 6:00 PM',
-    friday: '7:00 AM – 6:00 PM',
-    saturday: '8:00 AM – 4:00 PM',
-    sunday: 'Closed',
-  },
-
+  /* ========================
+     SERVICES
+  ========================= */
   services: [
     'Roof Replacement',
     'Roof Repair',
@@ -99,6 +81,9 @@ export const BUSINESS_CONFIG = {
     'Gutter Installation',
   ],
 
+  /* ========================
+     BRANDING / SEO
+  ========================= */
   branding: {
     tagline: "Southern Maine's Most Trusted Exterior Contractor",
     description:
@@ -111,10 +96,50 @@ export const BUSINESS_CONFIG = {
       'siding contractor southern maine',
       'window replacement maine',
     ],
+    logoUrl: 'https://graniteshieldroofing.com/logo.png',
   },
-
-  /* ========================
-     BRAND ASSETS
-  ========================= */
-  logoUrl: 'https://graniteshieldroofing.com/logo.png', // ← add your actual logo URL here
 } as const;
+
+/* ========================
+   TYPES
+========================= */
+export type BusinessConfig = typeof BUSINESS_CONFIG;
+
+/* ========================
+   SAFE HELPERS (USED ACROSS SITE)
+========================= */
+
+/**
+ * Used in footer, contact page, schema, etc.
+ * NO street address (service-area business compliant)
+ */
+export function getFormattedAddress() {
+  return `${BUSINESS_CONFIG.serviceArea.region}, ${BUSINESS_CONFIG.address.stateAbbr}`;
+}
+
+/**
+ * Used for footer + schema
+ */
+export function getServiceAreaText() {
+  return BUSINESS_CONFIG.serviceAreaText;
+}
+
+/* ========================
+   SCHEMA HELPERS
+========================= */
+export function getSchemaAddress() {
+  return {
+    '@type': 'PostalAddress',
+    addressRegion: 'ME',
+    addressCountry: 'US',
+    areaServed: BUSINESS_CONFIG.serviceArea.region,
+  };
+}
+
+export function getSchemaGeo() {
+  return {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS_CONFIG.location.latitude,
+    longitude: BUSINESS_CONFIG.location.longitude,
+  };
+}
