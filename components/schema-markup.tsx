@@ -25,7 +25,6 @@ export function OrganizationSchema() {
     legalName: BUSINESS_CONFIG.legalName,
     url: SITE_URL,
 
-    // Prefer ImageObject for stronger parsing
     logo: {
       '@type': 'ImageObject',
       url: LOGO_URL,
@@ -53,7 +52,6 @@ export function OrganizationSchema() {
       worstRating: '1',
     },
 
-    // Counties are NOT cities — use AdministrativeArea
     areaServed: [
       {
         '@type': 'AdministrativeArea',
@@ -261,6 +259,45 @@ export function PersonSchema({
     description,
     worksFor: { '@id': ORG_ID },
     ...(cleanedSameAs.length > 0 ? { sameAs: cleanedSameAs } : {}),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// ✅ NEW: The "Hyper-Local" Connector for Town Pages
+export function LocalServiceSchema({
+  townName,
+  townSlug,
+  intro,
+}: {
+  townName: string;
+  townSlug: string;
+  intro?: string;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Roofing Contractor',
+    // KEY: This links this specific page back to your main Organization ID defined above
+    provider: { '@id': ORG_ID }, 
+    areaServed: {
+      '@type': 'City',
+      name: townName,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: townName,
+        addressRegion: 'ME',
+      },
+    },
+    url: `${SITE_URL}/areas/${townSlug}`,
+    name: `Roofing Services in ${townName}, ME`,
+    description: intro || `Professional roofing, siding, and exterior services in ${townName}, ME.`,
+    mainEntityOfPage: `${SITE_URL}/areas/${townSlug}`,
   };
 
   return (
