@@ -11,7 +11,11 @@ export async function generateStaticParams() {
   return getAllTownSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const town = getTownBySlug(params.slug);
   if (!town) return {};
 
@@ -34,12 +38,11 @@ export default function TownPage({ params }: { params: { slug: string } }) {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: BUSINESS_CONFIG.name,
-    image: BUSINESS_CONFIG.logoUrl,
+    image: BUSINESS_CONFIG.branding.logoUrl,
     address: {
       '@type': 'PostalAddress',
       addressLocality: town.name,
       addressRegion: 'ME',
-      postalCode: '04074',
       addressCountry: 'US',
     },
     telephone: BUSINESS_CONFIG.contact.phoneRaw,
@@ -50,35 +53,15 @@ export default function TownPage({ params }: { params: { slug: string } }) {
     },
   };
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: baseUrl,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Service Areas',
-        item: `${baseUrl}/areas`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: `${town.name}, ME`,
-        item: `${baseUrl}/areas/${town.slug}`,
-      },
-    ],
-  };
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: baseUrl },
@@ -86,33 +69,35 @@ export default function TownPage({ params }: { params: { slug: string } }) {
           { name: `${town.name}, ME`, url: `${baseUrl}/areas/${town.slug}` },
         ]}
       />
-      <section className="px-6 py-12 max-w-6xl mx-auto space-y-12">
+
+      <section className="px-6 py-12 max-w-6xl mx-auto space-y-10">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 bg-slate-900/70 border border-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold">
-            Trusted Roofing Services in {town.name}, ME
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Roofing & Exterior Experts in {town.name}
+          <h1 className="text-4xl font-bold">
+            Roofing & Exterior Experts in {town.name}, ME
           </h1>
-          <p className="text-lg text-slate-300">
-            We deliver owner-led, high-quality roofing, siding, and window installs tailored for {town.name}, ME — with
-            wind-resistant materials, clean lines, and clear communication.
+
+          <p className="text-slate-600">
+            Owner-led roofing, siding, and exterior installations built for
+            Maine’s climate — clean installs, strong materials, and real
+            accountability.
           </p>
-          <p className="text-slate-400 flex items-start gap-2">
-            <MapPin className="h-5 w-5 mt-1" />
-            Proudly serving {town.county} County and surrounding communities.
+
+          <p className="flex items-center gap-2 text-slate-500">
+            <MapPin className="h-5 w-5" />
+            Serving {town.county} County and surrounding areas
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4">
           <Link href="/lp?service=roof-replacement">
-            <div className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-black font-bold px-6 py-3 rounded-lg hover:brightness-90 transition">
+            <div className="inline-flex items-center gap-2 bg-yellow-400 px-6 py-3 font-semibold rounded-lg">
               Get Free Estimate <ArrowRight className="h-5 w-5" />
             </div>
           </Link>
+
           <a
             href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
-            className="inline-flex items-center justify-center gap-2 border border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-black transition"
+            className="inline-flex items-center gap-2 border px-6 py-3 rounded-lg"
           >
             <Phone className="h-5 w-5" />
             {BUSINESS_CONFIG.contact.phone}
