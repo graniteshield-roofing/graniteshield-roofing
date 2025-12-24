@@ -7,7 +7,7 @@ import {
 
 const SITE_URL = 'https://graniteshieldroofing.com';
 const ORG_ID = `${SITE_URL}/#organization`;
-const LOGO_URL = `${SITE_URL}/logo.png`;
+const LOGO_URL = `${SITE_URL}/logo.png`; // ✅ Used in logo schema
 const OG_IMAGE_URL =
   'https://res.cloudinary.com/durhnu8rr/image/upload/v1766122201/Untitled_1640_x_720_px_Mobile_Video_1_pnhryl.jpg';
 
@@ -286,7 +286,9 @@ export function LocalServiceSchema({
     },
     url: `${SITE_URL}/areas/${townSlug}`,
     name: `Roofing Services in ${townName}, ME`,
-    description: intro || `Professional roofing, siding, and exterior services in ${townName}, ME.`,
+    description:
+      intro ||
+      `Professional roofing, siding, and exterior services in ${townName}, ME.`,
     mainEntityOfPage: `${SITE_URL}/areas/${townSlug}`,
   };
 
