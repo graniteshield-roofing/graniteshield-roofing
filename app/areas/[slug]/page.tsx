@@ -7,8 +7,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 import { getTownBySlug, getAllTownSlugs } from '@/lib/towns-data';
-import { BreadcrumbSchema } from '@/components/schema-markup';
-import { TownSchema } from '@/components/town-schema';
+import { 
+  BreadcrumbSchema, 
+  FAQSchema, 
+  LocalServiceSchema 
+} from '@/components/schema-markup';
 
 // --- 1. THE DATA CONFIGURATION (AI & SEO BRAIN) ---
 const TOWN_SPECIFIC_CONFIG: Record<string, any> = {
@@ -84,7 +87,7 @@ const TOWN_SPECIFIC_CONFIG: Record<string, any> = {
       }
     ]
   },
-  // Add other towns (Biddeford, Gorham, etc.) here following the pattern...
+  // Add other towns here following the pattern...
 };
 
 // --- 2. PAGE GENERATION LOGIC ---
@@ -129,10 +132,28 @@ export default function TownPage({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const customData = TOWN_SPECIFIC_CONFIG[slug];
 
+  // Merge default FAQs with specific local ones if they exist
+  const globalFaqs = [
+    {
+      question: `Do you serve ${town.name} year-round?`,
+      answer: `Yes, we operate in ${town.name} year-round, offering inspections, repairs, and winter-ready installations.`,
+    },
+    {
+      question: `Is financing available for ${town.name} homeowners?`,
+      answer: `Yes, we offer multiple financing options for qualified homeowners. Request an estimate and we’ll walk you through it.`,
+    },
+  ];
+
   return (
     <>
       {/* 3. SCHEMA INJECTION (Invisible to User, Visible to AI) */}
-      <TownSchema town={town} customData={customData} />
+      <LocalServiceSchema 
+        townName={town.name} 
+        townSlug={town.slug} 
+        intro={customData?.intro} 
+      />
+      
+      <FAQSchema faqs={[...(customData?.localFaqs || []), ...globalFaqs]} />
       
       <BreadcrumbSchema
         items={[
@@ -237,7 +258,7 @@ export default function TownPage({ params }: { params: { slug: string } }) {
             </Card>
           </div>
         ) : (
-          /* FALLBACK CONTENT */
+          /* FALLBACK CONTENT FOR TOWNS WITHOUT CUSTOM DATA */
           <div className="prose max-w-none text-slate-600">
              <p>
               GraniteShield Roofing is owner-led and detail-focused. We build roofing and exterior systems designed for 
