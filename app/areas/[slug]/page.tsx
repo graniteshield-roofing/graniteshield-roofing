@@ -34,7 +34,8 @@ export default function TownPage({ params }: { params: { slug: string } }) {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: BUSINESS_CONFIG.name,
-    image: BUSINESS_CONFIG.logoUrl,
+    image: BUSINESS_CONFIG.branding.logoUrl,
+
     address: {
       '@type': 'PostalAddress',
       addressLocality: town.name,
