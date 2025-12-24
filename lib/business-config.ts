@@ -19,8 +19,10 @@ export const BUSINESS_CONFIG = {
     email: 'info@graniteshieldroofing.com',
   },
 
+  /* ========================
+     ADDRESS (SERVICE-AREA BUSINESS)
+  ========================= */
   address: {
-    // Service-area business: leave street/zip blank
     street: '',
     city: 'Southern Maine',
     state: 'Maine',
@@ -30,9 +32,10 @@ export const BUSINESS_CONFIG = {
   },
 
   /* ========================
-     SERVICE AREA (NO STREET ADDRESS — SEO SAFE)
+     SERVICE AREA COPY
   ========================= */
-  serviceAreaShort: 'Southern Maine (Cumberland, York & Androscoggin Counties)',
+  serviceAreaShort:
+    'Southern Maine (Cumberland, York & Androscoggin Counties)',
 
   serviceAreaText:
     'Serving Southern Maine including Cumberland Center, Portland, Scarborough, Falmouth, Yarmouth, Cape Elizabeth, South Portland, Westbrook, Biddeford, Saco, Auburn, Turner, and surrounding towns.',
@@ -41,7 +44,7 @@ export const BUSINESS_CONFIG = {
      GEO COORDINATES (REGIONAL)
   ========================= */
   location: {
-    latitude: 43.859, // Southern Maine regional centroid
+    latitude: 43.859,
     longitude: -70.103,
   },
 
@@ -57,14 +60,9 @@ export const BUSINESS_CONFIG = {
      REVIEWS / REPUTATION
   ========================= */
   reputation: {
-    // Keep place id if you have it
     googlePlaceId: '/g/11xm1p5ldx',
-
-    // Use a standard, reliable Google reviews destination link:
-    // (Users can click and see reviews / leave review depending on Google context)
     googleReviewUrl:
       'https://www.google.com/search?q=GraniteShield+Roofing+reviews',
-
     rating: 5.0,
     reviewCount: 8,
   },
@@ -96,7 +94,11 @@ export const BUSINESS_CONFIG = {
       'Auburn',
       'Turner',
     ],
-    counties: ['Cumberland County', 'York County', 'Androscoggin County'],
+    counties: [
+      'Cumberland County',
+      'York County',
+      'Androscoggin County',
+    ],
     state: 'Maine',
     region: 'Southern Maine',
   },
@@ -145,6 +147,7 @@ export const BUSINESS_CONFIG = {
       'siding contractor southern maine',
       'window replacement maine',
     ],
+    logoUrl: 'https://graniteshieldroofing.com/logo.png',
   },
 } as const;
 
@@ -154,14 +157,9 @@ export const BUSINESS_CONFIG = {
 export type BusinessConfig = typeof BUSINESS_CONFIG;
 
 /* ========================
-   HELPERS (SAFE EVERYWHERE)
+   HELPERS
 ========================= */
 
-/**
- * NAP-style “service area” line (no street address)
- * Use in footer/contact blocks when you want it to read like a real business listing,
- * but without publishing a street address.
- */
 export function getFormattedAddress() {
   return `${BUSINESS_CONFIG.serviceArea.region}, ${BUSINESS_CONFIG.address.stateAbbr} — ${BUSINESS_CONFIG.serviceAreaShort}`;
 }
@@ -171,8 +169,9 @@ export function getServiceAreaText() {
 }
 
 /* ========================
-   SCHEMA HELPERS (AI / GEO)
+   SCHEMA HELPERS
 ========================= */
+
 export function getSchemaAddress() {
   return {
     '@type': 'PostalAddress',
