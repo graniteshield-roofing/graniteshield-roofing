@@ -19,9 +19,6 @@ export const BUSINESS_CONFIG = {
     email: 'info@graniteshieldroofing.com',
   },
 
-  /* ========================
-     ADDRESS (SERVICE-AREA BUSINESS)
-  ========================= */
   address: {
     street: '',
     city: 'Southern Maine',
@@ -31,54 +28,34 @@ export const BUSINESS_CONFIG = {
     county: 'Cumberland County',
   },
 
-  /* ========================
-     SERVICE AREA COPY
-  ========================= */
-  serviceAreaShort:
-    'Southern Maine (Cumberland, York & Androscoggin Counties)',
+  serviceAreaShort: 'Southern Maine (Cumberland, York & Androscoggin Counties)',
 
   serviceAreaText:
     'Serving Southern Maine including Cumberland Center, Portland, Scarborough, Falmouth, Yarmouth, Cape Elizabeth, South Portland, Westbrook, Biddeford, Saco, Auburn, Turner, and surrounding towns.',
 
-  /* ========================
-     GEO COORDINATES (REGIONAL)
-  ========================= */
   location: {
     latitude: 43.859,
     longitude: -70.103,
   },
 
-  /* ========================
-     SOCIAL PROFILES
-  ========================= */
   social: {
     facebook: 'https://facebook.com/graniteshieldroofing',
     instagram: 'https://instagram.com/graniteshieldroofing',
   },
 
-  /* ========================
-     REVIEWS / REPUTATION
-  ========================= */
   reputation: {
     googlePlaceId: '/g/11xm1p5ldx',
-    googleReviewUrl:
-      'https://www.google.com/search?q=GraniteShield+Roofing+reviews',
+    googleReviewUrl: 'https://www.google.com/search?q=GraniteShield+Roofing+reviews',
     rating: 5.0,
     reviewCount: 8,
   },
 
-  /* ========================
-     CREDENTIALS
-  ========================= */
   credentials: {
     certifications: [],
     accreditations: [],
     insurance: 'Fully Licensed & Insured',
   },
 
-  /* ========================
-     SERVICE AREA STRUCTURE
-  ========================= */
   serviceArea: {
     primaryCities: [
       'Cumberland Center',
@@ -94,18 +71,11 @@ export const BUSINESS_CONFIG = {
       'Auburn',
       'Turner',
     ],
-    counties: [
-      'Cumberland County',
-      'York County',
-      'Androscoggin County',
-    ],
+    counties: ['Cumberland County', 'York County', 'Androscoggin County'],
     state: 'Maine',
     region: 'Southern Maine',
   },
 
-  /* ========================
-     BUSINESS HOURS
-  ========================= */
   hours: {
     monday: '7:00 AM – 6:00 PM',
     tuesday: '7:00 AM – 6:00 PM',
@@ -116,9 +86,6 @@ export const BUSINESS_CONFIG = {
     sunday: 'Closed',
   },
 
-  /* ========================
-     SERVICES OFFERED
-  ========================= */
   services: [
     'Roof Replacement',
     'Roof Repair',
@@ -132,9 +99,6 @@ export const BUSINESS_CONFIG = {
     'Gutter Installation',
   ],
 
-  /* ========================
-     BRANDING / SEO COPY
-  ========================= */
   branding: {
     tagline: "Southern Maine's Most Trusted Exterior Contractor",
     description:
@@ -147,44 +111,10 @@ export const BUSINESS_CONFIG = {
       'siding contractor southern maine',
       'window replacement maine',
     ],
-    logoUrl: 'https://graniteshieldroofing.com/logo.png',
   },
+
+  /* ========================
+     BRAND ASSETS
+  ========================= */
+  logoUrl: 'https://graniteshieldroofing.com/logo.png', // ← add your actual logo URL here
 } as const;
-
-/* ========================
-   TYPES
-========================= */
-export type BusinessConfig = typeof BUSINESS_CONFIG;
-
-/* ========================
-   HELPERS
-========================= */
-
-export function getFormattedAddress() {
-  return `${BUSINESS_CONFIG.serviceArea.region}, ${BUSINESS_CONFIG.address.stateAbbr} — ${BUSINESS_CONFIG.serviceAreaShort}`;
-}
-
-export function getServiceAreaText() {
-  return BUSINESS_CONFIG.serviceAreaText;
-}
-
-/* ========================
-   SCHEMA HELPERS
-========================= */
-
-export function getSchemaAddress() {
-  return {
-    '@type': 'PostalAddress',
-    addressRegion: 'ME',
-    addressCountry: 'US',
-    areaServed: BUSINESS_CONFIG.serviceArea.region,
-  };
-}
-
-export function getSchemaGeo() {
-  return {
-    '@type': 'GeoCoordinates',
-    latitude: BUSINESS_CONFIG.location.latitude,
-    longitude: BUSINESS_CONFIG.location.longitude,
-  };
-}
