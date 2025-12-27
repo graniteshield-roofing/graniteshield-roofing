@@ -109,6 +109,24 @@ export const BUSINESS_CONFIG = {
     description:
       'GraniteShield Roofing & Exteriors is an owner-operated roofing contractor serving Southern Maine, specializing in standing seam metal roofing, roof replacement, siding, and windows.',
     logoUrl: 'https://graniteshieldroofing.com/logo.png',
+
+    // ⭐ NEW — required for layout.tsx metadata (and nice for SEO/AI)
+    keywords: [
+      'Maine roofing',
+      'metal roofing Maine',
+      'roof replacement',
+      'CertainTeed installer',
+      'GraniteShield Roofing',
+      'standing seam roofs',
+      'Southern Maine contractor',
+      'siding and windows',
+      'roof repair Portland ME',
+      'Scarborough roofing contractor',
+      'Biddeford siding',
+      'window replacement Maine',
+      'ice dam removal Southern Maine',
+      'roof leak repair Maine',
+    ],
   },
 } as const;
 
