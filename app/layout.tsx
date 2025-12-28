@@ -15,9 +15,6 @@ const siteUrl = 'https://graniteshieldroofing.com';
 const ogImage =
   'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766470992/roofing-siding-and-exterior-renovation-southern-maine-granite-shield.jpg.png';
 
-/**
- * ✅ Next.js 13 viewport export (NO TYPE)
- */
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -25,9 +22,6 @@ export const viewport = {
   colorScheme: 'light',
 };
 
-/**
- * ✅ Metadata (correct for Next 13)
- */
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
@@ -103,6 +97,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <OrganizationSchema />
+
+        {/* 👇 Facebook Domain Verification */}
+        <meta
+          name="facebook-domain-verification"
+          content="9plxtrv2q4tbnmt9ttfhdy7ptv48qe"
+        />
       </head>
 
       <body className={`${inter.className} pb-16 md:pb-0 scroll-smooth`}>
