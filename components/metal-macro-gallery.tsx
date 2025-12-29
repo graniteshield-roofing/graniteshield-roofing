@@ -19,6 +19,11 @@ const macros = [
     ...MEDIA.services.metal.macros.water,
     label: 'Water Beading',
   },
+  {
+    id: 'siding',
+    ...MEDIA.services.siding.detail,
+    label: 'Siding Texture',
+  },
 ];
 
 export function MetalMacroGallery() {
@@ -33,7 +38,7 @@ export function MetalMacroGallery() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {macros.map((macro) => (
             <div
               key={macro.id}

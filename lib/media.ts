@@ -128,7 +128,7 @@ export const MEDIA: MediaLibrary = {
         height: 1333,
       },
       ventilation: {
-        src: '/images/systems/integrity/system-roofrunner-macro.webp',
+        src: '/images/systems/integrity/metal-roof-ridgecap-macro.webp',
         alt: 'RoofRunner ridge ventilation system detail ensuring proper attic airflow to prevent ice dams',
         width: 2000,
         height: 1333,
