@@ -41,7 +41,7 @@ interface MediaLibrary {
       macros: {
         seam: MediaItem;
         panel: MediaItem;
-        fastener: MediaItem;
+        water: MediaItem;
       };
     };
     shingles: {
@@ -65,22 +65,22 @@ export const MEDIA: MediaLibrary = {
   // ─────────────────────────────────────────────────────────────
   heroes: {
     main: {
-      src: '/images/services/metal/metal-finished-standing-seam-blue-wide.webp',
-      alt: 'Wide shot of blue standing seam metal roof installation on Southern Maine home',
-      width: 2400,
-      height: 1350,
+      src: '/images/services/metal/macros/hero-standing-seam-macro.webp',
+      alt: 'Extreme close-up of standing seam metal roofing craftsmanship showing precision engineering and premium finish',
+      width: 1365,
+      height: 768,
     },
   },
 
   // ─────────────────────────────────────────────────────────────
-  // PROOF (Owner, Team, Credentials)
+  // PROOF (Owner-Operated, Credentials)
   // ─────────────────────────────────────────────────────────────
   proof: {
     owner: {
-      src: '/images/proof/justin-owner-onsite-winter-materials.webp',
-      alt: 'Justin Laflamme, owner of GraniteShield Roofing, on-site during winter roofing project with materials',
-      width: 1600,
-      height: 1200,
+      src: '/images/details/flashing/detail-chimney-flashing-closeup.webp',
+      alt: 'Premium flashing installation detail demonstrating owner-operated quality craftsmanship',
+      width: 2000,
+      height: 1333,
     },
   },
 
@@ -144,19 +144,19 @@ export const MEDIA: MediaLibrary = {
       macros: {
         seam: {
           src: '/images/services/metal/macros/metal-seam-detail.webp',
-          alt: 'Extreme close-up of standing seam metal roofing panel connection showing mechanical lock detail',
+          alt: 'Extreme close-up of standing seam metal roofing showing precision lock geometry',
           width: 2000,
           height: 1333,
         },
         panel: {
           src: '/images/services/metal/macros/hero-standing-seam-macro.webp',
-          alt: 'Metal roofing panel surface texture with protective coating visible in detail',
-          width: 2000,
-          height: 1333,
+          alt: 'Metal roofing panel surface with premium protective finish',
+          width: 1365,
+          height: 768,
         },
-        fastener: {
-          src: '/images/services/metal/macros/metal-ridge-detail.webp',
-          alt: 'Ridge cap detail for standing seam metal roof showing precision engineering',
+        water: {
+          src: '/images/services/metal/macros/metal-water-beads.webp',
+          alt: 'Water beading on metal roofing surface demonstrating weather-resistant coating',
           width: 2000,
           height: 1333,
         },
