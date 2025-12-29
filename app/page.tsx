@@ -160,7 +160,7 @@ export default function HomePage() {
           <div className="absolute inset-0">
             <Image
               src={heroImg}
-              alt="Roofing and exterior contractor in Southern Maine — metal roofing, shingles, siding, and windows"
+              alt="Professional roofing installation in Southern Maine featuring quality materials and skilled craftsmanship for residential homes"
               fill
               priority
               sizes="100vw"
