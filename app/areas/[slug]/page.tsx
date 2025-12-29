@@ -17,6 +17,7 @@ import { BreadcrumbSchema, FAQSchema } from '@/components/schema-markup';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { loadTownContent } from '@/lib/town-content';
 
 export async function generateStaticParams() {
   return getAllTownSlugs().map((slug) => ({ slug }));
@@ -30,9 +31,12 @@ export async function generateMetadata({
   const town = getTownBySlug(params.slug);
   if (!town) return {};
 
+  // Try to load markdown content for enhanced metadata
+  const markdownContent = loadTownContent(params.slug);
+
   return {
-    title: `${town.name}, ME Roofing & Exteriors | ${BUSINESS_CONFIG.name}`,
-    description: `GraniteShield Roofing proudly serves ${town.name}, ME with expert roofing, siding, and exterior upgrades. Clean installs. Clear communication. Owner-led quality.`,
+    title: markdownContent?.metaTitle || `${town.name}, ME Roofing & Exteriors | ${BUSINESS_CONFIG.name}`,
+    description: markdownContent?.metaDescription || `GraniteShield Roofing proudly serves ${town.name}, ME with expert roofing, siding, and exterior upgrades. Clean installs. Clear communication. Owner-led quality.`,
     alternates: {
       canonical: `https://graniteshieldroofing.com/areas/${town.slug}`,
     },
@@ -42,6 +46,9 @@ export async function generateMetadata({
 export default function TownPage({ params }: { params: { slug: string } }) {
   const town = getTownBySlug(params.slug);
   if (!town) return notFound();
+
+  // Load markdown content if available (returns null for fallback to generated content)
+  const markdown = loadTownContent(params.slug);
 
   const baseUrl = 'https://graniteshieldroofing.com';
 
@@ -126,7 +133,7 @@ export default function TownPage({ params }: { params: { slug: string } }) {
             </h1>
 
             <p className="text-lg text-slate-200 leading-relaxed mb-6">
-              {town.directAnswer}
+              {markdown?.quickAnswer || town.directAnswer}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
