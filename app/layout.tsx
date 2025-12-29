@@ -12,8 +12,6 @@ import { MobileStickyCTA } from '@/components/mobile-sticky-cta';
 const inter = Inter({ subsets: ['latin'] });
 
 const siteUrl = 'https://graniteshieldroofing.com';
-const ogImage =
-  'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_2400/v1766470992/roofing-siding-and-exterior-renovation-southern-maine-granite-shield.jpg.png';
 
 export const viewport = {
   width: 'device-width',
@@ -43,11 +41,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
 
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
+  // Icons generated via app/icon.tsx and app/apple-icon.tsx
 
   manifest: '/site.webmanifest',
 
@@ -58,21 +52,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: BUSINESS_CONFIG.name,
-    images: [
-      {
-        url: ogImage,
-        width: 1640,
-        height: 720,
-        alt: `${BUSINESS_CONFIG.name} — Roofing & Exteriors in Southern Maine`,
-      },
-    ],
+    // OG image generated via app/opengraph-image.tsx
   },
 
   twitter: {
     card: 'summary_large_image',
     title: `${BUSINESS_CONFIG.name} | ${BUSINESS_CONFIG.branding.tagline}`,
     description: BUSINESS_CONFIG.branding.description,
-    images: [ogImage],
+    // Twitter image generated via app/twitter-image.tsx
   },
 
   robots: {

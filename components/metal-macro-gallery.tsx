@@ -7,17 +7,17 @@ const macros = [
   {
     id: 'seam',
     ...MEDIA.services.metal.macros.seam,
-    label: 'Standing Seam',
+    label: 'Seam Lock Geometry',
   },
   {
     id: 'panel',
     ...MEDIA.services.metal.macros.panel,
-    label: 'Panel Surface',
+    label: 'Premium Finish',
   },
   {
-    id: 'fastener',
-    ...MEDIA.services.metal.macros.fastener,
-    label: 'Fastener Clip',
+    id: 'water',
+    ...MEDIA.services.metal.macros.water,
+    label: 'Water Beading',
   },
 ];
 

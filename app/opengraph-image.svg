@@ -1,0 +1,30 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#FAFAFA"/>
+
+  <!-- Brand badge -->
+  <rect x="80" y="80" width="88" height="88" fill="#0f172a" rx="8"/>
+  <text x="124" y="143" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="white" text-anchor="middle">GS</text>
+
+  <!-- Title -->
+  <text x="200" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#0f172a">GraniteShield Roofing</text>
+
+  <!-- Tagline -->
+  <text x="80" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="#475569">Premium Metal Roofing &amp; Exteriors</text>
+  <text x="80" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="#475569">Southern Maine</text>
+
+  <!-- Rating stars -->
+  <g transform="translate(80, 380)">
+    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#0ea5e9"/>
+    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" transform="translate(28, 0)" fill="#0ea5e9"/>
+    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" transform="translate(56, 0)" fill="#0ea5e9"/>
+    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" transform="translate(84, 0)" fill="#0ea5e9"/>
+    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" transform="translate(112, 0)" fill="#0ea5e9"/>
+    <text x="150" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="500" fill="#1e293b">5.0 • Owner-operated quality</text>
+  </g>
+
+  <!-- Location -->
+  <text x="80" y="500" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="400" fill="#64748b">📍 Scarborough, Maine</text>
+
+  <!-- CTA -->
+  <text x="80" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="600" fill="#0ea5e9">Free Inspection • Fast Response • Licensed &amp; Insured</text>
+</svg>

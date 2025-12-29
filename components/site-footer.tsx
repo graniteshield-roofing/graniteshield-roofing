@@ -1,14 +1,10 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Phone, Mail, MapPin, Star, Facebook, Instagram } from 'lucide-react';
 import {
   BUSINESS_CONFIG,
   getFormattedAddress,
   getServiceAreaText,
 } from '@/lib/business-config';
-
-const LOGO_MARK =
-  'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto,w_160/v1766125469/96c0aa8c-22d0-4717-80b1-6bb874f5d69a_1_vawddf.png';
 
 export function SiteFooter() {
   const rating = BUSINESS_CONFIG?.reputation?.rating;
@@ -53,13 +49,9 @@ export function SiteFooter() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <Image
-                src={LOGO_MARK}
-                alt="GraniteShield Roofing & Exteriors shield logo"
-                width={44}
-                height={44}
-                className="rounded-md"
-              />
+              <div className="flex h-11 w-11 items-center justify-center rounded-md bg-slate-800 text-xl font-extrabold">
+                GS
+              </div>
               <div className="text-2xl font-extrabold tracking-tight">
                 Granite<span className="text-white">Shield</span>
               </div>

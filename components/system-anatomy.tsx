@@ -34,6 +34,7 @@ const systemLayers: SystemLayer[] = [
     title: 'Underlayment',
     microcopy: 'Moisture Defense. Locked.',
     details: [
+      'Macro close-up reveals microscopic woven fiber structure of synthetic underlayment',
       'Synthetic barrier seals deck against Maine precipitation',
       'High-temperature tolerance prevents thermal breakdown',
     ],

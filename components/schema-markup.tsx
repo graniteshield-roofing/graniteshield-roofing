@@ -7,9 +7,8 @@ import {
 
 const SITE_URL = 'https://graniteshieldroofing.com';
 const ORG_ID = `${SITE_URL}/#organization`;
-const LOGO_URL = `${SITE_URL}/logo.png`; // ✅ Used in logo schema
-const OG_IMAGE_URL =
-  'https://res.cloudinary.com/durhnu8rr/image/upload/v1766122201/Untitled_1640_x_720_px_Mobile_Video_1_pnhryl.jpg';
+const LOGO_URL = `${SITE_URL}/icon.png`; // Generated via app/icon.tsx
+const OG_IMAGE_URL = `${SITE_URL}/opengraph-image`; // Generated via app/opengraph-image.tsx
 
 export function OrganizationSchema() {
   const sameAs = [
