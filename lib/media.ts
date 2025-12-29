@@ -2,6 +2,10 @@
  * MEDIA LIBRARY
  * Single source of truth for ALL images, alt text, and dimensions
  * Apple-style premium media pipeline for GraniteShield Roofing
+ *
+ * NOTE: All paths reference local /public/images directory
+ * Images should be uploaded to their respective folders as WebP format
+ * See /public/images/ASSET_MANIFEST.md for complete asset list
  */
 
 export interface MediaItem {
@@ -61,8 +65,8 @@ export const MEDIA: MediaLibrary = {
   // ─────────────────────────────────────────────────────────────
   heroes: {
     main: {
-      src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png',
-      alt: 'Professional roofing installation in Southern Maine featuring quality materials and skilled craftsmanship',
+      src: '/images/services/metal/metal-finished-standing-seam-blue-wide.webp',
+      alt: 'Wide shot of blue standing seam metal roof installation on Southern Maine home',
       width: 2400,
       height: 1350,
     },
@@ -73,8 +77,8 @@ export const MEDIA: MediaLibrary = {
   // ─────────────────────────────────────────────────────────────
   proof: {
     owner: {
-      src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/proof/owner-justin-laflamme',
-      alt: 'Justin Laflamme, owner of GraniteShield Roofing, on a residential roofing project in Southern Maine',
+      src: '/images/proof/justin-owner-onsite-winter-materials.webp',
+      alt: 'Justin Laflamme, owner of GraniteShield Roofing, on-site during winter roofing project with materials',
       width: 1600,
       height: 1200,
     },
@@ -86,19 +90,19 @@ export const MEDIA: MediaLibrary = {
   projects: {
     featured1: {
       before: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/projects/featured-1/before',
+        src: '/images/projects/featured-1/project-featured-before.webp',
         alt: 'Residential roof before replacement showing weathered shingles and wear from Maine winters',
         width: 2400,
         height: 1600,
       },
       during: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/projects/featured-1/install',
+        src: '/images/projects/featured-1/project-featured-02-install.webp',
         alt: 'Standing seam metal roofing installation in progress with careful attention to flashing details',
         width: 2400,
         height: 1600,
       },
       after: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/projects/featured-1/after',
+        src: '/images/projects/featured-1/project-featured-after.webp',
         alt: 'Completed standing seam metal roof installation on Southern Maine home with clean lines and professional finish',
         width: 2400,
         height: 1600,
@@ -112,20 +116,20 @@ export const MEDIA: MediaLibrary = {
   systems: {
     integrity: {
       underlayment: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/systems/integrity/underlayment-macro',
-        alt: 'Close-up of synthetic roofing underlayment installation showing moisture barrier protection',
+        src: '/images/systems/integrity/system-diamonddeck-macro.webp',
+        alt: 'Close-up of DiamondDeck synthetic roofing underlayment showing moisture barrier protection',
         width: 2000,
         height: 1333,
       },
       flashing: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/systems/integrity/flashing-detail',
-        alt: 'Precision flashing detail at roof penetration demonstrating water-tight installation technique',
+        src: '/images/details/flashing/detail-chimney-flashing-closeup.webp',
+        alt: 'Precision chimney flashing detail demonstrating water-tight installation technique',
         width: 2000,
         height: 1333,
       },
       ventilation: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/systems/integrity/ridge-vent',
-        alt: 'Ridge ventilation system installed to ensure proper attic airflow and prevent ice dams',
+        src: '/images/systems/integrity/system-roofrunner-macro.webp',
+        alt: 'RoofRunner ridge ventilation system detail ensuring proper attic airflow to prevent ice dams',
         width: 2000,
         height: 1333,
       },
@@ -139,20 +143,20 @@ export const MEDIA: MediaLibrary = {
     metal: {
       macros: {
         seam: {
-          src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/services/metal/macro-seam',
+          src: '/images/services/metal/macros/metal-seam-detail.webp',
           alt: 'Extreme close-up of standing seam metal roofing panel connection showing mechanical lock detail',
           width: 2000,
           height: 1333,
         },
         panel: {
-          src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/services/metal/macro-panel',
+          src: '/images/services/metal/macros/hero-standing-seam-macro.webp',
           alt: 'Metal roofing panel surface texture with protective coating visible in detail',
           width: 2000,
           height: 1333,
         },
         fastener: {
-          src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/services/metal/macro-fastener',
-          alt: 'Concealed fastener clip system for standing seam metal roof showing precision engineering',
+          src: '/images/services/metal/macros/metal-ridge-detail.webp',
+          alt: 'Ridge cap detail for standing seam metal roof showing precision engineering',
           width: 2000,
           height: 1333,
         },
@@ -160,7 +164,7 @@ export const MEDIA: MediaLibrary = {
     },
     shingles: {
       texture: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/services/shingles/architectural-texture',
+        src: '/images/services/shingles/shingles-craftsmanship-macro-detail.webp',
         alt: 'Architectural shingle texture showing dimensional profile and granule protection',
         width: 2000,
         height: 1333,
@@ -168,16 +172,16 @@ export const MEDIA: MediaLibrary = {
     },
     siding: {
       detail: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/services/siding/vinyl-corner-detail',
-        alt: 'Clean vinyl siding corner installation with tight trim lines and proper moisture management',
+        src: '/images/services/siding/siding-midnight-blue-woodgrain-macro.webp',
+        alt: 'Midnight blue woodgrain siding texture close-up showing premium finish and detail',
         width: 2000,
         height: 1333,
       },
     },
     windows: {
       install: {
-        src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/services/windows/flashing-install',
-        alt: 'Window flashing installation detail showing proper integration with house wrap and siding',
+        src: '/images/services/metal/macros/metal-water-beads.webp',
+        alt: 'Water beading on metal roofing surface demonstrating weather-resistant coating',
         width: 2000,
         height: 1333,
       },
@@ -189,8 +193,8 @@ export const MEDIA: MediaLibrary = {
   // ─────────────────────────────────────────────────────────────
   details: {
     flashing: {
-      src: 'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1/graniteshield/details/step-flashing',
-      alt: 'Step flashing installation detail showing proper overlap and water shedding technique',
+      src: '/images/details/flashing/detail-chimney-flashing-closeup.webp',
+      alt: 'Chimney flashing installation detail showing proper overlap and water shedding technique',
       width: 2000,
       height: 1333,
     },
