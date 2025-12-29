@@ -65,20 +65,30 @@ export function SiteHeader() {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-slate-900 hover:bg-slate-50"
-            onClick={() => setMobileMenuOpen((v) => !v)}
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          {/* Mobile CTAs - phone + menu */}
+          <div className="flex lg:hidden items-center gap-2">
+            <a
+              href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
+              className="inline-flex items-center justify-center rounded-full p-2.5 bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+              aria-label={`Call ${BUSINESS_CONFIG.name} at ${BUSINESS_CONFIG.contact.phone}`}
+            >
+              <Phone className="h-5 w-5" />
+            </a>
+
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-md p-2 text-slate-900 hover:bg-slate-50"
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile dropdown */}
