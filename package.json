@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "validate:assets": "node scripts/validate-assets.mjs",
+    "prebuild": "npm run validate:assets"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
