@@ -1,0 +1,51 @@
+{
+  "details": {
+    "flashing": {
+      "chimney": "/images/details/flashing/detail-chimney-flashing-closeup.webp"
+    }
+  },
+  "projects": {
+    "featured1": {
+      "before": "/images/projects/featured-1/project-featured-before.webp",
+      "during": "/images/projects/featured-1/project-featured-02-install.webp",
+      "after": "/images/projects/featured-1/project-featured-after.webp"
+    }
+  },
+  "proof": {
+    "owner": {
+      "justinWinter": "/images/proof/justin-owner-onsite-winter-materials.webp"
+    }
+  },
+  "services": {
+    "metal": {
+      "finished": {
+        "blackCamp": "/images/services/metal/metal-finished-standing-seam-black-camp.webp",
+        "blueWide": "/images/services/metal/metal-finished-standing-seam-blue-wide.webp"
+      },
+      "detail": "/images/services/metal/metal-standing-seam-macro-detail.webp",
+      "macros": {
+        "hero": "/images/services/metal/macros/hero-standing-seam-macro.webp",
+        "ridge": "/images/services/metal/macros/metal-ridge-detail.webp",
+        "seam": "/images/services/metal/macros/metal-seam-detail.webp",
+        "waterBeads": "/images/services/metal/macros/metal-water-beads.webp"
+      }
+    },
+    "shingles": {
+      "macro": "/images/services/shingles/shingles-craftsmanship-macro-detail.webp",
+      "wide": "/images/services/shingles/shingles-finished-roof-wide.webp"
+    },
+    "siding": {
+      "midnightBlue": "/images/services/siding/siding-midnight-blue-woodgrain-macro.webp"
+    }
+  },
+  "systems": {
+    "integrity": {
+      "underlayment": "/images/systems/integrity/system-diamonddeck-macro.webp",
+      "ventilation": "/images/systems/integrity/system-roofrunner-macro.webp",
+      "iceBarrier": "/images/systems/integrity/system-winterguard-macro.webp"
+    }
+  },
+  "heroes": {
+    "main": "/images/services/metal/metal-finished-standing-seam-blue-wide.webp"
+  }
+}

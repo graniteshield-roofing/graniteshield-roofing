@@ -6,13 +6,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
+import { MEDIA, getResponsiveSizes } from '@/lib/media';
+import { FeaturedProject } from '@/components/featured-project';
+import { SystemAnatomy } from '@/components/system-anatomy';
+import { MetalMacroGallery } from '@/components/metal-macro-gallery';
 
 export default function HomePage() {
   const baseUrl = 'https://graniteshieldroofing.com';
 
-  // ✅ Use ONE hero image and let Cloudinary + Next handle responsive sizing
-  const heroImg =
-    'https://res.cloudinary.com/durhnu8rr/image/upload/f_auto,q_auto/v1766473079/roofing-siding-exterior-renovation-southern-maine-granite-shield.jpg.png';
+  // ✅ Use MEDIA library for hero image
+  const heroImg = MEDIA.heroes.main;
 
   const serviceAreas = [
     'Cumberland Center',
@@ -159,11 +162,11 @@ export default function HomePage() {
           {/* Background image */}
           <div className="absolute inset-0">
             <Image
-              src={heroImg}
-              alt="Professional roofing installation in Southern Maine featuring quality materials and skilled craftsmanship for residential homes"
+              src={heroImg.src}
+              alt={heroImg.alt}
               fill
               priority
-              sizes="100vw"
+              sizes={getResponsiveSizes('hero')}
               className="object-cover object-center"
             />
             {/* Stronger contrast so text is crisp */}
@@ -287,10 +290,19 @@ export default function HomePage() {
             GraniteShield Roofing & Exteriors is an owner-operated contractor serving Southern Maine, including Portland,
             Scarborough, Saco, Biddeford, Auburn, and surrounding communities. We install standing seam metal roofing and
             high-performance shingle systems, handle full roof replacements and fast repairs, and deliver clean exterior
-            upgrades built for Maine’s climate.
+            upgrades built for Maine&apos;s climate.
           </div>
         </div>
       </section>
+
+      {/* FEATURED PROJECT - Before/During/After */}
+      <FeaturedProject />
+
+      {/* SYSTEM ANATOMY - Integrity Layers */}
+      <SystemAnatomy />
+
+      {/* METAL MACRO GALLERY - Craftsmanship Close-Ups */}
+      <MetalMacroGallery />
     </>
   );
 }
