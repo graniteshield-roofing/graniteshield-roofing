@@ -19,7 +19,7 @@ export default function ThankYouPage() {
             </h1>
 
             <p className="text-xl text-slate-600 mb-8">
-              Your free inspection request has been received. We'll contact you within 24 hours to schedule your appointment.
+              Your free inspection request has been received. We&apos;ll contact you within 24 hours to schedule your appointment.
             </p>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
@@ -33,7 +33,7 @@ export default function ThankYouPage() {
                     1
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900">We'll Call You</h3>
+                    <h3 className="font-semibold text-slate-900">We&apos;ll Call You</h3>
                     <p className="text-slate-600 text-sm">
                       A GraniteShield team member will reach out within 24 hours to schedule your free inspection.
                     </p>
@@ -47,7 +47,7 @@ export default function ThankYouPage() {
                   <div>
                     <h3 className="font-semibold text-slate-900">Free Inspection</h3>
                     <p className="text-slate-600 text-sm">
-                      We'll conduct a comprehensive 25-point inspection with photo documentation.
+                      We&apos;ll conduct a comprehensive 25-point inspection with photo documentation.
                     </p>
                   </div>
                 </div>

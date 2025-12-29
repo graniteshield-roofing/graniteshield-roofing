@@ -132,7 +132,7 @@ export default function IceDamsPage() {
                   </h3>
                   <p className="text-slate-700 text-sm mb-4">
                     Active leak or visible ice dam? Call now for same-day emergency service.
-                    We use professional steam removal equipment that's safe for your roof.
+                    We use professional steam removal equipment that&apos;s safe for your roof.
                   </p>
                   <Button asChild className="w-full">
                     <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
