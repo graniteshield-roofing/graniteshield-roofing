@@ -26,6 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/roofing-guides`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/contact`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
@@ -76,5 +82,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...corePages, ...servicePages, ...townPages];
+  // Problem/Guide pages
+  const problemPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/problems/ice-dams`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+  ];
+
+  return [...corePages, ...servicePages, ...townPages, ...problemPages];
 }
