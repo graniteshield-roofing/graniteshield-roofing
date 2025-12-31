@@ -114,7 +114,7 @@ export default function IceDamRemovalPage() {
               equipment. Ice dams can cause water to back up into vulnerable
               roof areas — we help stabilize the risk with proper steaming
               techniques, assess damage, and recommend prevention steps so it
-              doesn't keep happening.
+              doesn&apos;t keep happening.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -161,7 +161,7 @@ export default function IceDamRemovalPage() {
               <p className="mt-4 text-slate-600">
                 Ice dams are a system problem. We use professional low-pressure
                 steam equipment to safely remove ice without damaging your roof,
-                then look at the conditions that caused them and what's needed
+                then look at the conditions that caused them and what&apos;s needed
                 to reduce repeat events.
               </p>
 
@@ -184,7 +184,7 @@ export default function IceDamRemovalPage() {
                   Stop the Damage
                 </h3>
                 <p className="mt-2 text-slate-600">
-                  If you're seeing leaks or heavy icing, reach out now — we'll
+                  If you&apos;re seeing leaks or heavy icing, reach out now — we&apos;ll
                   help stabilize the situation and plan the fix.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
