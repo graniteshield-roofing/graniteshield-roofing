@@ -1,8 +1,23 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ArrowRight, CheckCircle2, Phone, MapPin, Droplets, Wind, AlertTriangle, Zap, Clock, Shield } from 'lucide-react';
+import {
+  ArrowRight,
+  Phone,
+  AlertTriangle,
+  Droplets,
+  Home,
+  Clock,
+  MapPin,
+  ClipboardCheck,
+  Shield,
+  DollarSign,
+  CheckCircle2,
+  Snowflake,
+  FileText,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 import {
   ServiceSchema,
@@ -11,9 +26,9 @@ import {
 } from '@/components/schema-markup';
 
 export const metadata: Metadata = {
-  title: `Emergency Roof Repair Portland Maine | 2-Hour Response | ${BUSINESS_CONFIG.name}`,
+  title: `Emergency Roof Repair in Southern Maine | Active Leaks & Tarping | ${BUSINESS_CONFIG.name}`,
   description:
-    'Emergency roof repair in Portland & Southern Maine. Active leak? Storm damage? We respond in 2 hours. Honest pricing, fast stabilization, and permanent repair plans.',
+    'Emergency roof leak repair and temporary tarping in Southern Maine. Average 2-hour response for active leaks during storms when crews are available. Serving Scarborough, Portland, South Portland, Biddeford, Saco, and nearby towns.',
   alternates: {
     canonical: 'https://graniteshieldroofing.com/emergency-roof-repair',
   },
@@ -23,34 +38,39 @@ const SERVICE_AREAS = [
   'Scarborough',
   'Portland',
   'South Portland',
-  'Westbrook',
+  'Biddeford',
+  'Saco',
   'Falmouth',
   'Yarmouth',
+  'Westbrook',
   'Cape Elizabeth',
-  'Biddeford',
 ];
 
 export default function EmergencyRoofRepairPage() {
   const emergencyScenarios = [
     {
       title: 'Active Ceiling Leak',
-      description: 'Water dripping from ceiling, visible stains spreading, or wet insulation in attic',
+      description:
+        'Water actively dripping through ceiling, light fixtures, or down walls during rain or snow melt.',
       icon: Droplets,
     },
     {
-      title: 'Storm Damage',
-      description: 'Missing shingles, visible holes, or tarps blown off after wind/hail/snow event',
-      icon: Wind,
-    },
-    {
-      title: 'Structural Concern',
-      description: 'Sagging roofline, heavy snow load, or tree/branch impact damage',
+      title: 'Storm-Torn Shingles or Metal',
+      description:
+        'Wind has ripped off shingles, loosened metal panels, or exposed bare decking.',
       icon: AlertTriangle,
     },
     {
-      title: 'Ice Dam Leaking',
-      description: 'Water backing up from ice dam, icicles inside attic, or active winter leak',
-      icon: Zap,
+      title: 'Tree or Branch Impact',
+      description:
+        'Tree limb has hit the roof, broken decking, or damaged ridge / eave areas.',
+      icon: Home,
+    },
+    {
+      title: 'Ice Dam Leak',
+      description:
+        'Water backing up behind ice at eaves or valleys, causing interior staining or active dripping.',
+      icon: Snowflake,
     },
   ];
 
@@ -58,35 +78,35 @@ export default function EmergencyRoofRepairPage() {
     {
       category: 'Emergency Tarping & Leak Stop',
       range: '$450 - $950',
+      description:
+        'Temporary tarp installation or localized leak stop to stabilize active water intrusion during a storm.',
       examples: [
-        'Emergency tarp installation (materials + labor)',
-        'Temporary leak stabilization',
-        'Ice dam steaming for active leak',
-        'Emergency service call (no charge - pay only for work)',
+        'Blue tarp over damaged section',
+        'Quick patch at obvious leak point',
+        'Temporary sealing around chimney or vent',
       ],
-      timeline: 'Same day response',
     },
     {
       category: 'Emergency Leak + Same-Visit Repair',
       range: '$750 - $1,800',
+      description:
+        'Emergency response plus permanent repair completed in the same visit when conditions allow.',
       examples: [
-        'Stop active leak + permanent repair',
-        'Flashing replacement at leak source',
-        'Shingle replacement (10-30 shingles)',
-        'Chimney counter-flashing repair',
+        'Shingle section replacement around leak area',
+        'Pipe boot or flashing replacement',
+        'Small valley or ridge repair',
       ],
-      timeline: '2-6 hours typical',
     },
     {
       category: 'Major Storm / Structural Emergency',
       range: '$1,800 - $4,500+',
+      description:
+        'Larger damaged areas, structural concerns, or multi-spot failures requiring extensive temporary protection and follow-up work.',
       examples: [
-        'Large section shingle replacement',
-        'Multiple leak points across roof',
-        'Structural stabilization + tarping',
-        'Complex flashing/valley reconstruction',
+        'Tree impact with broken decking',
+        'Multiple leaks across different roof planes',
+        'Complex chimney / valley emergency',
       ],
-      timeline: 'Staged repair (stabilize now, repair ASAP)',
     },
   ];
 
@@ -94,32 +114,37 @@ export default function EmergencyRoofRepairPage() {
     {
       step: '1',
       title: 'Call Us Immediately',
-      description: 'We answer calls directly. No voicemail jail. Describe the situation and we'll triage urgency.',
+      description:
+        'If water is actively coming in, call right away. We ask where the leak is, what you&apos;re seeing, and whether power or safety is affected.',
       icon: Phone,
     },
     {
       step: '2',
-      title: '2-Hour Response Window',
-      description: 'For active leaks and structural emergencies, we mobilize within 2 hours during business hours. After-hours and weekends: we'll still respond same-day when possible.',
-      icon: Clock,
+      title: 'Photo Review & Triage',
+      description:
+        'If it&apos;s safe, you text or email photos of the damage (inside and outside). We use this to prioritize severity and plan materials.',
+      icon: ClipboardCheck,
     },
     {
       step: '3',
-      title: 'Assess & Stabilize',
-      description: 'We locate the leak source, stop active water intrusion, and explain what happened and why.',
-      icon: AlertTriangle,
+      title: 'On-Site Stabilization',
+      description:
+        'We arrive, stop the active leak first (tarping, patching, diverting water), then assess surrounding areas for hidden damage.',
+      icon: Shield,
     },
     {
       step: '4',
-      title: 'Transparent Cost Options',
-      description: 'You'll know the cost before we start. Temporary stabilization vs. permanent repair vs. staged approach - your call.',
-      icon: CheckCircle2,
+      title: 'Emergency Repair or Plan',
+      description:
+        'If weather and conditions allow, we perform permanent repairs. If not, we stabilize and schedule a follow-up repair once safe.',
+      icon: Home,
     },
     {
       step: '5',
-      title: 'Execute & Follow Through',
-      description: 'We complete the work, clean up, and confirm next steps if additional work is needed.',
-      icon: Shield,
+      title: 'Documentation & Next Steps',
+      description:
+        'We document damage with photos, explain what happened, and outline permanent repair options and costs. Insurance documentation available when needed.',
+      icon: FileText,
     },
   ];
 
@@ -127,42 +152,42 @@ export default function EmergencyRoofRepairPage() {
     {
       question: 'What counts as an emergency roof repair?',
       answer:
-        'Active leaks (water entering living space or attic), storm damage exposing roof deck, structural concerns (sagging, tree damage), ice dams causing leaks, or heavy snow load risk. If you\'re worried about damage happening right now, call us.',
+        'An emergency is any active water intrusion that can cause immediate damage: water dripping through ceilings, leaks near electrical fixtures, major sections of missing shingles, tree impacts, or ice dams causing water to pour inside. If water is coming in now, treat it as an emergency.',
     },
     {
-      question: 'Do you really respond in 2 hours?',
+      question: 'Are you available 24/7?',
       answer:
-        'Yes, for true emergencies during business hours. We prioritize active leaks and structural threats. After-hours and weekends, we respond same-day when possible. Non-emergency repairs are scheduled within 1-3 days.',
+        'We prioritize emergency calls during storms and peak leak events and do our best to respond as quickly as possible. Overnight or extreme-weather availability depends on safety and crew status. If we can&apos;t safely get on the roof, we&apos;ll advise temporary steps you can take to limit damage until conditions improve.',
     },
     {
-      question: 'Do you charge for emergency service calls?',
+      question: 'How fast can you get here?',
       answer:
-        'No separate service call fee. You pay only for the work we do (tarping, temporary stabilization, permanent repair, etc.). We'll quote the cost before starting.',
+        'In many Southern Maine emergencies we average around a 2-hour response time during daytime storms, depending on weather, distance, and how many active emergencies are in progress. During major storm events, we triage based on severity and safety.',
     },
     {
-      question: 'How much does emergency tarping cost?',
+      question: 'What do you do on an emergency visit?',
       answer:
-        'Emergency tarping typically runs $450-$950 depending on roof pitch, access difficulty, and tarp size needed. This includes materials, labor, and securing the tarp to prevent blow-off.',
+        'Our first priority is to stop water from entering your home. That might be tarping, temporary patching, redirecting water, or sealing around obvious failure points. Once the leak is stabilized, we assess damage and discuss permanent repair options with you.',
     },
     {
-      question: 'Can you do a permanent repair during the emergency visit?',
+      question: 'Do you work with insurance for storm damage?',
       answer:
-        'Often yes, if conditions allow and materials are on hand. For example, a chimney flashing leak or small shingle blow-off can often be permanently repaired same-visit. Larger damage may require tarping now and scheduling a full repair.',
+        'Yes. We can document storm damage with photos, provide written findings, and coordinate with your adjuster. You handle the claim; we handle repairs and any emergency measures needed to protect your home.',
     },
     {
-      question: 'What if I need emergency help at night or on the weekend?',
+      question: 'How much does emergency roof repair cost?',
       answer:
-        'Call us. We don\'t guarantee instant response outside business hours, but we answer calls and mobilize same-day for true emergencies when possible. At minimum, we\'ll talk you through temporary protection steps.',
+        'Emergency visits cost more than standard, scheduled repairs due to the urgency, after-hours work, and difficult conditions. Most emergency calls fall between $450 and $1,800 depending on severity, access, and whether permanent repairs are completed the same visit.',
     },
     {
-      question: 'Do you handle ice dam emergencies in winter?',
+      question: 'What if the weather is too dangerous to work?',
       answer:
-        'Yes. Ice dam removal via low-pressure steaming is a common emergency call. If an ice dam is causing active leaking, we can steam it off to stop the leak, then assess prevention steps.',
+        'If wind, lightning, or icy conditions make roof access unsafe, we focus on what can be done from the ground or inside (catching water, protecting belongings, advising safe temporary measures). We return as soon as conditions are safe to complete stabilization and repairs.',
     },
     {
-      question: 'Will you help me file an insurance claim for storm damage?',
+      question: 'Can emergency repairs be financed?',
       answer:
-        'We can provide documentation, photos, and a repair estimate for your insurance claim. We don\'t negotiate directly with adjusters, but we'll give you the information you need to file.',
+        'Yes. If the total repair cost meets lender minimums (typically $1,000-$2,500), you can finance emergency work just like larger projects. This is helpful when storm damage hits unexpectedly. See our financing page for more details.',
     },
   ];
 
@@ -172,7 +197,7 @@ export default function EmergencyRoofRepairPage() {
         service={{
           name: 'Emergency Roof Repair',
           description:
-            'Emergency roof repair service in Portland and Southern Maine with 2-hour response for active leaks and storm damage. Honest pricing, fast stabilization, permanent repairs.',
+            'Emergency roof leak repair, temporary tarping, and storm damage stabilization in Southern Maine. Average 2-hour response for active leaks when crews are available.',
           url: 'https://graniteshieldroofing.com/emergency-roof-repair',
         }}
       />
@@ -189,29 +214,33 @@ export default function EmergencyRoofRepairPage() {
 
       <FAQSchema faqs={faqs} />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <section className="bg-gradient-to-br from-slate-950 to-red-900 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="py-16 sm:py-20 max-w-3xl">
-            <div className="inline-flex items-center rounded-full bg-red-600/90 px-4 py-2 text-sm font-semibold">
-              <Clock className="mr-2 h-4 w-4" />
-              2-Hour Emergency Response
-            </div>
+          <div className="py-14 sm:py-16 max-w-3xl">
+            <Badge className="mb-6 bg-red-600 text-white border-0">
+              Active Leak? Get Help Fast • Southern Maine
+            </Badge>
 
-            <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-              Emergency Roof Repair in Portland & Southern Maine
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+              Emergency Roof Repair & Tarping in Southern Maine
             </h1>
 
-            <p className="mt-6 text-xl text-slate-200">
-              Active leak? Storm damage? We respond in 2 hours for true emergencies.
-              Transparent pricing, fast stabilization, and honest guidance on permanent repairs.
+            <p className="mt-4 text-lg text-slate-100">
+              Water coming in right now? We prioritize active leaks, emergency
+              tarping, and storm damage stabilization across Scarborough,
+              Portland, South Portland, Biddeford, Saco, and nearby towns.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Button variant="cta" size="lg" asChild className="h-14 px-8 text-lg">
+              <Button
+                variant="cta"
+                size="lg"
+                asChild
+                className="h-14 px-8 text-lg"
+              >
                 <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
                   <Phone className="mr-2 h-6 w-6" />
-                  Call Now for Emergency
+                  Call Now for Emergency Help
                 </a>
               </Button>
 
@@ -219,180 +248,312 @@ export default function EmergencyRoofRepairPage() {
                 size="lg"
                 variant="outline"
                 asChild
-                className="h-14 px-8 text-lg bg-transparent text-white border-white hover:bg-white hover:text-slate-900"
+                className="h-14 px-8 bg-transparent text-white border-white hover:bg-white hover:text-slate-900"
               >
-                <Link href="/lp/free-roof-estimate">
-                  <Clock className="mr-2 h-5 w-5" />
-                  Schedule Non-Emergency Repair
+                <Link href="/lp?service=emergency-roof-repair">
+                  Request Emergency Visit Online
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
             </div>
 
-            <div className="mt-8 flex items-start gap-2 text-slate-300 text-sm max-w-2xl">
-              <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-              <p>
-                Serving: <span className="font-semibold">{SERVICE_AREAS.join(', ')}</span> and nearby Southern Maine towns
-              </p>
-            </div>
+            <div className="mt-6 flex flex-col gap-3 text-sm text-slate-200">
+              <div className="flex items-start gap-2">
+                <Clock className="h-4 w-4 mt-0.5 text-slate-300 flex-shrink-0" />
+                <p>
+                  <strong>Target response:</strong> Around 2 hours for active
+                  leaks during storms when crews are available. Actual times
+                  depend on weather, road conditions, and call volume.
+                </p>
+              </div>
 
-            <div className="mt-6 p-4 bg-slate-800/50 border border-slate-700 rounded-lg">
-              <p className="text-sm text-slate-300">
-                <strong className="text-white">No service call fee.</strong> You pay only for work performed.
-                All costs quoted before we start.
-              </p>
+              <div className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 mt-0.5 text-slate-300 flex-shrink-0" />
+                <p>
+                  Serving Southern Maine:{' '}
+                  <span className="font-semibold">
+                    {SERVICE_AREAS.join(', ')}
+                  </span>{' '}
+                  and surrounding towns.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Emergency Scenarios */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-4">
-            When to Call for Emergency Roof Repair
-          </h2>
-          <p className="text-center text-slate-600 max-w-2xl mx-auto mb-12">
-            If you're experiencing any of these situations, call us immediately. We'll help stabilize the damage and prevent it from getting worse.
-          </p>
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <AlertTriangle className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
+              When It&apos;s an Emergency – And When It&apos;s Not
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              Use emergency service when water is actively entering your home or
+              there&apos;s immediate risk of damage
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {emergencyScenarios.map((scenario) => (
-              <Card key={scenario.title} className="border-2 hover:border-red-200 transition-colors">
-                <CardContent className="p-6 text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-50 mb-4">
-                    <scenario.icon className="h-8 w-8 text-red-600" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <Card className="border-red-200 bg-red-50">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  Emergency Situations
+                </h3>
+                <ul className="space-y-2 text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <Droplets className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    <span>Active dripping through ceiling or light fixtures</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Droplets className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    <span>Water running down interior walls during storms</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    <span>Storm damage with bare wood or broken areas exposed</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    <span>Tree or large branch impact on roof or ridge</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    <span>
+                      Ice dam leaks soaking ceilings, walls, or flooring
+                    </span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-slate-50">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  Non-Emergency Situations
+                </h3>
+                <ul className="space-y-2 text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-slate-600 mt-0.5 flex-shrink-0" />
+                    <span>Minor ceiling stain that&apos;s not growing</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-slate-600 mt-0.5 flex-shrink-0" />
+                    <span>
+                      A few missing shingles but no active leak inside
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-slate-600 mt-0.5 flex-shrink-0" />
+                    <span>Age-related wear you&apos;ve noticed for months</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-slate-600 mt-0.5 flex-shrink-0" />
+                    <span>
+                      Planning ahead for replacement or evaluating options
+                    </span>
+                  </li>
+                </ul>
+                <p className="mt-4 text-xs text-slate-600">
+                  These are best handled through our{' '}
+                  <Link
+                    href="/services/roof-repair"
+                    className="underline font-semibold"
+                  >
+                    standard Roof Repair service
+                  </Link>{' '}
+                  where you&apos;ll get more scheduling flexibility and lower
+                  non-emergency pricing.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-slate-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <DollarSign className="h-12 w-12 text-slate-900 mx-auto mb-4" />
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
+              Emergency Roof Repair Cost in Southern Maine
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              Typical ranges for emergency leak response and stabilization
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-10">
+            {costRanges.map((range, idx) => (
+              <Card key={idx} className="border-slate-200 bg-white">
+                <CardContent className="p-6">
+                  <div className="text-sm font-semibold text-red-600 uppercase tracking-wide mb-2">
+                    {range.category}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    {scenario.title}
-                  </h3>
-                  <p className="text-sm text-slate-600">{scenario.description}</p>
+                  <div className="text-3xl font-bold text-slate-900 mb-3">
+                    {range.range}
+                  </div>
+                  <p className="text-sm text-slate-700 mb-3">
+                    {range.description}
+                  </p>
+                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">
+                    Common Examples:
+                  </p>
+                  <ul className="space-y-1">
+                    {range.examples.map((example, i) => (
+                      <li
+                        key={i}
+                        className="text-sm text-slate-700 flex items-start gap-2"
+                      >
+                        <CheckCircle2 className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
+                        <span>{example}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div className="mt-10 text-center">
-            <Button variant="cta" size="lg" asChild>
-              <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
-                <Phone className="mr-2 h-5 w-5" />
-                Call {BUSINESS_CONFIG.contact.phone} Now
-              </a>
+          <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-lg p-6 flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-slate-700">
+              <strong>Exact emergency pricing requires on-site assessment.</strong>{' '}
+              Emergency work involves working in storms, after hours, and in
+              challenging conditions. We always explain pricing before work
+              begins and prioritize stopping damage first, then planning
+              permanent repairs with you.
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-slate-600 mb-3">
+              For larger follow-up repairs or replacements, financing is
+              available.
+            </p>
+            <Button variant="outline" asChild>
+              <Link href="/financing">
+                See Financing Options <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Cost Transparency */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-4">
-            Emergency Roof Repair Costs (Real Numbers)
-          </h2>
-          <p className="text-center text-slate-600 max-w-2xl mx-auto mb-12">
-            No hidden fees. No surprise charges. Here's what emergency roof repairs typically cost in Southern Maine.
-          </p>
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
+              Emergency Roof Repair Process
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              What to expect from your first call until the leak is under
+              control
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {costRanges.map((range) => (
-              <Card key={range.category} className="border-2">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    {range.category}
-                  </h3>
-                  <div className="text-3xl font-extrabold text-blue-600 mb-4">
-                    {range.range}
+          <div className="space-y-6 max-w-4xl mx-auto">
+            {processSteps.map((step) => (
+              <Card
+                key={step.step}
+                className="border-l-4 border-l-red-600 hover:shadow-md transition-shadow"
+              >
+                <CardContent className="p-6 flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                      <step.icon className="h-6 w-6 text-red-600" />
+                    </div>
                   </div>
-                  <div className="mb-4">
-                    <p className="text-sm font-semibold text-slate-700 mb-2">Typical scenarios:</p>
-                    <ul className="space-y-1">
-                      {range.examples.map((example) => (
-                        <li key={example} className="flex items-start gap-2">
-                          <CheckCircle2 className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-slate-600">{example}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="pt-4 border-t border-slate-200">
-                    <p className="text-xs text-slate-500">
-                      <Clock className="inline h-3 w-3 mr-1" />
-                      {range.timeline}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-900 text-white text-sm font-bold">
+                        {step.step}
+                      </span>
+                      <h3 className="text-xl font-bold text-slate-900">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="text-slate-600 leading-relaxed">
+                      {step.description}
                     </p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-          <div className="mt-8 p-6 bg-white border border-slate-200 rounded-lg max-w-3xl mx-auto">
-            <p className="text-sm text-slate-600">
-              <strong>Important:</strong> Costs vary based on roof pitch, access difficulty, extent of damage, and materials required.
-              These ranges reflect typical emergency repairs in Southern Maine. You'll receive an exact quote before work begins.
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* Process */}
-      <section className="py-16 bg-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-12">
-            How Emergency Roof Repair Works
-          </h2>
-
-          <div className="space-y-8">
-            {processSteps.map((step) => (
-              <div key={step.step} className="flex items-start gap-6">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white text-xl font-bold">
-                    {step.step}
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-slate-600">{step.description}</p>
-                </div>
-                <div className="hidden md:block flex-shrink-0">
-                  <step.icon className="h-10 w-10 text-slate-300" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQs */}
       <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-12">
-            Emergency Roof Repair Questions
+          <h2 className="text-3xl font-bold text-slate-900 text-center mb-2">
+            Emergency Roof Repair FAQs
           </h2>
+          <p className="text-slate-600 text-center mb-10">
+            Common questions from Southern Maine homeowners during storms and
+            active leaks
+          </p>
+
           <div className="space-y-5">
-            {faqs.map((f) => (
-              <Card key={f.question}>
+            {faqs.map((faq) => (
+              <Card key={faq.question}>
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                    {f.question}
+                    {faq.question}
                   </h3>
-                  <p className="text-slate-600">{f.answer}</p>
+                  <p className="text-slate-600 leading-relaxed">
+                    {faq.answer}
+                  </p>
                 </CardContent>
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12 text-center">
-            <p className="text-slate-600 mb-6">
-              Have an emergency? Don't wait - call us now.
-            </p>
-            <Button variant="cta" size="lg" asChild>
+      <section className="py-20 bg-gradient-to-br from-slate-950 to-red-900 text-white">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+          <Droplets className="h-16 w-16 text-red-300 mx-auto mb-6" />
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+            Water Coming In Right Now?
+          </h2>
+          <p className="text-xl text-slate-100 mb-10 max-w-2xl mx-auto">
+            Don&apos;t wait for more damage. We prioritize active leaks,
+            emergency tarping, and storm damage stabilization across Southern
+            Maine. Call now and we&apos;ll walk you through the next steps.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              variant="cta"
+              size="lg"
+              asChild
+              className="h-16 px-10 text-lg"
+            >
               <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
-                <Phone className="mr-2 h-5 w-5" />
-                {BUSINESS_CONFIG.contact.phone}
+                <Phone className="mr-2 h-6 w-6" />
+                Call: {BUSINESS_CONFIG.contact.phone}
               </a>
             </Button>
+
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="h-16 px-10 bg-transparent text-white border-white hover:bg-white hover:text-slate-900"
+            >
+              <Link href="/lp?service=emergency-roof-repair">
+                Request Emergency Visit
+                <ArrowRight className="ml-2 h-6 w-6" />
+              </Link>
+            </Button>
           </div>
+
+          <p className="mt-8 text-sm text-slate-300">
+            Serving {SERVICE_AREAS.join(', ')} and all Southern Maine
+            communities
+          </p>
         </div>
       </section>
     </>
