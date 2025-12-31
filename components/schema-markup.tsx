@@ -298,3 +298,227 @@ export function LocalServiceSchema({
     />
   );
 }
+
+export function ReportSchema({
+  headline,
+  description,
+  datePublished,
+  dateModified,
+  url,
+  about,
+  mentions,
+}: {
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified: string;
+  url: string;
+  about?: string[];
+  mentions?: string[];
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline,
+    description,
+    datePublished,
+    dateModified,
+    url,
+    mainEntityOfPage: url,
+    author: {
+      '@type': 'Organization',
+      '@id': ORG_ID,
+      name: BUSINESS_CONFIG.name,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': ORG_ID,
+      name: BUSINESS_CONFIG.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: LOGO_URL,
+      },
+    },
+    ...(about && about.length > 0
+      ? {
+          about: about.map((topic) => ({
+            '@type': 'Thing',
+            name: topic,
+          })),
+        }
+      : {}),
+    ...(mentions && mentions.length > 0
+      ? {
+          mentions: mentions.map((mention) => ({
+            '@type': 'Thing',
+            name: mention,
+          })),
+        }
+      : {}),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function DatasetSchema({
+  name,
+  description,
+  temporalCoverage,
+  spatialCoverage,
+  variableMeasured,
+  measurementTechnique,
+  url,
+}: {
+  name: string;
+  description: string;
+  temporalCoverage: string;
+  spatialCoverage: {
+    type: string;
+    name: string;
+    geo?: {
+      latitude: number;
+      longitude: number;
+    };
+  };
+  variableMeasured: string[];
+  measurementTechnique: string;
+  url: string;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    '@id': `${url}#dataset`,
+    name,
+    description,
+    url,
+    temporalCoverage,
+    spatialCoverage: {
+      '@type': spatialCoverage.type,
+      name: spatialCoverage.name,
+      ...(spatialCoverage.geo
+        ? {
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: spatialCoverage.geo.latitude,
+              longitude: spatialCoverage.geo.longitude,
+            },
+          }
+        : {}),
+    },
+    variableMeasured: variableMeasured.map((variable) => ({
+      '@type': 'PropertyValue',
+      name: variable,
+    })),
+    measurementTechnique,
+    creator: {
+      '@type': 'Organization',
+      '@id': ORG_ID,
+      name: BUSINESS_CONFIG.name,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': ORG_ID,
+      name: BUSINESS_CONFIG.name,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function HowToSchema({
+  name,
+  description,
+  steps,
+  totalTime,
+  url,
+}: {
+  name: string;
+  description: string;
+  steps: Array<{
+    name: string;
+    text: string;
+  }>;
+  totalTime?: string;
+  url: string;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    '@id': `${url}#howto`,
+    name,
+    description,
+    url,
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
+    ...(totalTime ? { totalTime } : {}),
+    author: {
+      '@type': 'Organization',
+      '@id': ORG_ID,
+      name: BUSINESS_CONFIG.name,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function ItemListSchema({
+  name,
+  description,
+  items,
+  url,
+}: {
+  name: string;
+  description: string;
+  items: Array<{
+    name: string;
+    url: string;
+    description: string;
+  }>;
+  url: string;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': `${url}#itemlist`,
+    name,
+    description,
+    url,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: item.name,
+        url: item.url,
+        description: item.description,
+      },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

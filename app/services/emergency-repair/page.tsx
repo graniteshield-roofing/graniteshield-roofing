@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ArrowRight, CheckCircle2, Phone, MapPin, Zap, Clock, AlertTriangle, Shield } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, MapPin, Zap, Clock, AlertTriangle, Shield, FileText } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -347,6 +347,36 @@ export default function EmergencyRepairPage() {
         </div>
       </section>
 
+      {/* RESPONSE PROCESS CALLOUT */}
+      <section className="py-12 bg-blue-50">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <Card className="border-blue-200 bg-white">
+            <CardContent className="p-8">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-blue-100 rounded-lg flex-shrink-0">
+                  <FileText className="h-6 w-6 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    Understanding Our Emergency Response Process
+                  </h3>
+                  <p className="text-slate-600 mb-4">
+                    Learn about our winter emergency response workflow, triage
+                    criteria, and realistic response times for different types of
+                    roofing emergencies in Southern Maine.
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link href="/reports/maine-winter-roofing-response-times-and-process">
+                      View Response Process <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* FAQ RENDER */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -367,11 +397,6 @@ export default function EmergencyRepairPage() {
             ))}
           </div>
         </div>
-      </section>
-      <section className="py-20 bg-white">
-        ...
-        <h2 className="text-3xl font-bold ...">Frequently Asked Questions</h2>
-        ...
       </section>
 
       {/* FINAL CTA */}

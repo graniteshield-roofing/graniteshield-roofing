@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import { ArrowRight, Phone, AlertTriangle, CheckCircle2, Snowflake } from "lucide-react";
+import { ArrowRight, Phone, AlertTriangle, CheckCircle2, Snowflake, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BUSINESS_CONFIG } from "@/lib/business-config";
@@ -199,6 +199,36 @@ export default function IceDamsPage() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* STEAMING SPECS CALLOUT */}
+      <section className="py-12 bg-blue-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Card className="border-blue-200 bg-white">
+            <CardContent className="p-8">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-blue-100 rounded-lg flex-shrink-0">
+                  <FileText className="h-6 w-6 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    Ice Dam Steaming Safety Specs
+                  </h3>
+                  <p className="text-slate-600 mb-4">
+                    Learn about the technical specifications for safe ice dam
+                    removal: PSI ranges, surface protection practices, and what
+                    makes low-pressure steaming the safest removal method.
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link href="/reports/maine-ice-dam-steaming-safety-specs">
+                      View Technical Specs <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

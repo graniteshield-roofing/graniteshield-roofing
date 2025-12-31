@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ArrowRight, CheckCircle2, Phone, MapPin, Zap, Clock, AlertTriangle, Shield } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, MapPin, Zap, Clock, AlertTriangle, Shield, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
@@ -188,6 +188,64 @@ export default function IceDamRemovalPage() {
                       Call Now
                     </a>
                   </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED RESOURCES */}
+      <section className="py-12 bg-blue-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
+            Ice Dam Resources
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="border-blue-200 bg-white">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-blue-100 rounded-lg flex-shrink-0">
+                    <FileText className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                      Ice Dam Steaming Safety Specs
+                    </h3>
+                    <p className="text-slate-600 text-sm mb-4">
+                      Technical specifications for safe ice dam removal: PSI
+                      ranges, surface protection, and homeowner safety checklist.
+                    </p>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href="/reports/maine-ice-dam-steaming-safety-specs">
+                        View Technical Specs <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-blue-200 bg-white">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-blue-100 rounded-lg flex-shrink-0">
+                    <AlertTriangle className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                      Ice Dam Problem Guide
+                    </h3>
+                    <p className="text-slate-600 text-sm mb-4">
+                      Learn about ice dam causes, prevention methods, and what
+                      makes them particularly problematic in Maine.
+                    </p>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href="/problems/ice-dams">
+                        Read Problem Guide <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
