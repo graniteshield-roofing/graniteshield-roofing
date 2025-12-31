@@ -10,6 +10,7 @@ import {
   Shield,
   Calculator,
   ClipboardCheck,
+  CheckCircle2,
   Home,
   Wrench,
   AlertTriangle,
