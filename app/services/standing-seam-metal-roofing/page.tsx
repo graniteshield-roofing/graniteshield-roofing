@@ -140,7 +140,7 @@ export default function StandingSeamMetalRoofingPage() {
     },
     {
       title: 'Ice Dam Problems',
-      description: 'Metal's smooth surface and snow-shedding properties dramatically reduce ice dam formation.',
+      description: 'Metal&apos;s smooth surface and snow-shedding properties dramatically reduce ice dam formation.',
     },
     {
       title: 'Coastal Exposure',
@@ -152,11 +152,11 @@ export default function StandingSeamMetalRoofingPage() {
     },
     {
       title: 'Low-Maintenance Priority',
-      description: 'Never want to re-roof again? Metal's 40-60+ year lifespan minimizes long-term hassle.',
+      description: 'Never want to re-roof again? Metal&apos;s 40-60+ year lifespan minimizes long-term hassle.',
     },
     {
       title: 'Environmental Values',
-      description: 'Metal is recyclable, reflects heat (energy savings), and doesn't end up in landfills like shingles.',
+      description: 'Metal is recyclable, reflects heat (energy savings), and doesn&apos;t end up in landfills like shingles.',
     },
   ];
 
@@ -250,7 +250,7 @@ export default function StandingSeamMetalRoofingPage() {
     {
       question: 'Does metal roofing rust or corrode in coastal Maine?',
       answer:
-        'Quality standing seam metal with Kynar 500 / PVDF finish is highly resistant to salt air and coastal corrosion. Aluminum is naturally corrosion-resistant; steel requires proper coating. We recommend aluminum or premium-coated steel for coastal properties. Cheap painted steel or screw-down metal can corrode - that's why material quality matters.',
+        'Quality standing seam metal with Kynar 500 / PVDF finish is highly resistant to salt air and coastal corrosion. Aluminum is naturally corrosion-resistant; steel requires proper coating. We recommend aluminum or premium-coated steel for coastal properties. Cheap painted steel or screw-down metal can corrode - that&apos;s why material quality matters.',
     },
     {
       question: 'What colors are available for standing seam metal?',
@@ -290,7 +290,7 @@ export default function StandingSeamMetalRoofingPage() {
     {
       question: 'Is standing seam metal roofing worth the cost?',
       answer:
-        'For the right situation, absolutely. If you're staying in your home 20+ years, dealing with ice dams, in a coastal area, or tired of repeat re-roofing costs, the premium upfront cost pays off in longevity, performance, and peace of mind. For short-term ownership or tight budgets, quality shingles may make more sense. We'll help you decide honestly.',
+        'For the right situation, absolutely. If you&apos;re staying in your home 20+ years, dealing with ice dams, in a coastal area, or tired of repeat re-roofing costs, the premium upfront cost pays off in longevity, performance, and peace of mind. For short-term ownership or tight budgets, quality shingles may make more sense. We&apos;ll help you decide honestly.',
     },
   ];
 
@@ -507,7 +507,7 @@ export default function StandingSeamMetalRoofingPage() {
             Is Standing Seam Metal Right for Your Home?
           </h2>
           <p className="text-center text-slate-600 max-w-2xl mx-auto mb-12">
-            Metal roofing excels in these situations. If any apply to you, it's worth considering:
+            Metal roofing excels in these situations. If any apply to you, it&apos;s worth considering:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -585,7 +585,7 @@ export default function StandingSeamMetalRoofingPage() {
             <p className="text-slate-700">
               <strong>Quality matters most at transitions.</strong> The panels themselves rarely leak - leaks come from
               improperly detailed chimneys, valleys, wall flashings, and penetrations. We obsess over these details
-              because that's where amateur installs fail.
+              because that&apos;s where amateur installs fail.
             </p>
           </div>
         </div>
