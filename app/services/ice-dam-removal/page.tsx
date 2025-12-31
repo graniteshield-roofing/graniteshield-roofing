@@ -11,9 +11,9 @@ import {
 } from '@/components/schema-markup';
 
 export const metadata: Metadata = {
-  title: `Ice Dam Removal in Southern Maine | ${BUSINESS_CONFIG.name}`,
+  title: `Ice Dam Removal & Steaming in Southern Maine | ${BUSINESS_CONFIG.name}`,
   description:
-    'Ice dam removal in Southern Maine with safe stabilization and guidance to prevent repeat issues: ventilation, insulation, and vulnerable detail protection.',
+    'Professional ice dam removal and steaming in Southern Maine. Safe, low-pressure steam removal protects your roof. Emergency service with prevention guidance: ventilation, insulation, and vulnerable detail protection.',
   alternates: {
     canonical: 'https://graniteshieldroofing.com/services/ice-dam-removal',
   },
@@ -31,7 +31,8 @@ const SERVICE_AREAS = [
 export default function IceDamRemovalPage() {
   const included = [
     'Ice dam assessment + leak-risk stabilization',
-    'Safe removal approach guidance (based on conditions)',
+    'Safe steam removal using low-pressure equipment (roof-safe)',
+    'Emergency response for active leaks',
     'Vulnerable areas + flashing detail review',
     'Recommendations to reduce repeat icing (ventilation/insulation)',
     'Clear next steps if repairs are needed',
@@ -44,6 +45,11 @@ export default function IceDamRemovalPage() {
         'Ice dams often result from heat loss, snow melt/refreeze cycles, and poor ventilation or insulation patterns. Water backs up and can enter vulnerable areas.',
     },
     {
+      question: 'What is ice dam steaming and is it safe?',
+      answer:
+        'Ice dam steaming uses specialized low-pressure steam equipment to safely melt ice without damaging shingles, flashing, or roof structure. Unlike hammers, chisels, or high-pressure methods, steam removal protects your roof while eliminating the ice dam.',
+    },
+    {
       question: 'Can ice dams cause leaks?',
       answer:
         'Yes. Ice dams can force water under shingles or into transitions, leading to interior leaks and damage.',
@@ -52,6 +58,11 @@ export default function IceDamRemovalPage() {
       question: 'How do you prevent ice dams long-term?',
       answer:
         'Prevention typically involves better ventilation (when applicable), insulation improvements, and protecting vulnerable roof areas with the right underlayment strategy.',
+    },
+    {
+      question: 'Do you offer emergency ice dam steaming?',
+      answer:
+        'Yes. If you have active leaking or heavy ice buildup, contact us for emergency ice dam steaming service. We respond quickly to prevent further water damage.',
     },
     {
       question: 'Do you repair damage after ice dams?',
@@ -64,9 +75,9 @@ export default function IceDamRemovalPage() {
     <>
       <ServiceSchema
         service={{
-          name: 'Ice Dam Removal',
+          name: 'Ice Dam Removal & Steaming',
           description:
-            'Ice dam removal and stabilization in Southern Maine with prevention guidance and repair planning for long-term performance.',
+            'Professional ice dam removal and steaming service in Southern Maine using safe, low-pressure steam equipment. Emergency response with prevention guidance and repair planning for long-term performance.',
           url: 'https://graniteshieldroofing.com/services/ice-dam-removal',
         }}
       />
@@ -79,7 +90,7 @@ export default function IceDamRemovalPage() {
             url: 'https://graniteshieldroofing.com/services',
           },
           {
-            name: 'Ice Dam Removal',
+            name: 'Ice Dam Removal & Steaming',
             url: 'https://graniteshieldroofing.com/services/ice-dam-removal',
           },
         ]}
@@ -95,13 +106,15 @@ export default function IceDamRemovalPage() {
             </div>
 
             <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight">
-              Ice Dam Removal in Southern Maine
+              Ice Dam Removal & Steaming in Southern Maine
             </h1>
 
             <p className="mt-4 text-lg text-slate-200">
-              Ice dams can cause water to back up into vulnerable roof areas. We
-              help stabilize the risk, assess damage, and recommend prevention
-              steps so it doesn’t keep happening.
+              Professional ice dam removal using safe, low-pressure steam
+              equipment. Ice dams can cause water to back up into vulnerable
+              roof areas — we help stabilize the risk with proper steaming
+              techniques, assess damage, and recommend prevention steps so it
+              doesn't keep happening.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -143,11 +156,13 @@ export default function IceDamRemovalPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
               <h2 className="text-3xl font-bold text-slate-900">
-                What We Focus On
+                Safe Ice Dam Steaming
               </h2>
               <p className="mt-4 text-slate-600">
-                Ice dams are a system problem. We look at the conditions that
-                caused them and what’s needed to reduce repeat events.
+                Ice dams are a system problem. We use professional low-pressure
+                steam equipment to safely remove ice without damaging your roof,
+                then look at the conditions that caused them and what's needed
+                to reduce repeat events.
               </p>
 
               <div className="mt-8 space-y-3">
@@ -169,7 +184,7 @@ export default function IceDamRemovalPage() {
                   Stop the Damage
                 </h3>
                 <p className="mt-2 text-slate-600">
-                  If you’re seeing leaks or heavy icing, reach out now — we’ll
+                  If you're seeing leaks or heavy icing, reach out now — we'll
                   help stabilize the situation and plan the fix.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -198,7 +213,7 @@ export default function IceDamRemovalPage() {
       <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-slate-900 text-center">
-            Ice Dam FAQs
+            Ice Dam Removal & Steaming FAQs
           </h2>
           <div className="mt-10 space-y-5">
             {faqs.map((f) => (
