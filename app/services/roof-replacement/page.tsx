@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ArrowRight, CheckCircle2, Phone, MapPin } from 'lucide-react';
-
+import { ArrowRight, CheckCircle2, Phone, MapPin, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
@@ -21,17 +20,8 @@ export const metadata: Metadata = {
 };
 
 const SERVICE_AREAS = [
-  'Portland',
-  'Scarborough',
-  'South Portland',
-  'Westbrook',
-  'Cape Elizabeth',
-  'Falmouth',
-  'Yarmouth',
-  'Biddeford',
-  'Saco',
-  'Auburn',
-  'Turner',
+  'Portland', 'Scarborough', 'South Portland', 'Westbrook', 'Cape Elizabeth',
+  'Falmouth', 'Yarmouth', 'Biddeford', 'Saco', 'Auburn', 'Turner',
 ];
 
 export default function RoofReplacementPage() {
@@ -50,15 +40,15 @@ export default function RoofReplacementPage() {
     {
       question: 'How long does a roof replacement take?',
       answer:
-        'Most roof replacements are completed in a few days depending on roof size, pitch, access, weather, and any decking work required. We’ll confirm timeline after the inspection.',
+        'Most roof replacements are completed in a few days depending on roof size, pitch, access, weather, and any decking work required. We\'ll confirm timeline after the inspection.',
     },
     {
-      question: 'What’s included in your roof replacement service?',
+      question: 'What\'s included in your roof replacement service?',
       answer:
         'A full system approach: protection at vulnerable areas, quality underlayment, correct flashing details, ventilation considerations, and a clean install with full cleanup. Exact scope is confirmed during inspection.',
     },
     {
-      question: 'What makes a roof system “built for Maine weather”?',
+      question: 'What makes a roof system "built for Maine weather"?',
       answer:
         'The difference is in the details: ice & water protection, proper underlayment, correct flashing, and ventilation planning to reduce moisture issues and prevent leaks during freeze-thaw cycles.',
     },
@@ -79,21 +69,13 @@ export default function RoofReplacementPage() {
           url: 'https://graniteshieldroofing.com/services/roof-replacement',
         }}
       />
-
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://graniteshieldroofing.com' },
-          {
-            name: 'Services',
-            url: 'https://graniteshieldroofing.com/services',
-          },
-          {
-            name: 'Roof Replacement',
-            url: 'https://graniteshieldroofing.com/services/roof-replacement',
-          },
+          { name: 'Services', url: 'https://graniteshieldroofing.com/services' },
+          { name: 'Roof Replacement', url: 'https://graniteshieldroofing.com/services/roof-replacement' },
         ]}
       />
-
       <FAQSchema faqs={faqs} />
 
       {/* HERO */}
@@ -103,25 +85,21 @@ export default function RoofReplacementPage() {
             <div className="inline-flex items-center rounded-full bg-blue-600/90 px-4 py-2 text-sm font-semibold">
               Owner-Operated Quality • Southern Maine
             </div>
-
             <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight">
               Roof Replacement in Southern Maine
             </h1>
-
             <p className="mt-4 text-lg text-slate-200">
               Complete roof replacement built for Maine weather: ice &amp; water
               protection, underlayment, flashing details, ventilation (when
               applicable), and clean installs.
             </p>
-
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Button variant="cta" size="lg" asChild className="h-12 px-6">
+              <Button variant="default" size="lg" asChild className="h-12 px-6">
                 <Link href="/lp">
                   Schedule Free Inspection{' '}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-
               <Button
                 size="lg"
                 variant="outline"
@@ -134,7 +112,6 @@ export default function RoofReplacementPage() {
                 </a>
               </Button>
             </div>
-
             <div className="mt-6 flex items-start gap-2 text-slate-200 text-sm max-w-2xl">
               <MapPin className="h-4 w-4 mt-0.5 text-slate-300" />
               <p>
@@ -161,9 +138,8 @@ export default function RoofReplacementPage() {
                 Your roof is a system — not just shingles. We focus on the
                 details that prevent leaks over time: water management at
                 transitions, clean flashing, and correct installation for
-                Maine’s freeze-thaw cycles.
+                Maine&apos;s freeze-thaw cycles.
               </p>
-
               <div className="mt-8 space-y-3">
                 {included.map((item) => (
                   <div
@@ -175,25 +151,23 @@ export default function RoofReplacementPage() {
                   </div>
                 ))}
               </div>
-
               <p className="mt-4 text-sm text-slate-500">
                 Final scope depends on roof condition, layers, pitch, access,
                 and ventilation needs—your estimate will list everything
                 clearly.
               </p>
             </div>
-
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold text-slate-900">
                   Schedule a Free Inspection
                 </h3>
                 <p className="mt-2 text-slate-600">
-                  We’ll assess condition, explain options, and give you a clear
+                  We&apos;ll assess condition, explain options, and give you a clear
                   plan — without pressure.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <Button variant="cta" asChild className="w-full sm:w-auto">
+                  <Button variant="default" asChild className="w-full sm:w-auto">
                     <Link href="/lp">
                       Get Free Estimate <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
@@ -215,13 +189,34 @@ export default function RoofReplacementPage() {
         </div>
       </section>
 
+      {/* COST REPORT CALLOUT (NEW) */}
+      <section className="py-12 bg-blue-50">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-xl border border-blue-200 p-8 shadow-sm flex flex-col md:flex-row items-start gap-6">
+            <div className="p-3 bg-blue-100 rounded-lg shrink-0">
+               <FileText className="h-8 w-8 text-blue-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">
+                How Much Does a Roof Cost in Maine?
+              </h3>
+              <p className="text-slate-600 mb-4">
+                View our Winter 2025 Maine Roofing Cost Report with real data from completed projects.
+              </p>
+              <Link href="/reports/maine-roofing-cost-report-winter-2025" className="inline-flex items-center text-blue-700 font-bold hover:underline">
+                Read the Cost Report <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-slate-900 text-center">
             Roof Replacement FAQs
           </h2>
-
           <div className="mt-10 space-y-5">
             {faqs.map((f) => (
               <Card key={f.question}>
@@ -234,9 +229,8 @@ export default function RoofReplacementPage() {
               </Card>
             ))}
           </div>
-
           <div className="mt-12 text-center">
-            <Button variant="cta" size="lg" asChild>
+            <Button variant="default" size="lg" asChild>
               <Link href="/lp">
                 Schedule Free Inspection <ArrowRight className="ml-2 h-5 w-5" />
               </Link>

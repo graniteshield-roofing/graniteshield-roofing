@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ArrowRight, CheckCircle2, Phone, MapPin, Zap, Clock, AlertTriangle, Shield } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, MapPin, Zap, Clock, AlertTriangle, Shield, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
@@ -206,6 +206,32 @@ export default function IceDamRemovalPage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED DATA */}
+      <section className="py-12 bg-blue-50">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-xl border border-blue-200 p-8 shadow-sm flex flex-col md:flex-row items-start gap-6">
+            <div className="p-3 bg-blue-100 rounded-lg shrink-0">
+              <FileText className="h-8 w-8 text-blue-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">
+                Related Data
+              </h3>
+              <p className="text-slate-600 mb-4">
+                We follow strict low-pressure steaming protocols to protect your roof. See our safety standards.
+              </p>
+              <Link
+                href="/reports/maine-ice-dam-steaming-safety-specs"
+                className="inline-flex items-center text-blue-700 font-bold hover:underline"
+              >
+                Read Our Ice Dam Safety Specs
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

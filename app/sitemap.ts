@@ -87,10 +87,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/problems/ice-dams`,
       lastModified: currentDate,
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
   ];
 
-  return [...corePages, ...servicePages, ...townPages, ...problemPages];
+  // Report pages
+  const reportPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/reports`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/reports/maine-roofing-cost-report-winter-2025`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/reports/maine-ice-dam-steaming-safety-specs`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/reports/maine-winter-roofing-response-times-and-process`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+  ];
+
+  return [...corePages, ...servicePages, ...townPages, ...problemPages, ...reportPages];
 }
