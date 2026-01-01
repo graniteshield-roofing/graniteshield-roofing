@@ -1,8 +1,18 @@
 export interface QuoteRequest {
   address: string;
-  email?: string;
+  // Separate address components (optional, sent in addition to address string)
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  // Name fields
   name?: string;
+  firstName?: string;
+  lastName?: string;
+  // Contact fields
+  email?: string;
   phone?: string;
+  // Roof type selection
   roofTypes?: Array<'asphalt' | 'standing_seam_roof_over' | 'standing_seam_tear_off'>;
 }
 
@@ -47,7 +57,7 @@ export interface QuoteResponse {
 
 // Normalize base URL: strip trailing slashes to prevent double slashes in endpoint
 function getNormalizedApiBase(): string {
-  const base = process.env.NEXT_PUBLIC_QUOTE_API_URL ?? 'http://localhost:4000';
+  const base = process.env.NEXT_PUBLIC_QUOTE_API_BASE_URL ?? 'http://localhost:4000';
   // Strip all trailing slashes to ensure clean URL construction
   return base.replace(/\/+$/, '');
 }
@@ -59,18 +69,24 @@ function buildQuoteUrl(): string {
 }
 
 export async function getInstantQuote(payload: QuoteRequest): Promise<QuoteResponse> {
-  // Build clean payload: only include phone/name if they have non-empty values after trimming
+  // Build clean payload: include all provided fields, trimming strings where appropriate
   const cleanPayload: QuoteRequest = {
     address: payload.address.trim(),
-    ...(payload.email ? { email: payload.email.trim() } : {}),
+    // Include separate address components if provided
+    ...(payload.streetAddress?.trim() ? { streetAddress: payload.streetAddress.trim() } : {}),
+    ...(payload.city?.trim() ? { city: payload.city.trim() } : {}),
+    ...(payload.state?.trim() ? { state: payload.state.trim() } : {}),
+    ...(payload.zip?.trim() ? { zip: payload.zip.trim() } : {}),
+    // Include name fields
+    ...(payload.name?.trim() ? { name: payload.name.trim() } : {}),
+    ...(payload.firstName?.trim() ? { firstName: payload.firstName.trim() } : {}),
+    ...(payload.lastName?.trim() ? { lastName: payload.lastName.trim() } : {}),
+    // Include contact fields
+    ...(payload.email?.trim() ? { email: payload.email.trim() } : {}),
+    ...(payload.phone?.trim() ? { phone: payload.phone.trim() } : {}),
+    // Include roof types
     ...(payload.roofTypes && payload.roofTypes.length > 0
       ? { roofTypes: payload.roofTypes }
-      : {}),
-    ...(payload.phone && payload.phone.trim().length > 0
-      ? { phone: payload.phone.trim() }
-      : {}),
-    ...(payload.name && payload.name.trim().length > 0
-      ? { name: payload.name.trim() }
       : {}),
   };
 

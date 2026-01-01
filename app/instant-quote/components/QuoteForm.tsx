@@ -43,13 +43,19 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
     roofTypes: [...DEFAULT_ROOF_TYPES],
   });
 
+  // Separate form fields
+  const [streetAddress, setStreetAddress] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [state, setState] = useState<string>('ME');
   const [zipCode, setZipCode] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
 
   const [errors, setErrors] = useState<
-    Partial<Record<'address' | 'email' | 'roofTypes' | 'phone' | 'zip', string>>
+    Partial<Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName', string>>
   >({});
   const [touched, setTouched] = useState<
-    Partial<Record<'address' | 'email' | 'roofTypes' | 'phone' | 'zip', boolean>>
+    Partial<Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName', boolean>>
   >({});
 
   const formatPhoneNumber = (value: string): string => {
@@ -63,45 +69,44 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  // Extract ZIP code from address string (5 digits)
-  const extractZipFromAddress = (address: string): string | null => {
-    const zipMatch = address.match(/\b\d{5}\b/);
-    return zipMatch ? zipMatch[0] : null;
-  };
-
-  // Check if address contains ", ME" (case insensitive)
-  const hasMaineState = (address: string): boolean => {
-    return /,\s*ME\b/i.test(address);
-  };
-
   const validate = (): boolean => {
     const newErrors: Partial<
-      Record<'address' | 'email' | 'roofTypes' | 'phone' | 'zip', string>
+      Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName', string>
     > = {};
 
-    if (!formData.address.trim()) {
-      newErrors.address = 'Address is required';
-    } else if (formData.address.trim().length < 8) {
-      newErrors.address = 'Please enter a complete address (at least 8 characters)';
+    // Street address validation
+    if (!streetAddress.trim()) {
+      newErrors.streetAddress = 'Street address is required';
+    } else if (streetAddress.trim().length < 5) {
+      newErrors.streetAddress = 'Please enter a complete street address';
     }
 
-    // ZIP validation: must have ZIP either in address string or in ZIP field
-    const zipInAddress = extractZipFromAddress(formData.address);
-    const zipDigits = zipCode.replace(/\D/g, '');
-    const hasZip = zipInAddress || (zipDigits.length === 5);
+    // City validation
+    if (!city.trim()) {
+      newErrors.city = 'City is required';
+    } else if (city.trim().length < 2) {
+      newErrors.city = 'Please enter a valid city name';
+    }
 
-    if (!hasZip) {
-      newErrors.zip = 'Please include ZIP so we can match the correct property in Maine.';
-    } else if (zipDigits.length > 0 && zipDigits.length !== 5) {
+    // State validation
+    if (!state.trim()) {
+      newErrors.state = 'State is required';
+    }
+
+    // ZIP validation
+    const zipDigits = zipCode.replace(/\D/g, '');
+    if (zipDigits.length !== 5) {
       newErrors.zip = 'ZIP code must be 5 digits';
     }
 
+    // Email validation
     if (!formData.email?.trim()) {
       newErrors.email = 'Email is required';
     } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
+    // Roof types validation
     if (!formData.roofTypes || formData.roofTypes.length === 0) {
       newErrors.roofTypes = 'Select at least one roof type.';
     }
@@ -121,13 +126,48 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
   const handleChange = (field: keyof QuoteRequest, value: string | RoofTypeOption[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (
-      touched[field as 'address' | 'email' | 'roofTypes' | 'phone'] &&
-      errors[field as 'address' | 'email' | 'roofTypes' | 'phone']
+      touched[field as 'email' | 'roofTypes' | 'phone'] &&
+      errors[field as 'email' | 'roofTypes' | 'phone']
     ) {
       setErrors((prev) => ({
         ...prev,
-        [field as 'address' | 'email' | 'roofTypes' | 'phone']: undefined,
+        [field as 'email' | 'roofTypes' | 'phone']: undefined,
       }));
+    }
+  };
+
+  const handleStreetAddressChange = (value: string) => {
+    setStreetAddress(value);
+    if (touched.streetAddress && errors.streetAddress) {
+      setErrors((prev) => ({ ...prev, streetAddress: undefined }));
+    }
+  };
+
+  const handleCityChange = (value: string) => {
+    setCity(value);
+    if (touched.city && errors.city) {
+      setErrors((prev) => ({ ...prev, city: undefined }));
+    }
+  };
+
+  const handleStateChange = (value: string) => {
+    setState(value);
+    if (touched.state && errors.state) {
+      setErrors((prev) => ({ ...prev, state: undefined }));
+    }
+  };
+
+  const handleFirstNameChange = (value: string) => {
+    setFirstName(value);
+    if (touched.firstName && errors.firstName) {
+      setErrors((prev) => ({ ...prev, firstName: undefined }));
+    }
+  };
+
+  const handleLastNameChange = (value: string) => {
+    setLastName(value);
+    if (touched.lastName && errors.lastName) {
+      setErrors((prev) => ({ ...prev, lastName: undefined }));
     }
   };
 
@@ -140,7 +180,7 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
     }
   };
 
-  const handleBlur = (field: 'address' | 'email' | 'roofTypes' | 'phone' | 'zip') => {
+  const handleBlur = (field: 'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName') => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     validate();
   };
@@ -164,55 +204,49 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setTouched({
-      address: true,
+      streetAddress: true,
+      city: true,
+      state: true,
+      zip: true,
       email: true,
       roofTypes: true,
       phone: true,
-      zip: true,
+      firstName: true,
+      lastName: true,
     });
 
     if (!validate()) {
       return;
     }
 
-    // Normalize address: append ", ME" if not present, append ZIP if provided and not in address
-    let normalizedAddress = formData.address.trim();
+    // Build address string from separate fields: "Street Address, City, State ZIP"
     const zipDigits = zipCode.replace(/\D/g, '');
-    
-    // Check if ZIP is already in the original address string
-    const zipInOriginalAddress = extractZipFromAddress(normalizedAddress);
-    
-    // Check if ", ME" is already in address (case insensitive)
-    const hasState = hasMaineState(normalizedAddress);
-    
-    // If ZIP is not in address and ZIP field has value, add it
-    if (!zipInOriginalAddress && zipDigits.length === 5) {
-      // Insert ZIP before ", ME" if state is present, otherwise append to end
-      if (hasState) {
-        // Find where ", ME" starts and insert ZIP before it
-        const stateIndex = normalizedAddress.search(/,\s*ME\b/i);
-        normalizedAddress = `${normalizedAddress.slice(0, stateIndex).trim()} ${zipDigits}${normalizedAddress.slice(stateIndex)}`;
-      } else {
-        // Append ZIP, then we'll add ", ME" next
-        normalizedAddress = `${normalizedAddress} ${zipDigits}`;
-      }
-    }
-    
-    // Append ", ME" if not present (after ZIP has been handled)
-    if (!hasMaineState(normalizedAddress)) {
-      normalizedAddress = `${normalizedAddress}, ME`;
-    }
+    const normalizedAddress = `${streetAddress.trim()}, ${city.trim()}, ${state.trim()} ${zipDigits}`;
+
+    // Build name from first + last name
+    const fullName = [firstName.trim(), lastName.trim()].filter(Boolean).join(' ');
 
     // Build clean request payload: normalize phone (strip non-digits, only include if 10+ digits)
     const phoneDigits = formData.phone ? formData.phone.replace(/\D/g, '') : '';
     const normalizedPhone = phoneDigits.length >= 10 ? phoneDigits : undefined;
 
     const requestPayload: QuoteRequest = {
+      // Full address string (required)
       address: normalizedAddress,
+      // Separate address components
+      streetAddress: streetAddress.trim(),
+      city: city.trim(),
+      state: state.trim(),
+      zip: zipDigits,
+      // Name fields
+      ...(fullName ? { name: fullName } : {}),
+      ...(firstName.trim() ? { firstName: firstName.trim() } : {}),
+      ...(lastName.trim() ? { lastName: lastName.trim() } : {}),
+      // Contact fields
       email: formData.email?.trim() || '',
-      roofTypes: formData.roofTypes || [],
       ...(normalizedPhone ? { phone: normalizedPhone } : {}),
-      ...(formData.name?.trim() ? { name: formData.name.trim() } : {}),
+      // Roof types
+      roofTypes: formData.roofTypes || [],
     };
 
     await onSubmit(requestPayload);
@@ -230,50 +264,91 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Address */}
+          {/* Street Address */}
           <div className="space-y-2">
-            <Label htmlFor="address">
-              Address <span className="text-destructive">*</span>
+            <Label htmlFor="streetAddress">
+              Street Address <span className="text-destructive">*</span>
             </Label>
             <Input
-              id="address"
+              id="streetAddress"
               type="text"
-              placeholder="123 Main St, Portland"
-              value={formData.address}
-              onChange={(e) => handleChange('address', e.target.value)}
-              onBlur={() => handleBlur('address')}
+              placeholder="123 Main St"
+              value={streetAddress}
+              onChange={(e) => handleStreetAddressChange(e.target.value)}
+              onBlur={() => handleBlur('streetAddress')}
               disabled={isLoading}
-              className={errors.address ? 'border-destructive' : ''}
+              className={errors.streetAddress ? 'border-destructive' : ''}
             />
-            {touched.address && errors.address && (
-              <p className="text-sm text-destructive">{errors.address}</p>
+            {touched.streetAddress && errors.streetAddress && (
+              <p className="text-sm text-destructive">{errors.streetAddress}</p>
             )}
           </div>
 
-          {/* ZIP Code */}
-          <div className="space-y-2">
-            <Label htmlFor="zip">
-              ZIP Code <span className="text-destructive">*</span>
-            </Label>
-            <Input
-              id="zip"
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              placeholder="04101"
-              value={zipCode}
-              onChange={(e) => handleZipChange(e.target.value)}
-              onBlur={() => handleBlur('zip')}
-              disabled={isLoading}
-              maxLength={5}
-              className={errors.zip ? 'border-destructive' : ''}
-            />
-            {touched.zip && errors.zip && (
-              <p className="text-sm text-destructive">{errors.zip}</p>
-            )}
-            <p className="text-xs text-slate-500">
-              We&apos;ll automatically add Maine to your address
-            </p>
+          {/* City, State, ZIP Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* City */}
+            <div className="space-y-2">
+              <Label htmlFor="city">
+                City <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="city"
+                type="text"
+                placeholder="Portland"
+                value={city}
+                onChange={(e) => handleCityChange(e.target.value)}
+                onBlur={() => handleBlur('city')}
+                disabled={isLoading}
+                className={errors.city ? 'border-destructive' : ''}
+              />
+              {touched.city && errors.city && (
+                <p className="text-sm text-destructive">{errors.city}</p>
+              )}
+            </div>
+
+            {/* State */}
+            <div className="space-y-2">
+              <Label htmlFor="state">
+                State <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="state"
+                type="text"
+                placeholder="ME"
+                value={state}
+                onChange={(e) => handleStateChange(e.target.value.toUpperCase())}
+                onBlur={() => handleBlur('state')}
+                disabled={isLoading}
+                maxLength={2}
+                className={errors.state ? 'border-destructive' : ''}
+              />
+              {touched.state && errors.state && (
+                <p className="text-sm text-destructive">{errors.state}</p>
+              )}
+            </div>
+
+            {/* ZIP Code */}
+            <div className="space-y-2">
+              <Label htmlFor="zip">
+                ZIP Code <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="zip"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                placeholder="04101"
+                value={zipCode}
+                onChange={(e) => handleZipChange(e.target.value)}
+                onBlur={() => handleBlur('zip')}
+                disabled={isLoading}
+                maxLength={5}
+                className={errors.zip ? 'border-destructive' : ''}
+              />
+              {touched.zip && errors.zip && (
+                <p className="text-sm text-destructive">{errors.zip}</p>
+              )}
+            </div>
           </div>
 
           {/* Email */}
@@ -315,17 +390,41 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
             )}
           </div>
 
-          {/* Name */}
-          <div className="space-y-2">
-            <Label htmlFor="name">Name (optional)</Label>
-            <Input
-              id="name"
-              type="text"
-              placeholder="John Doe"
-              value={formData.name || ''}
-              onChange={(e) => handleChange('name', e.target.value)}
-              disabled={isLoading}
-            />
+          {/* First Name & Last Name */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="firstName">First Name (optional)</Label>
+              <Input
+                id="firstName"
+                type="text"
+                placeholder="John"
+                value={firstName}
+                onChange={(e) => handleFirstNameChange(e.target.value)}
+                onBlur={() => handleBlur('firstName')}
+                disabled={isLoading}
+                className={errors.firstName ? 'border-destructive' : ''}
+              />
+              {touched.firstName && errors.firstName && (
+                <p className="text-sm text-destructive">{errors.firstName}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="lastName">Last Name (optional)</Label>
+              <Input
+                id="lastName"
+                type="text"
+                placeholder="Doe"
+                value={lastName}
+                onChange={(e) => handleLastNameChange(e.target.value)}
+                onBlur={() => handleBlur('lastName')}
+                disabled={isLoading}
+                className={errors.lastName ? 'border-destructive' : ''}
+              />
+              {touched.lastName && errors.lastName && (
+                <p className="text-sm text-destructive">{errors.lastName}</p>
+              )}
+            </div>
           </div>
 
           {/* Roof Types */}

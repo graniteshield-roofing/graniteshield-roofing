@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +9,21 @@ import { AlertCircle, MapPin, CheckCircle2 } from 'lucide-react';
 import { QuoteResponse, formatCurrency, formatSquares } from '@/lib/api/quote';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 import { useEffect } from 'react';
+
+// Dynamically import map component to avoid SSR issues
+const QuoteMapPreview = dynamic(
+  () => import('@/components/QuoteMapPreview').then((mod) => mod.QuoteMapPreview),
+  {
+    ssr: false,
+    loading: () => (
+      <Card className="border-slate-200">
+        <CardContent className="p-8 text-center">
+          <p className="text-sm text-slate-600">Loading map preview...</p>
+        </CardContent>
+      </Card>
+    ),
+  }
+);
 
 interface QuoteResultsProps {
   data: QuoteResponse;
@@ -93,6 +109,9 @@ export function QuoteResults({ data, onReset }: QuoteResultsProps) {
             <div className="font-semibold text-slate-900 text-lg">
               {formatSquares(data.estimatedSquares)}
             </div>
+            <div className="text-sm text-slate-700 mt-1">
+              ({Math.round(data.estimatedSquares * 100).toLocaleString()} sq ft)
+            </div>
             <div className="text-xs text-slate-500 mt-1">
               Based on {measurementMethodLabel} data
             </div>
@@ -108,6 +127,14 @@ export function QuoteResults({ data, onReset }: QuoteResultsProps) {
           )}
         </CardContent>
       </Card>
+
+      {/* Map Preview */}
+      {data.coordinates?.latitude && data.coordinates?.longitude && (
+        <QuoteMapPreview
+          latitude={data.coordinates.latitude}
+          longitude={data.coordinates.longitude}
+        />
+      )}
 
       {/* Pricing Cards */}
       <div>

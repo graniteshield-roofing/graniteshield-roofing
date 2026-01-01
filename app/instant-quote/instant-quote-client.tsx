@@ -35,11 +35,12 @@ export function InstantQuoteClient() {
         measurementMethod: response.measurementMethod,
       });
     } catch (err) {
-      const errorMessage =
-        err instanceof Error
-          ? err.message
-          : 'Failed to get quote. Please try again or call us directly.';
-      setError(errorMessage);
+      // Show user-friendly error message
+      setError(
+        "We couldn't generate an instant quote right now, but we've received your info and will follow up with an exact price."
+      );
+      // Log the actual error for debugging
+      console.error('Quote request failed:', err);
     } finally {
       setIsLoading(false);
     }
