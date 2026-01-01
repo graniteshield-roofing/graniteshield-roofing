@@ -38,9 +38,13 @@ function track(event: string, payload?: Record<string, unknown>) {
 }
 
 export function QuoteResults({ data, onReset }: QuoteResultsProps) {
+  // Type guard to filter out undefined pricing entries
   const pricingEntries = Object.entries(data.pricing).filter(
-    ([_, value]) => value !== undefined
-  ) as Array<[keyof typeof ROOF_TYPE_CONFIG, QuoteResponse['pricing'][keyof QuoteResponse['pricing']]]>;
+    (entry): entry is [keyof typeof ROOF_TYPE_CONFIG, NonNullable<QuoteResponse['pricing'][keyof QuoteResponse['pricing']]>] => {
+      const [key, value] = entry;
+      return value !== undefined && key in ROOF_TYPE_CONFIG;
+    }
+  );
 
   const measurementMethodLabel =
     data.measurementMethod === 'lidar' ? 'LiDAR' : 'Synthetic';
