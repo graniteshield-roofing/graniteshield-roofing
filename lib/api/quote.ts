@@ -55,17 +55,21 @@ export interface QuoteResponse {
   };
 }
 
-// Normalize base URL: strip trailing slashes to prevent double slashes in endpoint
-function getNormalizedApiBase(): string {
-  const base = process.env.NEXT_PUBLIC_QUOTE_API_BASE_URL ?? 'http://localhost:4000';
+/**
+ * API Base URL for the Roof Measurement Engine backend
+ * 
+ * - Production: Set NEXT_PUBLIC_MEASURE_API_BASE_URL to the Render URL
+ * - Development: Falls back to http://localhost:4000 when env var is not set
+ */
+export const API_BASE_URL = (() => {
+  const base = process.env.NEXT_PUBLIC_MEASURE_API_BASE_URL || 'http://localhost:4000';
   // Strip all trailing slashes to ensure clean URL construction
   return base.replace(/\/+$/, '');
-}
+})();
 
 // Build endpoint URL with exactly one slash between base and path
 function buildQuoteUrl(): string {
-  const base = getNormalizedApiBase();
-  return `${base}/quote`;
+  return `${API_BASE_URL}/quote`;
 }
 
 export async function getInstantQuote(payload: QuoteRequest): Promise<QuoteResponse> {
@@ -134,4 +138,20 @@ export function formatCurrency(amount: number): string {
 
 export function formatSquares(squares: number): string {
   return `${squares.toFixed(1)} squares`;
+}
+
+/**
+ * Health check for the measurement engine backend
+ * Returns true if the backend is reachable and healthy
+ */
+export async function pingMeasureHealth(): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/health`, {
+      method: 'GET',
+      cache: 'no-store',
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
