@@ -31,20 +31,18 @@ export function SEOSchema({ type = 'home', service, article, faqs }: SEOSchemaPr
     url: 'https://graniteshieldroofing.com',
     logo: 'https://graniteshieldroofing.com/logo.png',
     image: 'https://graniteshieldroofing.com/og-image.jpg',
-    telephone: BUSINESS_CONFIG.phone,
-    email: BUSINESS_CONFIG.email,
+    telephone: BUSINESS_CONFIG.contact.phone,
+    email: BUSINESS_CONFIG.contact.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: BUSINESS_CONFIG.address.street,
       addressLocality: BUSINESS_CONFIG.address.city,
-      addressRegion: BUSINESS_CONFIG.address.state,
-      postalCode: BUSINESS_CONFIG.address.zip,
+      addressRegion: BUSINESS_CONFIG.address.stateAbbr,
       addressCountry: 'US',
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 43.6591,
-      longitude: -70.2568,
+      latitude: BUSINESS_CONFIG.location.latitude,
+      longitude: BUSINESS_CONFIG.location.longitude,
     },
     areaServed: [
       {
@@ -99,8 +97,8 @@ export function SEOSchema({ type = 'home', service, article, faqs }: SEOSchemaPr
       worstRating: '1',
     },
     sameAs: [
-      'https://www.facebook.com/graniteshieldroofing',
-      'https://www.instagram.com/graniteshieldroofing',
+      BUSINESS_CONFIG.social.facebook,
+      BUSINESS_CONFIG.social.instagram,
     ],
   };
 
