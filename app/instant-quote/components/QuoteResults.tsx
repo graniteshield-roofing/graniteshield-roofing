@@ -207,7 +207,7 @@ export function QuoteResults({ data, onReset }: QuoteResultsProps) {
       </div>
 
       {/* Assumptions */}
-      {data.assumptions.length > 0 && (
+      {(data.assumptions.length > 0 || data.estimatedSquares) && (
         <Card className="border-amber-200 bg-amber-50">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-2">
@@ -217,15 +217,34 @@ export function QuoteResults({ data, onReset }: QuoteResultsProps) {
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {data.assumptions.map((assumption, idx) => (
-                <li
-                  key={idx}
-                  className="text-sm text-slate-700 flex items-start gap-2"
-                >
-                  <span className="text-amber-600 mt-0.5">•</span>
-                  <span>{assumption}</span>
-                </li>
-              ))}
+              {/* Enhanced roof size assumption with calibration clarity */}
+              <li className="text-sm text-slate-700 flex items-start gap-2">
+                <span className="text-amber-600 mt-0.5">•</span>
+                <span>
+                  Estimated {data.estimatedSquares.toFixed(1)} squares (about{' '}
+                  {Math.round(data.estimatedSquares * 100).toLocaleString()} sq
+                  ft), calibrated using real-world HOVER test roofs for
+                  ballpark accuracy.
+                </span>
+              </li>
+              {/* Other assumptions from API */}
+              {data.assumptions
+                .filter(
+                  (assumption) =>
+                    !assumption.toLowerCase().includes('estimated') &&
+                    !assumption.toLowerCase().includes('squares') &&
+                    !assumption.toLowerCase().includes('sq ft') &&
+                    !assumption.toLowerCase().includes('calibrated')
+                )
+                .map((assumption, idx) => (
+                  <li
+                    key={idx}
+                    className="text-sm text-slate-700 flex items-start gap-2"
+                  >
+                    <span className="text-amber-600 mt-0.5">•</span>
+                    <span>{assumption}</span>
+                  </li>
+                ))}
             </ul>
           </CardContent>
         </Card>

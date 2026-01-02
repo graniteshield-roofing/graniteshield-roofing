@@ -6,6 +6,9 @@ import { QuoteForm } from './components/QuoteForm';
 import { QuoteResults } from './components/QuoteResults';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 
 // Simple tracking utility
@@ -17,10 +20,12 @@ export function InstantQuoteClient() {
   const [quote, setQuote] = useState<QuoteResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lastRequest, setLastRequest] = useState<QuoteRequest | null>(null);
 
   const handleSubmit = async (request: QuoteRequest) => {
     setIsLoading(true);
     setError(null);
+    setLastRequest(request); // Save request for retry
 
     track('instant_quote_submit', {
       address: request.address,
@@ -30,6 +35,7 @@ export function InstantQuoteClient() {
     try {
       const response = await getInstantQuote(request);
       setQuote(response);
+      setError(null); // Clear any previous error on success
       track('instant_quote_success', {
         estimatedSquares: response.estimatedSquares,
         measurementMethod: response.measurementMethod,
@@ -46,9 +52,16 @@ export function InstantQuoteClient() {
     }
   };
 
+  const handleRetry = () => {
+    if (lastRequest) {
+      handleSubmit(lastRequest);
+    }
+  };
+
   const handleReset = () => {
     setQuote(null);
     setError(null);
+    setLastRequest(null);
   };
 
   return (
@@ -87,10 +100,40 @@ export function InstantQuoteClient() {
             <QuoteResults data={quote} onReset={handleReset} />
           ) : (
             <div className="max-w-2xl mx-auto">
+              {/* Error Alert with Retry */}
+              {error && (
+                <Alert variant="destructive" className="mb-6">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Unable to Generate Quote</AlertTitle>
+                  <AlertDescription className="space-y-3">
+                    <p>{error}</p>
+                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                      <Button
+                        onClick={handleRetry}
+                        disabled={isLoading || !lastRequest}
+                        variant="outline"
+                        size="sm"
+                      >
+                        Try Again
+                      </Button>
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="sm:ml-auto"
+                      >
+                        <a href="tel:+12075308362">
+                          Call (207) 530-8362
+                        </a>
+                      </Button>
+                    </div>
+                  </AlertDescription>
+                </Alert>
+              )}
               <QuoteForm
                 onSubmit={handleSubmit}
                 isLoading={isLoading}
-                error={error}
+                error={null}
               />
 
               {/* Info Card */}
