@@ -16,6 +16,7 @@ export interface QuoteRequest {
   roofTypes?: Array<'asphalt' | 'standing_seam_roof_over' | 'standing_seam_tear_off'>;
 }
 
+// Legacy types (deprecated, kept for backwards compatibility if needed)
 export interface PricePerSquare {
   low: number;
   mid: number;
@@ -37,13 +38,57 @@ export interface QuotePricing {
   standingSeamTearOff?: PricingRange;
 }
 
+// New backend contract types
+export interface Calibration {
+  measurement_source: 'hover' | 'synthetic' | 'synthetic_clamped';
+  calibration_status: 'exact_hover' | 'within_range' | 'out_of_range';
+  data_source_display: string;
+}
+
+export interface PriceEstimate {
+  type: 'range' | 'exact';
+  min?: number;
+  max?: number;
+  exact?: number;
+}
+
+export interface Package {
+  priceEstimate: PriceEstimate;
+  label?: string;
+}
+
+export interface Packages {
+  good: Package;
+  best: Package;
+}
+
+export interface Confidence {
+  measurement?: number; // 0-1 scale
+  pricing?: number; // 0-1 scale
+  warnings?: string[];
+}
+
+export interface Measurement {
+  estimatedSquares?: number;
+  calibratedSquares?: number;
+  method?: 'lidar' | 'synthetic';
+  // Add other measurement fields as needed
+}
+
 export interface QuoteResponse {
   normalizedAddress: string;
   coordinates?: { latitude: number; longitude: number };
-  estimatedSquares: number;
-  measurementMethod: 'lidar' | 'synthetic';
-  pricing: QuotePricing;
+  // New backend contract structure (required fields from new backend)
+  packages: Packages;
+  calibration: Calibration;
+  // Optional new fields
+  measurement?: Measurement;
+  confidence?: Confidence;
   assumptions: string[];
+  // Legacy fields (deprecated, kept for backwards compatibility during migration)
+  estimatedSquares?: number;
+  measurementMethod?: 'lidar' | 'synthetic';
+  pricing?: QuotePricing;
   metadata?: {
     cached?: boolean;
     processingTimeMs?: number;

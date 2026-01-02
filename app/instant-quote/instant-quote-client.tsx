@@ -2,34 +2,6 @@
 
 import { useState } from 'react';
 import { QuoteRequest, QuoteResponse, getInstantQuote } from '@/lib/api/quote';
-
-// Save lead to database
-async function saveLead(request: QuoteRequest, response: QuoteResponse) {
-  try {
-    await fetch('/api/leads', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        address: request.address,
-        normalizedAddress: response.normalizedAddress,
-        name: request.name,
-        firstName: request.firstName,
-        lastName: request.lastName,
-        email: request.email,
-        phone: request.phone,
-        roofTypes: request.roofTypes,
-        estimatedSquares: response.estimatedSquares,
-        measurementMethod: response.measurementMethod,
-        coordinates: response.coordinates,
-        pricing: response.pricing,
-        metadata: response.metadata,
-      }),
-    });
-  } catch (error) {
-    console.error('Error saving lead:', error);
-    throw error;
-  }
-}
 import { QuoteForm } from './components/QuoteForm';
 import { QuoteResults } from './components/QuoteResults';
 import { Card, CardContent } from '@/components/ui/card';
@@ -65,18 +37,15 @@ export function InstantQuoteClient() {
       setQuote(response);
       setError(null); // Clear any previous error on success
       track('instant_quote_success', {
-        estimatedSquares: response.estimatedSquares,
-        measurementMethod: response.measurementMethod,
+        calibrationStatus: response.calibration?.calibration_status,
+        measurementSource: response.calibration?.measurement_source,
+        calibratedSquares: response.measurement?.calibratedSquares || response.estimatedSquares,
       });
-
-      // Save lead to database (don't block on this)
-      saveLead(request, response).catch(err => {
-        console.error('Failed to save lead:', err);
-      });
+      // Note: Lead capture is now handled in LeadCaptureForm component
     } catch (err) {
       // Show user-friendly error message
       setError(
-        "We couldn't generate an instant quote right now, but we've received your info and will follow up with an exact price."
+        "We couldn't generate an instant quote right now. Enter your information below and we'll measure your roof manually and get right back to you."
       );
       // Log the actual error for debugging
       console.error('Quote request failed:', err);
@@ -104,7 +73,7 @@ export function InstantQuoteClient() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <Badge className="mb-6 bg-blue-600 text-white border-0">
-              Instant Roofing Estimate • Powered by LiDAR & Real Pricing
+              Instant Standing Seam Estimate • Advanced Measurement Technology
             </Badge>
 
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
@@ -112,10 +81,9 @@ export function InstantQuoteClient() {
             </h1>
 
             <p className="text-lg text-slate-200 leading-relaxed mb-6">
-              Get a ballpark estimate for your roofing project in minutes. Our
-              instant quote uses LiDAR data, roof size measurements, and
-              GraniteShield&apos;s real per-square pricing to give you accurate
-              estimates for asphalt shingles and standing seam metal roofing.
+              Get an instant estimate for standing seam metal roofing in minutes. We
+              measure your roof using advanced satellite and LiDAR technology, then
+              provide clear package pricing — no confusing per-square-foot calculations.
             </p>
 
             <p className="text-slate-300 text-sm">
@@ -130,7 +98,18 @@ export function InstantQuoteClient() {
       <section className="py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {quote ? (
-            <QuoteResults data={quote} onReset={handleReset} />
+            <QuoteResults
+              data={quote}
+              initialFormData={{
+                address: lastRequest?.address || '',
+                name: lastRequest?.name,
+                firstName: lastRequest?.firstName,
+                lastName: lastRequest?.lastName,
+                email: lastRequest?.email,
+                phone: lastRequest?.phone,
+              }}
+              onReset={handleReset}
+            />
           ) : (
             <div className="max-w-2xl mx-auto">
               {/* Error Alert with Retry */}
@@ -179,28 +158,28 @@ export function InstantQuoteClient() {
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-0.5">•</span>
                       <span>
-                        Enter your address and select your preferred roof types
+                        Enter your address to get started
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-0.5">•</span>
                       <span>
-                        Our system uses LiDAR and synthetic roof measurements to
-                        estimate your roof size
+                        We measure your roof using advanced satellite and LiDAR
+                        technology
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-0.5">•</span>
                       <span>
-                        Get instant pricing estimates based on GraniteShield&apos;s
-                        real per-square rates
+                        See clear GOOD vs BEST package pricing — simple, transparent
+                        estimates
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 mt-0.5">•</span>
                       <span>
-                        This is an estimate — final pricing requires an on-site
-                        assessment. Questions? Call us at{' '}
+                        This is a preliminary estimate — we&apos;ll verify and finalize
+                        pricing during your free on-site inspection. Questions? Call us at{' '}
                         <a
                           href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
                           className="font-semibold text-blue-600 hover:underline"

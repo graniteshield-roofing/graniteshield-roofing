@@ -6,7 +6,6 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
@@ -19,17 +18,8 @@ interface QuoteFormProps {
   error?: string | null;
 }
 
-const ROOF_TYPE_OPTIONS: Array<{
-  id: RoofTypeOption;
-  label: string;
-}> = [
-  { id: 'asphalt', label: 'Asphalt Shingles' },
-  { id: 'standing_seam_roof_over', label: 'Standing Seam Metal (Roof-over)' },
-  { id: 'standing_seam_tear_off', label: 'Standing Seam Metal (Full Tear-off)' },
-];
-
+// Default to standing seam options (focus on metal roofing)
 const DEFAULT_ROOF_TYPES: RoofTypeOption[] = [
-  'asphalt',
   'standing_seam_roof_over',
   'standing_seam_tear_off',
 ];
@@ -52,10 +42,10 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
   const [lastName, setLastName] = useState<string>('');
 
   const [errors, setErrors] = useState<
-    Partial<Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName', string>>
+    Partial<Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'phone' | 'firstName' | 'lastName', string>>
   >({});
   const [touched, setTouched] = useState<
-    Partial<Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName', boolean>>
+    Partial<Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'phone' | 'firstName' | 'lastName', boolean>>
   >({});
 
   const formatPhoneNumber = (value: string): string => {
@@ -71,7 +61,7 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
 
   const validate = (): boolean => {
     const newErrors: Partial<
-      Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName', string>
+      Record<'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'phone' | 'firstName' | 'lastName', string>
     > = {};
 
     // Street address validation
@@ -106,10 +96,7 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    // Roof types validation
-    if (!formData.roofTypes || formData.roofTypes.length === 0) {
-      newErrors.roofTypes = 'Select at least one roof type.';
-    }
+    // Note: Roof types default to standing seam options, no validation needed
 
     // Phone validation: if provided, must have at least 10 digits
     if (formData.phone) {
@@ -126,12 +113,13 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
   const handleChange = (field: keyof QuoteRequest, value: string | RoofTypeOption[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (
-      touched[field as 'email' | 'roofTypes' | 'phone'] &&
-      errors[field as 'email' | 'roofTypes' | 'phone']
+      (field === 'email' || field === 'phone') &&
+      touched[field] &&
+      errors[field]
     ) {
       setErrors((prev) => ({
         ...prev,
-        [field as 'email' | 'roofTypes' | 'phone']: undefined,
+        [field]: undefined,
       }));
     }
   };
@@ -180,7 +168,7 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
     }
   };
 
-  const handleBlur = (field: 'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'roofTypes' | 'phone' | 'firstName' | 'lastName') => {
+  const handleBlur = (field: 'streetAddress' | 'city' | 'state' | 'zip' | 'email' | 'phone' | 'firstName' | 'lastName') => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     validate();
   };
@@ -188,17 +176,6 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
   const handlePhoneChange = (value: string) => {
     const formatted = formatPhoneNumber(value);
     handleChange('phone', formatted);
-  };
-
-  const handleRoofTypeToggle = (roofType: RoofTypeOption) => {
-    const currentTypes = formData.roofTypes || [];
-    const newTypes = currentTypes.includes(roofType)
-      ? currentTypes.filter((type) => type !== roofType)
-      : [...currentTypes, roofType];
-    handleChange('roofTypes', newTypes);
-    if (touched.roofTypes && errors.roofTypes) {
-      setErrors((prev) => ({ ...prev, roofTypes: undefined }));
-    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -209,7 +186,6 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
       state: true,
       zip: true,
       email: true,
-      roofTypes: true,
       phone: true,
       firstName: true,
       lastName: true,
@@ -427,33 +403,10 @@ export function QuoteForm({ onSubmit, isLoading, error }: QuoteFormProps) {
             </div>
           </div>
 
-          {/* Roof Types */}
-          <div className="space-y-3">
-            <Label>
-              Roof Types <span className="text-destructive">*</span>
-            </Label>
-            <div className="space-y-3">
-              {ROOF_TYPE_OPTIONS.map((option) => (
-                <div key={option.id} className="flex items-center space-x-3">
-                  <Checkbox
-                    id={option.id}
-                    checked={(formData.roofTypes || []).includes(option.id)}
-                    onCheckedChange={() => handleRoofTypeToggle(option.id)}
-                    disabled={isLoading}
-                  />
-                  <Label
-                    htmlFor={option.id}
-                    className="text-sm font-normal cursor-pointer"
-                  >
-                    {option.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
-            {touched.roofTypes && errors.roofTypes && (
-              <p className="text-sm text-destructive">{errors.roofTypes}</p>
-            )}
-          </div>
+          {/* Roof Types - Default to standing seam, hidden for simplicity */}
+          <input type="hidden" name="roofTypes" value={formData.roofTypes?.join(',')} />
+          {/* Note: We default to standing seam options and hide the selection for simplicity */}
+          {/* The backend will receive standing_seam_roof_over and standing_seam_tear_off by default */}
 
           {/* Submit Button */}
           <Button
