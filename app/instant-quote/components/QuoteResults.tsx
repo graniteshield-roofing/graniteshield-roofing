@@ -223,8 +223,7 @@ export function QuoteResults({ data, onReset }: QuoteResultsProps) {
                 <span>
                   Estimated {data.estimatedSquares.toFixed(1)} squares (about{' '}
                   {Math.round(data.estimatedSquares * 100).toLocaleString()} sq
-                  ft), calibrated using real-world HOVER test roofs for
-                  ballpark accuracy.
+                  ft), calibrated using real-world HOVER test roofs.
                 </span>
               </li>
               {/* Other assumptions from API */}

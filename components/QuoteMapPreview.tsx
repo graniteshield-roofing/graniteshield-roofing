@@ -34,7 +34,7 @@ export function QuoteMapPreview({
 
     // Guard: must have token
     if (!MAPBOX_TOKEN) {
-      setError('Map preview unavailable (missing Mapbox token)');
+      setError('Map preview unavailable right now');
       setIsLoading(false);
       return;
     }
@@ -46,7 +46,7 @@ export function QuoteMapPreview({
       isNaN(latitude) ||
       isNaN(longitude)
     ) {
-      setError('Map preview unavailable (invalid coordinates)');
+      setError('Map preview unavailable right now');
       setIsLoading(false);
       return;
     }
@@ -159,7 +159,7 @@ export function QuoteMapPreview({
 
       mapInstance.on('error', (e) => {
         console.error('Mapbox error:', e);
-        setError('Map failed to load');
+        setError('Map preview unavailable right now');
         setIsLoading(false);
       });
 
@@ -174,7 +174,7 @@ export function QuoteMapPreview({
       };
     } catch (err) {
       console.error('Error initializing map:', err);
-      setError('Map preview unavailable');
+      setError('Map preview unavailable right now');
       setIsLoading(false);
     }
   }, [latitude, longitude, parcelBounds, MAPBOX_TOKEN]);
