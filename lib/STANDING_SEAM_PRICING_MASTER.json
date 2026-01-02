@@ -1,0 +1,141 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-01",
+  "description": "Master pricing list for standing seam metal roofing. This is the single source of truth for all quote calculations.",
+  
+  "baseInstallation": {
+    "roofOver": {
+      "pricePerSquare": 925,
+      "description": "Base Installation – Roof-Over (normal difficulty, standard color)",
+      "includes": [
+        "Materials",
+        "Sub labor",
+        "Share of monthly overhead",
+        "Average dump fees",
+        "30% profit margin target"
+      ]
+    },
+    "tearOff": {
+      "pricePerSquare": 1035,
+      "description": "Base Installation – Tear-Off + New Standing Seam (standard color)",
+      "includes": [
+        "Materials",
+        "Sub labor",
+        "Share of monthly overhead",
+        "Average dump fees",
+        "30% profit margin target"
+      ]
+    }
+  },
+  
+  "difficultyAddOns": {
+    "highPitch": {
+      "pricePerSquare": 110,
+      "description": "High Pitch (8/12 and steeper)",
+      "stackable": true
+    },
+    "complexRoof": {
+      "pricePerSquare": 90,
+      "description": "Complex Roof (lots of valleys, dormers, hips, cut-up rooflines)",
+      "stackable": true
+    }
+  },
+  
+  "colorFinish": {
+    "standard": {
+      "pricePerSquare": 0,
+      "description": "Standard colors (no upcharge)"
+    },
+    "premium": {
+      "pricePerSquare": 35,
+      "description": "Textured / Premium Color Upgrade"
+    }
+  },
+  
+  "underlayment": {
+    "syntheticBase": {
+      "included": true,
+      "description": "Synthetic Underlayment (Rhino U20) - included in base pricing"
+    },
+    "syntheticExtra": {
+      "pricePerSquare": 20,
+      "description": "Extra layer or additional coverage"
+    },
+    "iceWaterShield": {
+      "perSquare": 60,
+      "perLinearFoot": 8,
+      "description": "Ice & Water Shield (Marco or equivalent)",
+      "note": "Choose per-square OR per-linear-foot pricing, not both"
+    }
+  },
+  
+  "ridgeTrimAccessories": {
+    "ridgeCap": {
+      "pricePerLinearFoot": 10,
+      "description": "Standing Seam Ridge Cap Install"
+    },
+    "dripEdge": {
+      "pricePerLinearFoot": 6,
+      "description": "Drip Edge / Eave Metal / Gutter Apron"
+    },
+    "fasciaMetalRepair": {
+      "pricePerLinearFoot": 12,
+      "description": "Fascia Metal / Fascia Repair (metal cladding, minor carpentry)"
+    }
+  },
+  
+  "snowManagement": {
+    "snowGuards": {
+      "pricePerLinearFoot": 12,
+      "minimumCharge": 750,
+      "description": "Snow Guards (standing seam compatible), supply & install"
+    }
+  },
+  
+  "penetrationsFlashing": {
+    "plumbingVent": {
+      "priceEach": 50,
+      "description": "Plumbing Vent Flashings (per boot)"
+    },
+    "chimneyStandard": {
+      "priceEach": 375,
+      "description": "Standard Chimney Flashing / Re-Flash"
+    },
+    "chimneyComplex": {
+      "priceEach": 525,
+      "description": "Complex Chimney Flashing (large, stone chimneys, multi-slope interfaces)"
+    },
+    "skylightReflash": {
+      "priceEach": 450,
+      "description": "Skylight Re-Flash (existing skylight, new metal roof)"
+    },
+    "skylightRemoval": {
+      "priceEach": 225,
+      "description": "Skylight Removal & Close-In (sheath + underlayment + metal)"
+    }
+  },
+  
+  "minimums": {
+    "minimumJobCharge": 6500,
+    "description": "Minimum Standing Seam Job Charge - use when calculated totals fall below this amount"
+  },
+  
+  "calculationRules": {
+    "squareDefinition": "1 square = 100 sq ft",
+    "stackableModifiers": [
+      "highPitch",
+      "complexRoof"
+    ],
+    "discountPolicy": "Never lower pricing automatically. Discounts can be shown or applied only if explicitly toggled in config.",
+    "missingDataHandling": "If required data (slope, complexity, tear-off yes/no) is missing, give a range but mark: 'Subject to on-site inspection to finalize price.'"
+  },
+  
+  "outputFormat": {
+    "required": [
+      "Base price (roof-over or tear-off)",
+      "Add-ons (pitch, complexity, color, accessories)",
+      "Job total",
+      "Optional monthly payment preview"
+    ]
+  }
+}
