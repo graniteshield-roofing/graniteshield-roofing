@@ -2,6 +2,34 @@
 
 import { useState } from 'react';
 import { QuoteRequest, QuoteResponse, getInstantQuote } from '@/lib/api/quote';
+
+// Save lead to database
+async function saveLead(request: QuoteRequest, response: QuoteResponse) {
+  try {
+    await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        address: request.address,
+        normalizedAddress: response.normalizedAddress,
+        name: request.name,
+        firstName: request.firstName,
+        lastName: request.lastName,
+        email: request.email,
+        phone: request.phone,
+        roofTypes: request.roofTypes,
+        estimatedSquares: response.estimatedSquares,
+        measurementMethod: response.measurementMethod,
+        coordinates: response.coordinates,
+        pricing: response.pricing,
+        metadata: response.metadata,
+      }),
+    });
+  } catch (error) {
+    console.error('Error saving lead:', error);
+    throw error;
+  }
+}
 import { QuoteForm } from './components/QuoteForm';
 import { QuoteResults } from './components/QuoteResults';
 import { Card, CardContent } from '@/components/ui/card';
@@ -39,6 +67,11 @@ export function InstantQuoteClient() {
       track('instant_quote_success', {
         estimatedSquares: response.estimatedSquares,
         measurementMethod: response.measurementMethod,
+      });
+
+      // Save lead to database (don't block on this)
+      saveLead(request, response).catch(err => {
+        console.error('Failed to save lead:', err);
       });
     } catch (err) {
       // Show user-friendly error message

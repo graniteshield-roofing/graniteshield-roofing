@@ -10,8 +10,32 @@ import { MEDIA, getResponsiveSizes } from '@/lib/media';
 import { FeaturedProject } from '@/components/featured-project';
 import { SystemAnatomy } from '@/components/system-anatomy';
 import { MetalMacroGallery } from '@/components/metal-macro-gallery';
+import { SEOSchema } from '@/components/SEOSchema';
 
 export default function HomePage() {
+  // Add SEO Schema markup
+  const seoSchemaProps = {
+    type: 'home' as const,
+    faqs: [
+      {
+        question: 'How long does a roof replacement take in Maine?',
+        answer: 'Most residential roof replacements in Maine take 1-3 days depending on size, weather conditions, and roof complexity. We work efficiently while maintaining quality standards.',
+      },
+      {
+        question: 'Do you offer instant roof measurements?',
+        answer: 'Yes! Our instant quote tool uses advanced LiDAR technology to provide accurate roof measurements in seconds. Get your estimate at graniteshieldroofing.com/instant-quote',
+      },
+      {
+        question: 'What areas in Maine do you serve?',
+        answer: 'We serve all of Southern Maine including Portland, Bangor, Augusta, Cumberland, Falmouth, Yarmouth, Freeport, Scarborough, Cape Elizabeth, and surrounding areas.',
+      },
+      {
+        question: 'What types of roofing do you install?',
+        answer: 'We specialize in standing seam metal roofing and high-performance asphalt shingle systems. Both are engineered for Maine\'s harsh weather including heavy snow loads, ice dams, and coastal exposure.',
+      },
+    ],
+  };
+
   const baseUrl = 'https://graniteshieldroofing.com';
 
   // ✅ Use MEDIA library for hero image
@@ -141,7 +165,10 @@ export default function HomePage() {
 
   return (
     <>
-      {/* JSON-LD */}
+      {/* Enhanced SEO Schema */}
+      <SEOSchema {...seoSchemaProps} />
+      
+      {/* Legacy JSON-LD (keeping for compatibility) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
