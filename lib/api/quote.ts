@@ -113,11 +113,14 @@ export interface QuoteResponse {
  * - Production: Set NEXT_PUBLIC_MEASURE_API_BASE_URL to the Render URL
  * - Development: Falls back to http://localhost:4000 when env var is not set
  */
-export const API_BASE_URL = (() => {
-  const base = process.env.NEXT_PUBLIC_MEASURE_API_BASE_URL || 'http://localhost:4000';
-  // Strip all trailing slashes to ensure clean URL construction
-  return base.replace(/\/+$/, '');
-})();
+// Temporarily hardcoded for debugging - environment variable not loading
+export const API_BASE_URL = 'https://roof-measurement-engine.onrender.com';
+
+// export const API_BASE_URL = (() => {
+//   const base = process.env.NEXT_PUBLIC_MEASURE_API_BASE_URL || 'http://localhost:4000';
+//   // Strip all trailing slashes to ensure clean URL construction
+//   return base.replace(/\/+$/, '');
+// })();
 
 // Build endpoint URL with exactly one slash between base and path
 function buildQuoteUrl(): string {
