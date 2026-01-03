@@ -114,7 +114,7 @@ export const API_BASE_URL = (() => {
 
 // Build endpoint URL with exactly one slash between base and path
 function buildQuoteUrl(): string {
-  return `${API_BASE_URL}/measure`;
+  return `${API_BASE_URL}/quote`;
 }
 
 export async function getInstantQuote(payload: QuoteRequest): Promise<QuoteResponse> {
