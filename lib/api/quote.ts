@@ -58,8 +58,15 @@ export interface Package {
 }
 
 export interface Packages {
-  good: Package;
-  best: Package;
+  metal?: {
+    good?: Package;
+    best?: Package;
+  };
+  shingles?: {
+    good?: Package;
+    better?: Package;
+    best?: Package;
+  };
 }
 
 export interface Confidence {

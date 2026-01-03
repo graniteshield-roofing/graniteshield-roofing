@@ -217,11 +217,11 @@ export function QuoteResults({ data, initialFormData, onReset }: QuoteResultsPro
               <div className="flex items-center justify-between mb-2">
                 <CardTitle className="text-2xl font-bold text-slate-900">GOOD</CardTitle>
                 <Badge variant="outline" className="text-sm">
-                  {data.packages.good.label || 'Standard Standing Seam'}
+                  {data.packages.metal?.good?.label || 'Standard Standing Seam'}
                 </Badge>
               </div>
               <div className="text-4xl font-extrabold text-slate-900">
-                {formatPriceEstimate(data.packages.good.priceEstimate)}
+                {formatPriceEstimate(data.packages.metal?.good?.priceEstimate || { type: 'exact', exact: 0 })}
               </div>
             </CardHeader>
             <CardContent>
@@ -255,11 +255,11 @@ export function QuoteResults({ data, initialFormData, onReset }: QuoteResultsPro
               <div className="flex items-center justify-between mb-2">
                 <CardTitle className="text-2xl font-bold text-slate-900">BEST</CardTitle>
                 <Badge variant="outline" className="text-sm">
-                  {data.packages.best.label || 'Enhanced Standing Seam'}
+                  {data.packages.metal?.best?.label || 'Enhanced Standing Seam'}
                 </Badge>
               </div>
               <div className="text-4xl font-extrabold text-slate-900">
-                {formatPriceEstimate(data.packages.best.priceEstimate)}
+                {formatPriceEstimate(data.packages.metal?.best?.priceEstimate || { type: 'exact', exact: 0 })}
               </div>
             </CardHeader>
             <CardContent>
