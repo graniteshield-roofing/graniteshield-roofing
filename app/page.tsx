@@ -75,12 +75,12 @@ export default function HomePage() {
       answer: 'Yes. We install standing seam metal roofing and high-performance shingle systems, built for Maine weather and detailed for long-term performance.',
     },
     {
-      question: 'What's included in your roof replacement process?',
+      question: 'What\'s included in your roof replacement process?',
       answer: 'We focus on system-level performance: protection in vulnerable areas, clean flashing, ventilation (when applicable), and thorough cleanup.',
     },
     {
       question: 'Do you handle emergency repairs?',
-      answer: 'Yes. If you have active leaking or storm damage, contact us and we'll help stabilize the situation quickly.',
+      answer: 'Yes. If you have active leaking or storm damage, contact us and we\'ll help stabilize the situation quickly.',
     },
     {
       question: 'Do you install metal roofing in coastal towns?',
