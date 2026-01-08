@@ -5,57 +5,20 @@ import { ArrowRight, Phone, CheckCircle2, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { BUSINESS_CONFIG } from '@/lib/business-config';
+import { BUSINESS_CONFIG, SITE_URL } from '@/lib/business-config';
 import { MEDIA, getResponsiveSizes } from '@/lib/media';
 import { FeaturedProject } from '@/components/featured-project';
 import { SystemAnatomy } from '@/components/system-anatomy';
 import { MetalMacroGallery } from '@/components/metal-macro-gallery';
-import { SEOSchema } from '@/components/SEOSchema';
+import { FAQSchema, WebPageSchema } from '@/components/schema-markup';
+import { getServiceAreaNames } from '@/lib/towns-data';
 
 export default function HomePage() {
-  // Add SEO Schema markup
-  const seoSchemaProps = {
-    type: 'home' as const,
-    faqs: [
-      {
-        question: 'How long does a roof replacement take in Maine?',
-        answer: 'Most residential roof replacements in Maine take 1-3 days depending on size, weather conditions, and roof complexity. We work efficiently while maintaining quality standards.',
-      },
-      {
-        question: 'Do you offer instant roof measurements?',
-        answer: 'Yes! Our instant quote tool uses advanced LiDAR technology to provide accurate roof measurements in seconds. Get your estimate at graniteshieldroofing.com/instant-quote',
-      },
-      {
-        question: 'What areas in Maine do you serve?',
-        answer: 'We serve all of Southern Maine including Portland, Bangor, Augusta, Cumberland, Falmouth, Yarmouth, Freeport, Scarborough, Cape Elizabeth, and surrounding areas.',
-      },
-      {
-        question: 'What types of roofing do you install?',
-        answer: 'We specialize in standing seam metal roofing and high-performance asphalt shingle systems. Both are engineered for Maine\'s harsh weather including heavy snow loads, ice dams, and coastal exposure.',
-      },
-    ],
-  };
-
-  const baseUrl = 'https://graniteshieldroofing.com';
-
   // ✅ Use MEDIA library for hero image
   const heroImg = MEDIA.heroes.main;
 
-  const serviceAreas = [
-    'Cumberland Center',
-    'Portland',
-    'Falmouth',
-    'Yarmouth',
-    'Freeport',
-    'Scarborough',
-    'Cape Elizabeth',
-    'South Portland',
-    'Westbrook',
-    'Biddeford',
-    'Saco',
-    'Auburn',
-    'Turner',
-  ];
+  // ✅ Get service areas from towns-data.ts (single source of truth)
+  const serviceAreas = getServiceAreaNames();
 
   const services = [
     {
@@ -104,83 +67,46 @@ export default function HomePage() {
 
   const faqs = [
     {
-      q: 'Do you serve homeowners throughout Southern Maine?',
-      a: 'Yes. GraniteShield Roofing & Exteriors serves Southern Maine across Cumberland, York, and Androscoggin County areas.',
+      question: 'Do you serve homeowners throughout Southern Maine?',
+      answer: 'Yes. GraniteShield Roofing & Exteriors serves Southern Maine across Cumberland, York, and Androscoggin County areas.',
     },
     {
-      q: 'Do you install both metal and shingle roofing?',
-      a: 'Yes. We install standing seam metal roofing and high-performance shingle systems, built for Maine weather and detailed for long-term performance.',
+      question: 'Do you install both metal and shingle roofing?',
+      answer: 'Yes. We install standing seam metal roofing and high-performance shingle systems, built for Maine weather and detailed for long-term performance.',
     },
     {
-      q: 'What’s included in your roof replacement process?',
-      a: 'We focus on system-level performance: protection in vulnerable areas, clean flashing, ventilation (when applicable), and thorough cleanup.',
+      question: 'What's included in your roof replacement process?',
+      answer: 'We focus on system-level performance: protection in vulnerable areas, clean flashing, ventilation (when applicable), and thorough cleanup.',
     },
     {
-      q: 'Do you handle emergency repairs?',
-      a: 'Yes. If you have active leaking or storm damage, contact us and we’ll help stabilize the situation quickly.',
+      question: 'Do you handle emergency repairs?',
+      answer: 'Yes. If you have active leaking or storm damage, contact us and we'll help stabilize the situation quickly.',
     },
     {
-      q: 'Do you install metal roofing in coastal towns?',
-      a: 'Yes. Coastal installations require wind- and salt-resistant detailing designed for long-term performance.',
+      question: 'Do you install metal roofing in coastal towns?',
+      answer: 'Yes. Coastal installations require wind- and salt-resistant detailing designed for long-term performance.',
+    },
+    {
+      question: 'How long does a roof replacement take in Maine?',
+      answer: 'Most residential roof replacements in Maine take 1-3 days depending on size, weather conditions, and roof complexity. We work efficiently while maintaining quality standards.',
+    },
+    {
+      question: 'Do you offer instant roof measurements?',
+      answer: 'Yes! Our instant quote tool uses advanced LiDAR technology to provide accurate roof measurements in seconds. Get your estimate at graniteshieldroofing.com/instant-quote',
     },
   ];
 
-  const webPageSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: `${BUSINESS_CONFIG.name} | Roofing & Exteriors in Southern Maine`,
-    url: baseUrl,
-    description:
-      'Owner-operated roofing and exterior contractor in Southern Maine. Standing seam metal roofing, shingle roofing, roof replacement, roof repair, siding, and windows.',
-  };
-
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': ['LocalBusiness', 'HomeAndConstructionBusiness', 'RoofingContractor'],
-    name: BUSINESS_CONFIG.name,
-    url: baseUrl,
-    telephone: BUSINESS_CONFIG.contact.phoneRaw,
-    description:
-      "Owner-operated roofing and exterior contractor serving Southern Maine. Standing seam metal roofing, shingle roofing, roof replacement, roof repair, siding, and windows — built for Maine weather.",
-    areaServed: serviceAreas.map((a) => ({
-      '@type': 'City',
-      name: a,
-      address: {
-        '@type': 'PostalAddress',
-        addressRegion: 'ME',
-        addressCountry: 'US',
-      },
-    })),
-  };
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  };
-
   return (
     <>
-      {/* Enhanced SEO Schema */}
-      <SEOSchema {...seoSchemaProps} />
-      
-      {/* Legacy JSON-LD (keeping for compatibility) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      {/* Schema Markup - optimized for SEO, geo, and AI readability */}
+      {/* OrganizationSchema is already in layout.tsx (applies to all pages) */}
+      <WebPageSchema
+        name={`${BUSINESS_CONFIG.name} | Roofing & Exteriors in Southern Maine`}
+        description={BUSINESS_CONFIG.branding.description}
+        url={SITE_URL}
+        mainEntity={{ '@type': 'LocalBusiness', '@id': `${SITE_URL}/#organization` }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <FAQSchema faqs={faqs} />
 
       {/* ✅ HERO */}
       <section className="relative overflow-hidden bg-slate-950">

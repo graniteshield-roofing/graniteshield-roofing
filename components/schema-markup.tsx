@@ -213,16 +213,49 @@ export function HowToSchema({ name, description, steps, totalTime, url }: any) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }
 
-export function ItemListSchema({ name, items }: { name: string; items: string[] }) {
+export function WebPageSchema({
+  name,
+  description,
+  url,
+  mainEntity,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  mainEntity?: { '@type': string; '@id': string };
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name,
+    description,
+    url,
+    ...(mainEntity ? { mainEntity } : {}),
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}
+
+export function ItemListSchema({ 
+  name, 
+  items 
+}: { 
+  name: string; 
+  items: string[] | Array<{ name: string; url?: string }> 
+}) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name,
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item,
-    })),
+    itemListElement: items.map((item, index) => {
+      const itemName = typeof item === 'string' ? item : item.name;
+      const itemUrl = typeof item === 'string' ? undefined : item.url;
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: itemName,
+        ...(itemUrl ? { item: itemUrl } : {}),
+      };
+    }),
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }

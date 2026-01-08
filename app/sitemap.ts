@@ -1,50 +1,56 @@
 import { MetadataRoute } from 'next';
 import { getAllTownSlugs } from '@/lib/towns-data';
+import { SITE_URL } from '@/lib/business-config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://graniteshieldroofing.com';
   const currentDate = new Date();
 
   // Core pages
   const corePages: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: SITE_URL,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/services`,
+      url: `${SITE_URL}/instant-quote`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/services`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/areas`,
+      url: `${SITE_URL}/areas`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/roofing-guides`,
+      url: `${SITE_URL}/roofing-guides`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: `${SITE_URL}/contact`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${SITE_URL}/about`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/privacy-policy`,
+      url: `${SITE_URL}/privacy-policy`,
       lastModified: currentDate,
       changeFrequency: 'yearly',
       priority: 0.3,
@@ -67,7 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const servicePages: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
-    url: `${baseUrl}/services/${slug}`,
+    url: `${SITE_URL}/services/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
@@ -76,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Town pages (dynamic from towns-data.ts)
   const townSlugs = getAllTownSlugs();
   const townPages: MetadataRoute.Sitemap = townSlugs.map((slug) => ({
-    url: `${baseUrl}/areas/${slug}`,
+    url: `${SITE_URL}/areas/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
@@ -85,7 +91,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Problem/Guide pages
   const problemPages: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}/problems/ice-dams`,
+      url: `${SITE_URL}/problems/ice-dams`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
@@ -95,25 +101,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Report pages
   const reportPages: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}/reports`,
+      url: `${SITE_URL}/reports`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/reports/maine-roofing-cost-report-winter-2025`,
+      url: `${SITE_URL}/reports/maine-roofing-cost-report-winter-2025`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/reports/maine-ice-dam-steaming-safety-specs`,
+      url: `${SITE_URL}/reports/maine-ice-dam-steaming-safety-specs`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/reports/maine-winter-roofing-response-times-and-process`,
+      url: `${SITE_URL}/reports/maine-winter-roofing-response-times-and-process`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.7,

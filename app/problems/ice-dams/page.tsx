@@ -72,7 +72,12 @@ export default function IceDamsPage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild>
+              <Button variant="cta" size="lg" asChild>
+                <Link href="/instant-quote">
+                  Get Instant Quote <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="default" asChild>
                 <Link href="/lp">
                   Schedule Inspection <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

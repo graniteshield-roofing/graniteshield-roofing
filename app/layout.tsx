@@ -6,12 +6,10 @@ import { Inter } from 'next/font/google';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { OrganizationSchema } from '@/components/schema-markup';
-import { BUSINESS_CONFIG } from '@/lib/business-config';
+import { BUSINESS_CONFIG, SITE_URL } from '@/lib/business-config';
 import { MobileStickyCTA } from '@/components/mobile-sticky-cta';
 
 const inter = Inter({ subsets: ['latin'] });
-
-const siteUrl = 'https://graniteshieldroofing.com';
 
 export const viewport = {
   width: 'device-width',
@@ -21,7 +19,7 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
 
   title: {
     default: `${BUSINESS_CONFIG.name} | ${BUSINESS_CONFIG.branding.tagline}`,
@@ -32,7 +30,7 @@ export const metadata: Metadata = {
   keywords: [...BUSINESS_CONFIG.branding.keywords],
 
   alternates: {
-    canonical: siteUrl,
+    canonical: SITE_URL,
   },
 
   formatDetection: {
@@ -50,7 +48,7 @@ export const metadata: Metadata = {
     description: BUSINESS_CONFIG.branding.description,
     type: 'website',
     locale: 'en_US',
-    url: siteUrl,
+    url: SITE_URL,
     siteName: BUSINESS_CONFIG.name,
     // OG image generated via app/opengraph-image.tsx
   },

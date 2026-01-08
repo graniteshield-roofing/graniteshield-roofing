@@ -352,3 +352,10 @@ export const getTownsByCounty = () => {
     return acc;
   }, {} as Record<string, TownData[]>);
 };
+
+/**
+ * Get list of town names for service area display
+ */
+export const getServiceAreaNames = (): string[] => {
+  return TOWNS_DATA.map(town => town.name);
+};

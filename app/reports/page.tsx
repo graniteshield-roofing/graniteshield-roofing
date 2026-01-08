@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { ArrowRight, FileText, Database, Shield } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { BUSINESS_CONFIG } from '@/lib/business-config';
+import { BUSINESS_CONFIG, SITE_URL } from '@/lib/business-config';
 import { BreadcrumbSchema, ItemListSchema } from '@/components/schema-markup';
 
 export const metadata: Metadata = {
@@ -12,8 +12,6 @@ export const metadata: Metadata = {
     canonical: 'https://graniteshieldroofing.com/reports',
   },
 };
-
-const SITE_URL = 'https://graniteshieldroofing.com';
 
 const reports = [
   {

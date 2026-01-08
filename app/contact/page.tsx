@@ -5,7 +5,7 @@ import { ArrowRight, Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BUSINESS_CONFIG, getFormattedAddress } from '@/lib/business-config';
+import { BUSINESS_CONFIG, getFormattedAddress, SITE_URL } from '@/lib/business-config';
 import { BreadcrumbSchema } from '@/components/schema-markup';
 
 export const metadata: Metadata = {
@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const baseUrl = 'https://graniteshieldroofing.com';
 
   const hours = BUSINESS_CONFIG.hours;
 
@@ -34,8 +33,8 @@ export default function ContactPage() {
     <>
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: baseUrl },
-          { name: 'Contact', url: `${baseUrl}/contact` },
+          { name: 'Home', url: SITE_URL },
+          { name: 'Contact', url: `${SITE_URL}/contact` },
         ]}
       />
 

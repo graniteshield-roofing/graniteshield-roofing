@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import Script from 'next/script';
 import type { Metadata } from 'next';
 import { ArrowRight, MapPin, Phone } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BUSINESS_CONFIG } from '@/lib/business-config';
-import { BreadcrumbSchema } from '@/components/schema-markup';
+import { BUSINESS_CONFIG, SITE_URL } from '@/lib/business-config';
+import { BreadcrumbSchema, ItemListSchema } from '@/components/schema-markup';
 import { getAllTownSlugs, getTownBySlug } from '@/lib/towns-data';
 
 export const metadata: Metadata = {
@@ -17,46 +16,36 @@ export const metadata: Metadata = {
 };
 
 export default function AreasPage() {
-  const baseUrl = 'https://graniteshieldroofing.com';
-
   const townSlugs = getAllTownSlugs();
   const towns = townSlugs
     .map((slug) => getTownBySlug(slug))
     .filter(Boolean) as Array<{
-      slug: string;
-      name: string;
-      county?: string;
-      state?: string;
-    }>;
+    slug: string;
+    name: string;
+    county?: string;
+    state?: string;
+  }>;
 
-  const itemListSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'GraniteShield Roofing Coverage Map',
-    itemListElement: towns.map((t, idx) => ({
-      '@type': 'ListItem',
-      position: idx + 1,
-      name: `${t.name}, ME`,
-      url: `${baseUrl}/areas/${t.slug}`,
-    })),
-  };
+  // Get town data for ItemListSchema with URLs
+  const townItems = towns.map((t) => ({
+    name: `${t.name}, ME`,
+    url: `${SITE_URL}/areas/${t.slug}`,
+  }));
 
   return (
     <>
       {/* ---------- BREADCRUMB SCHEMA ---------- */}
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: baseUrl },
-          { name: 'Service Areas', url: `${baseUrl}/areas` },
+          { name: 'Home', url: SITE_URL },
+          { name: 'Service Areas', url: `${SITE_URL}/areas` },
         ]}
       />
 
-      {/* ---------- ITEMLIST SCHEMA (FIXED) ---------- */}
-      <Script
-        id="areas-itemlist-schema"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      {/* ---------- ITEMLIST SCHEMA (using component) ---------- */}
+      <ItemListSchema
+        name="GraniteShield Roofing Coverage Map"
+        items={townItems}
       />
 
       {/* ---------- HERO ---------- */}

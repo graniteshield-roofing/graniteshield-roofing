@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 import { getTownBySlug, getAllTownSlugs } from '@/lib/towns-data';
-import { BUSINESS_CONFIG } from '@/lib/business-config';
+import { BUSINESS_CONFIG, SITE_URL } from '@/lib/business-config';
 import { BreadcrumbSchema, FAQSchema } from '@/components/schema-markup';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -49,8 +49,6 @@ export default function TownPage({ params }: { params: { slug: string } }) {
 
   // Load markdown content if available (returns null for fallback to generated content)
   const markdown = loadTownContent(params.slug);
-
-  const baseUrl = 'https://graniteshieldroofing.com';
 
   // Popular services relevant to this town
   const popularServices = [
@@ -94,7 +92,7 @@ export default function TownPage({ params }: { params: { slug: string } }) {
       addressCountry: 'US',
     },
     telephone: BUSINESS_CONFIG.contact.phoneRaw,
-    url: `${baseUrl}/areas/${town.slug}`,
+    url: `${SITE_URL}/areas/${town.slug}`,
     areaServed: {
       '@type': 'Place',
       name: `${town.name}, ME`,
@@ -112,9 +110,9 @@ export default function TownPage({ params }: { params: { slug: string } }) {
 
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: baseUrl },
-          { name: 'Service Areas', url: `${baseUrl}/areas` },
-          { name: `${town.name}, ME`, url: `${baseUrl}/areas/${town.slug}` },
+          { name: 'Home', url: SITE_URL },
+          { name: 'Service Areas', url: `${SITE_URL}/areas` },
+          { name: `${town.name}, ME`, url: `${SITE_URL}/areas/${town.slug}` },
         ]}
       />
 

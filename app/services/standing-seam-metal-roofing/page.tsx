@@ -111,6 +111,11 @@ export default function StandingSeamMetalRoofingPage() {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Button variant="cta" size="lg" asChild className="h-12 px-6">
+                <Link href="/instant-quote">
+                  Get Instant Quote <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="default" size="lg" asChild className="h-12 px-6">
                 <Link href="/lp/free-roof-estimate">
                   Get Free Estimate <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
