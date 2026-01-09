@@ -45,7 +45,7 @@ export default function InstantQuotePage() {
     {
       question: 'Is this a final price?',
       answer:
-        'The instant quote is a preliminary estimate based on satellite measurements. We schedule a brief in-person verification to finalize the exact scope, materials, ventilation needs, decking condition, and any unique details. After verification, you'll receive a final, detailed quote with no surprises.',
+        'The instant quote is a preliminary estimate based on satellite measurements. We schedule a brief in-person verification to finalize the exact scope, materials, ventilation needs, decking condition, and any unique details. After verification, you will receive a final, detailed quote with no surprises.',
     },
     {
       question: 'Do I have to schedule an appointment?',
@@ -259,7 +259,7 @@ export default function InstantQuotePage() {
                   What happens next?
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  After you receive your instant estimate, we'll contact you to schedule a brief
+                  After you receive your instant estimate, we\'ll contact you to schedule a brief
                   in-home or on-site verification (typically 15-30 minutes) to finalize the exact
                   scope, materials, ventilation needs, decking condition, and any unique details.
                   This ensures your final quote is accurate and comprehensive with no surprises.
@@ -289,7 +289,7 @@ export default function InstantQuotePage() {
               {serviceAreas.length > 8 && `, and ${serviceAreas.length - 8} more areas`}.
             </p>
             <p className="text-sm text-slate-500">
-              Don't see your area listed?{' '}
+              Don&apos;t see your area listed?{' '}
               <a
                 href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
                 className="text-blue-600 hover:underline font-medium"
