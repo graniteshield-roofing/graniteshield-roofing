@@ -1,0 +1,110 @@
+[
+  {
+    "src": "/images/projects/gallery/shingle-roof-completed-maine-01.webp",
+    "alt": "Completed architectural shingle roof replacement in Maine - aerial drone view showing gray shingles with brick chimney",
+    "title": "Shingle Roof Replacement - Maine",
+    "category": "shingle",
+    "featured": true,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "src": "/images/projects/gallery/shingle-roof-completed-maine-02.webp",
+    "alt": "Professional shingle roof installation by GraniteShield Roofing - aerial view of completed gray architectural shingles",
+    "title": "Architectural Shingle Installation - Maine",
+    "category": "shingle",
+    "featured": true,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "src": "/images/projects/gallery/shingle-roof-completed-maine-03.webp",
+    "alt": "New shingle roof with professional ridge cap installation - drone photography of completed roofing project",
+    "title": "Shingle Roof with Ridge Cap - Maine",
+    "category": "shingle",
+    "featured": false,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "src": "/images/projects/gallery/shingle-roof-in-progress-maine.webp",
+    "alt": "GraniteShield roofing crew installing new shingle roof - professional roofers at work in Southern Maine",
+    "title": "Roof Installation In Progress",
+    "category": "shingle",
+    "featured": false,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "src": "/images/projects/gallery/standing-seam-metal-roof-blue-maine-01.webp",
+    "alt": "Blue standing seam metal roof installation in Maine - aerial drone view of completed metal roofing project",
+    "title": "Standing Seam Metal Roof - Blue",
+    "category": "metal",
+    "featured": true,
+    "width": 1920,
+    "height": 1440
+  },
+  {
+    "src": "/images/projects/gallery/standing-seam-metal-roof-barn-sunset-maine.webp",
+    "alt": "Standing seam metal roof installation on Maine barn at sunset - professional metal roofing with cupolas",
+    "title": "Metal Roof Installation - Barn with Cupolas",
+    "category": "metal",
+    "featured": true,
+    "width": 1920,
+    "height": 1440
+  },
+  {
+    "src": "/images/projects/gallery/standing-seam-metal-roof-two-tone-maine.webp",
+    "alt": "Two-tone standing seam metal roof in Maine - blue and charcoal metal roofing installation",
+    "title": "Two-Tone Metal Roof Installation",
+    "category": "metal",
+    "featured": true,
+    "width": 1920,
+    "height": 1440
+  },
+  {
+    "src": "/images/projects/gallery/standing-seam-metal-roof-blue-maine-02.webp",
+    "alt": "Professional standing seam metal roof installation - close-up aerial view of blue metal panels",
+    "title": "Standing Seam Metal Panels Detail",
+    "category": "metal",
+    "featured": false,
+    "width": 1920,
+    "height": 1440
+  },
+  {
+    "src": "/images/projects/gallery/standing-seam-metal-roof-blue-maine-03.webp",
+    "alt": "Standing seam metal roof with vents and flashing - professional metal roofing in Maine",
+    "title": "Metal Roof with Professional Flashing",
+    "category": "metal",
+    "featured": false,
+    "width": 1920,
+    "height": 1440
+  },
+  {
+    "src": "/images/projects/gallery/standing-seam-metal-roof-barn-maine-02.webp",
+    "alt": "Metal roof installation on historic Maine barn - standing seam roofing with traditional cupolas",
+    "title": "Historic Barn Metal Roof",
+    "category": "metal",
+    "featured": false,
+    "width": 1920,
+    "height": 1440
+  },
+  {
+    "src": "/images/projects/gallery/metal-roof-before-replacement-maine.webp",
+    "alt": "Old rusty metal roof before replacement - roof inspection showing need for new standing seam installation",
+    "title": "Before: Old Metal Roof Needing Replacement",
+    "category": "before",
+    "featured": false,
+    "width": 1920,
+    "height": 1440
+  },
+  {
+    "src": "/images/projects/gallery/standing-seam-metal-roof-detail-maine.webp",
+    "alt": "Standing seam metal roof ridge detail - professional metal roofing craftsmanship in Maine",
+    "title": "Metal Roof Ridge Detail",
+    "category": "metal",
+    "featured": false,
+    "width": 1920,
+    "height": 1440
+  }
+]

@@ -2,88 +2,187 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ProjectImage {
-  name: string;
+  src: string;
   alt: string;
+  title: string;
   category: string;
-  webp: string;
-  jpg: string;
+  featured: boolean;
+  width: number;
+  height: number;
 }
 
-// SEO-optimized project images with proper alt text
+// SEO-optimized project images - ACTUAL COMPLETED WORK
 const projectImages: ProjectImage[] = [
+  // SHINGLE COMPLETED WORK
   {
-    name: "maine-home-shingle-roof-drone-view",
-    alt: "Aerial drone view of Maine home with architectural shingle roof - GraniteShield Roofing inspection",
-    category: "drone-inspection",
-    webp: "/images/projects/hero/maine-home-shingle-roof-drone-view.webp",
-    jpg: "/images/projects/hero/maine-home-shingle-roof-drone-view.jpg"
+    src: "/images/projects/gallery/shingle-roof-completed-maine-01.webp",
+    alt: "Completed architectural shingle roof replacement in Maine - aerial drone view showing gray shingles with brick chimney",
+    title: "Shingle Roof Replacement - Maine",
+    category: "shingle",
+    featured: true,
+    width: 1920,
+    height: 1080
   },
   {
-    name: "maine-residential-roof-aerial",
-    alt: "Aerial view of residential roof in Southern Maine - professional drone inspection",
-    category: "drone-inspection",
-    webp: "/images/projects/hero/maine-residential-roof-aerial.webp",
-    jpg: "/images/projects/hero/maine-residential-roof-aerial.jpg"
+    src: "/images/projects/gallery/shingle-roof-completed-maine-02.webp",
+    alt: "Professional shingle roof installation by GraniteShield Roofing - aerial view of completed gray architectural shingles",
+    title: "Architectural Shingle Installation - Maine",
+    category: "shingle",
+    featured: true,
+    width: 1920,
+    height: 1080
   },
   {
-    name: "maine-home-roof-skylights-aerial",
-    alt: "Drone aerial view of Maine home roof with skylights - fall foliage background",
-    category: "completed-project",
-    webp: "/images/projects/hero/maine-home-roof-skylights-aerial.webp",
-    jpg: "/images/projects/hero/maine-home-roof-skylights-aerial.jpg"
+    src: "/images/projects/gallery/shingle-roof-completed-maine-03.webp",
+    alt: "New shingle roof with professional ridge cap installation - drone photography of completed roofing project",
+    title: "Shingle Roof with Ridge Cap - Maine",
+    category: "shingle",
+    featured: false,
+    width: 1920,
+    height: 1080
   },
   {
-    name: "shingle-roof-chimney-maine",
-    alt: "Architectural shingle roof with brick chimney in Maine - professional installation",
-    category: "shingle-roofing",
-    webp: "/images/projects/shingle/shingle-roof-chimney-maine.webp",
-    jpg: "/images/projects/shingle/shingle-roof-chimney-maine.jpg"
+    src: "/images/projects/gallery/shingle-roof-in-progress-maine.webp",
+    alt: "GraniteShield roofing crew installing new shingle roof - professional roofers at work in Southern Maine",
+    title: "Roof Installation In Progress",
+    category: "shingle",
+    featured: false,
+    width: 1920,
+    height: 1080
+  },
+  
+  // STANDING SEAM METAL COMPLETED WORK
+  {
+    src: "/images/projects/gallery/standing-seam-metal-roof-blue-maine-01.webp",
+    alt: "Blue standing seam metal roof installation in Maine - aerial drone view of completed metal roofing project",
+    title: "Standing Seam Metal Roof - Blue",
+    category: "metal",
+    featured: true,
+    width: 1920,
+    height: 1440
   },
   {
-    name: "gray-architectural-shingles-skylights",
-    alt: "Gray architectural shingle roof with skylights - Maine roof replacement",
-    category: "shingle-roofing",
-    webp: "/images/projects/shingle/gray-architectural-shingles-skylights.webp",
-    jpg: "/images/projects/shingle/gray-architectural-shingles-skylights.jpg"
+    src: "/images/projects/gallery/standing-seam-metal-roof-barn-sunset-maine.webp",
+    alt: "Standing seam metal roof installation on Maine barn at sunset - professional metal roofing with cupolas",
+    title: "Metal Roof Installation - Barn with Cupolas",
+    category: "metal",
+    featured: true,
+    width: 1920,
+    height: 1440
   },
   {
-    name: "chimney-flashing-shingle-roof",
-    alt: "Brick chimney with professional flashing on shingle roof - Maine roofing",
-    category: "chimney-flashing",
-    webp: "/images/projects/chimney/chimney-flashing-shingle-roof.webp",
-    jpg: "/images/projects/chimney/chimney-flashing-shingle-roof.jpg"
+    src: "/images/projects/gallery/standing-seam-metal-roof-two-tone-maine.webp",
+    alt: "Two-tone standing seam metal roof in Maine - blue and charcoal metal roofing installation",
+    title: "Two-Tone Metal Roof Installation",
+    category: "metal",
+    featured: true,
+    width: 1920,
+    height: 1440
+  },
+  {
+    src: "/images/projects/gallery/standing-seam-metal-roof-blue-maine-02.webp",
+    alt: "Professional standing seam metal roof installation - close-up aerial view of blue metal panels",
+    title: "Standing Seam Metal Panels Detail",
+    category: "metal",
+    featured: false,
+    width: 1920,
+    height: 1440
+  },
+  {
+    src: "/images/projects/gallery/standing-seam-metal-roof-blue-maine-03.webp",
+    alt: "Standing seam metal roof with vents and flashing - professional metal roofing in Maine",
+    title: "Metal Roof with Professional Flashing",
+    category: "metal",
+    featured: false,
+    width: 1920,
+    height: 1440
+  },
+  {
+    src: "/images/projects/gallery/standing-seam-metal-roof-barn-maine-02.webp",
+    alt: "Metal roof installation on historic Maine barn - standing seam roofing with traditional cupolas",
+    title: "Historic Barn Metal Roof",
+    category: "metal",
+    featured: false,
+    width: 1920,
+    height: 1440
+  },
+  {
+    src: "/images/projects/gallery/metal-roof-before-replacement-maine.webp",
+    alt: "Old rusty metal roof before replacement - roof inspection showing need for new standing seam installation",
+    title: "Before: Old Metal Roof Needing Replacement",
+    category: "before",
+    featured: false,
+    width: 1920,
+    height: 1440
+  },
+  {
+    src: "/images/projects/gallery/standing-seam-metal-roof-detail-maine.webp",
+    alt: "Standing seam metal roof ridge detail - professional metal roofing craftsmanship in Maine",
+    title: "Metal Roof Ridge Detail",
+    category: "metal",
+    featured: false,
+    width: 1920,
+    height: 1440
   },
 ];
 
 const categories = [
   { id: 'all', label: 'All Projects' },
-  { id: 'drone-inspection', label: 'Drone Inspections' },
-  { id: 'shingle-roofing', label: 'Shingle Roofing' },
-  { id: 'completed-project', label: 'Completed Projects' },
-  { id: 'chimney-flashing', label: 'Chimney & Flashing' },
+  { id: 'metal', label: 'Standing Seam Metal' },
+  { id: 'shingle', label: 'Shingle Roofing' },
+  { id: 'before', label: 'Before & After' },
 ];
 
 export function ProjectGallery() {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [selectedImage, setSelectedImage] = useState<ProjectImage | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const filteredImages = activeCategory === 'all' 
     ? projectImages 
     : projectImages.filter(img => img.category === activeCategory);
+
+  const openLightbox = (index: number) => {
+    setSelectedIndex(index);
+  };
+
+  const closeLightbox = () => {
+    setSelectedIndex(null);
+  };
+
+  const nextImage = () => {
+    if (selectedIndex !== null) {
+      setSelectedIndex((selectedIndex + 1) % filteredImages.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedIndex !== null) {
+      setSelectedIndex((selectedIndex - 1 + filteredImages.length) % filteredImages.length);
+    }
+  };
+
+  const getCategoryLabel = (category: string) => {
+    switch(category) {
+      case 'metal': return 'Standing Seam Metal';
+      case 'shingle': return 'Architectural Shingles';
+      case 'before': return 'Before & After';
+      default: return category;
+    }
+  };
 
   return (
     <section className="py-16 bg-slate-50" aria-labelledby="gallery-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 id="gallery-heading" className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Our Roofing Projects in Maine
+            Our Completed Roofing Projects
           </h2>
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-            Browse our portfolio of completed roofing projects across Southern Maine. 
-            From shingle replacements to metal roofing installations, see the quality craftsmanship 
-            that sets GraniteShield apart.
+            Browse our portfolio of standing seam metal roofs and architectural shingle installations 
+            across Southern Maine. Real projects, real craftsmanship.
           </p>
         </div>
 
@@ -95,7 +194,7 @@ export function ProjectGallery() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === cat.id
-                  ? 'bg-slate-900 text-white'
+                  ? 'bg-blue-600 text-white shadow-md'
                   : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
               }`}
             >
@@ -105,62 +204,90 @@ export function ProjectGallery() {
         </div>
 
         {/* Image Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredImages.map((image) => (
+        <div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          itemScope 
+          itemType="https://schema.org/ImageGallery"
+        >
+          {filteredImages.map((image, index) => (
             <article 
-              key={image.name}
-              className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-200 cursor-pointer"
-              onClick={() => setSelectedImage(image)}
+              key={image.src}
+              className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-slate-200 cursor-pointer shadow-md hover:shadow-xl transition-shadow"
+              onClick={() => openLightbox(index)}
+              itemScope
+              itemType="https://schema.org/ImageObject"
             >
-              <picture>
-                <source srcSet={image.webp} type="image/webp" />
-                <Image
-                  src={image.jpg}
-                  alt={image.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  loading="lazy"
-                />
-              </picture>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+                itemProp="contentUrl"
+              />
+              <meta itemProp="name" content={image.title} />
+              <meta itemProp="description" content={image.alt} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <p className="text-white text-sm font-medium">{image.alt}</p>
+                <p className="text-white font-medium text-sm">{image.title}</p>
+                <p className="text-white/80 text-xs">{getCategoryLabel(image.category)}</p>
               </div>
+              {image.featured && (
+                <div className="absolute top-3 right-3 bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-medium">
+                  Featured
+                </div>
+              )}
             </article>
           ))}
         </div>
 
         {/* Lightbox Modal */}
-        {selectedImage && (
+        {selectedIndex !== null && (
           <div 
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={closeLightbox}
           >
-            <div className="relative max-w-5xl w-full aspect-[4/3]">
-              <picture>
-                <source srcSet={selectedImage.webp} type="image/webp" />
-                <Image
-                  src={selectedImage.jpg}
-                  alt={selectedImage.alt}
-                  fill
-                  className="object-contain"
-                  sizes="100vw"
-                  priority
-                />
-              </picture>
-              <button 
-                className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/70"
-                onClick={() => setSelectedImage(null)}
-                aria-label="Close image"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              <p className="absolute bottom-4 left-4 right-4 text-white text-center bg-black/50 rounded-lg p-3">
-                {selectedImage.alt}
-              </p>
+            <button 
+              className="absolute top-4 right-4 text-white hover:text-slate-300 z-50"
+              onClick={closeLightbox}
+              aria-label="Close image"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            
+            <button
+              onClick={(e) => { e.stopPropagation(); prevImage(); }}
+              className="absolute left-4 text-white hover:text-slate-300 z-50"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-10 h-10" />
+            </button>
+            
+            <button
+              onClick={(e) => { e.stopPropagation(); nextImage(); }}
+              className="absolute right-4 text-white hover:text-slate-300 z-50"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-10 h-10" />
+            </button>
+
+            <div 
+              className="relative max-w-5xl max-h-[85vh] w-full mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={filteredImages[selectedIndex].src}
+                alt={filteredImages[selectedIndex].alt}
+                width={filteredImages[selectedIndex].width}
+                height={filteredImages[selectedIndex].height}
+                className="object-contain w-full h-full max-h-[85vh]"
+                priority
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-4 text-center">
+                <p className="text-white font-medium">{filteredImages[selectedIndex].title}</p>
+                <p className="text-white/70 text-sm mt-1">{filteredImages[selectedIndex].alt}</p>
+              </div>
             </div>
           </div>
         )}
@@ -172,14 +299,13 @@ export function ProjectGallery() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ImageGallery",
-              "name": "GraniteShield Roofing Projects Gallery",
-              "description": "Portfolio of completed roofing projects in Southern Maine by GraniteShield Roofing & Exteriors",
+              "name": "GraniteShield Roofing Completed Projects Gallery",
+              "description": "Portfolio of completed standing seam metal and shingle roofing projects in Southern Maine by GraniteShield Roofing & Exteriors",
               "image": projectImages.map(img => ({
                 "@type": "ImageObject",
-                "name": img.name,
+                "name": img.title,
                 "description": img.alt,
-                "contentUrl": `https://graniteshieldroofing.com${img.jpg}`,
-                "thumbnailUrl": `https://graniteshieldroofing.com${img.webp}`,
+                "contentUrl": `https://graniteshieldroofing.com${img.src}`,
               }))
             })
           }}
