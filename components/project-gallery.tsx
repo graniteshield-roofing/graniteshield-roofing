@@ -127,6 +127,52 @@ const projectImages: ProjectImage[] = [
     width: 1920,
     height: 1440
   },
+  // NEW PHOTOS FROM LATEST PROJECTS
+  {
+    src: "/images/projects/gallery/standing-seam-blue-residential-maine.webp",
+    alt: "Blue standing seam metal roof on residential home in Maine - aerial drone view with fall foliage",
+    title: "Blue Metal Roof - Residential",
+    category: "metal",
+    featured: true,
+    width: 1200,
+    height: 800
+  },
+  {
+    src: "/images/projects/gallery/two-tone-metal-roof-closeup.webp",
+    alt: "Two-tone standing seam metal roof close-up with water droplets - burgundy and charcoal panels",
+    title: "Two-Tone Metal Roof Detail",
+    category: "metal",
+    featured: false,
+    width: 1200,
+    height: 800
+  },
+  {
+    src: "/images/projects/gallery/green-metal-barn-maine.webp",
+    alt: "Green standing seam metal roof on Maine barn with cupolas at sunset - agricultural roofing",
+    title: "Green Metal Barn Roof",
+    category: "metal",
+    featured: true,
+    width: 1200,
+    height: 800
+  },
+  {
+    src: "/images/projects/gallery/metal-roof-aerial-fall.webp",
+    alt: "Aerial view of completed metal roof installation in Maine during fall - standing seam roofing",
+    title: "Metal Roof Aerial View - Fall",
+    category: "metal",
+    featured: false,
+    width: 1200,
+    height: 800
+  },
+  {
+    src: "/images/projects/gallery/metal-roof-chimney-maine.webp",
+    alt: "Standing seam metal roof with chimney flashing detail - professional installation in Maine",
+    title: "Metal Roof with Chimney",
+    category: "metal",
+    featured: false,
+    width: 1200,
+    height: 800
+  },
 ];
 
 const categories = [

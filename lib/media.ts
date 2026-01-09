@@ -65,10 +65,10 @@ export const MEDIA: MediaLibrary = {
   // ─────────────────────────────────────────────────────────────
   heroes: {
     main: {
-      src: '/images/services/metal/macros/hero-standing-seam-macro.webp',
-      alt: 'Extreme close-up of standing seam metal roofing craftsmanship showing precision engineering and premium finish',
-      width: 1365,
-      height: 768,
+      src: '/images/hero/metal-barn-sunset-maine-hero.webp',
+      alt: 'Stunning aerial view of standing seam metal roofing on Maine barn at sunset with cupolas and fall foliage - GraniteShield Roofing',
+      width: 1920,
+      height: 1280,
     },
   },
 
