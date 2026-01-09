@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
-import { InstantQuoteClient } from './instant-quote-client';
 
 const baseUrl = 'https://graniteshieldroofing.com';
+const peakvexUrl = 'https://quote-graniteshieldroofing.com';
 
 export const metadata: Metadata = {
   title: 'Instant Roof Quote | Get Your Price in 60 Seconds | GraniteShield',
@@ -141,7 +141,23 @@ export default function InstantQuotePage() {
           __html: JSON.stringify(faqSchema),
         }}
       />
-      <InstantQuoteClient />
+      
+      {/* Full-screen PeakVex embed */}
+      <div className="min-h-screen w-full">
+        <iframe
+          src={peakvexUrl}
+          title="GraniteShield Instant Roof Quote - Powered by PeakVex"
+          className="w-full h-screen border-0"
+          style={{
+            minHeight: '100vh',
+            height: '100%',
+            width: '100%',
+          }}
+          allow="geolocation"
+          loading="eager"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
     </>
   );
 }
