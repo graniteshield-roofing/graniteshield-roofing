@@ -1,0 +1,129 @@
+
+> nextjs@0.1.0 prebuild
+> npm run validate:assets
+
+
+> nextjs@0.1.0 validate:assets
+> node scripts/validate-assets.mjs
+
+
+[34m═══════════════════════════════════════════[0m
+[34m   GraniteShield Media Asset Validator[0m
+[34m═══════════════════════════════════════════[0m
+
+[36mValidating lib/media.ts...[0m
+  Found 11 image references in lib/media.ts
+[36mValidating public/images/ASSET_MAP.json...[0m
+  Found 18 image references in ASSET_MAP.json
+[36mChecking for placeholder/empty files...[0m
+
+[34m═══════════════════════════════════════════[0m
+[34m   Validation Results[0m
+[34m═══════════════════════════════════════════[0m
+
+Total assets checked: 29
+[32m✓[0m Valid: 29
+[31m✗[0m Missing: 0
+[33m⚠[0m Warnings: 3
+
+[33mWARNINGS:[0m
+
+1. /logo.png
+   Source: placeholder check
+   Reason: Placeholder file is empty (0 bytes)
+
+2. /apple-touch-icon.png
+   Source: placeholder check
+   Reason: Placeholder file is empty (0 bytes)
+
+3. /favicon.ico
+   Source: placeholder check
+   Reason: Placeholder file is empty (0 bytes)
+
+[32m✓ All asset references are valid![0m
+
+
+> nextjs@0.1.0 build
+> next build
+
+   Creating an optimized production build...
+ ⚠ Compiled with warnings
+
+./node_modules/@supabase/realtime-js/dist/main/RealtimeClient.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/@supabase/realtime-js/dist/main/RealtimeClient.js
+./node_modules/@supabase/realtime-js/dist/main/index.js
+./node_modules/@supabase/supabase-js/dist/main/index.js
+./lib/supabase.ts
+./app/api/leads/route.ts
+
+   Linting and checking validity of types...
+   Collecting page data...
+(node:4205) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+   Generating static pages (0/55)...
+(node:4212) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ⚠ Entire page /lp/free-roof-estimate deopted into client-side rendering. https://nextjs.org/docs/messages/deopted-into-client-rendering /lp/free-roof-estimate
+ ⚠ Entire page /lp deopted into client-side rendering. https://nextjs.org/docs/messages/deopted-into-client-rendering /lp
+   Generating static pages (13/55)
+
+   Generating static pages (27/55)
+
+   Generating static pages (41/55)
+
+ ✓ Generating static pages (55/55)
+   Finalizing page optimization...
+
+Route (app)                                                   Size     First Load JS
+┌ ○ /                                                         17 kB           117 kB
+├ ○ /_not-found                                               872 B          80.7 kB
+├ ○ /about                                                    220 B          86.7 kB
+├ λ /api/leads                                                0 B                0 B
+├ ○ /apple-icon.png                                           0 B                0 B
+├ ○ /areas                                                    185 B          89.1 kB
+├ ● /areas/[slug]                                             397 B          86.9 kB
+├   ├ /areas/scarborough
+├   ├ /areas/portland
+├   ├ /areas/turner
+├   └ [+17 more paths]
+├ ○ /contact                                                  220 B          86.7 kB
+├ ○ /icon.svg                                                 0 B                0 B
+├ ○ /instant-quote                                            12.1 kB         109 kB
+├ ○ /lp                                                       5.75 kB        99.9 kB
+├ ○ /lp/free-roof-estimate                                    4.41 kB        98.6 kB
+├ ○ /privacy-policy                                           138 B          79.9 kB
+├ ○ /problems/ice-dams                                        220 B          86.7 kB
+├ ○ /reports                                                  220 B          86.7 kB
+├ ○ /reports/maine-ice-dam-steaming-safety-specs              654 B           104 kB
+├ ○ /reports/maine-roofing-cost-report-winter-2025            654 B           104 kB
+├ ○ /reports/maine-winter-roofing-response-times-and-process  654 B           104 kB
+├ ○ /robots.txt                                               0 B                0 B
+├ ○ /roofing-guides                                           220 B          86.7 kB
+├ ○ /services                                                 220 B          86.7 kB
+├ ○ /services/emergency-repair                                220 B          86.7 kB
+├ ○ /services/ice-dam-removal                                 220 B          86.7 kB
+├ ○ /services/metal-siding                                    220 B          86.7 kB
+├ ○ /services/roof-inspection                                 219 B          86.7 kB
+├ ○ /services/roof-maintenance                                220 B          86.7 kB
+├ ○ /services/roof-repair                                     219 B          86.7 kB
+├ ○ /services/roof-replacement                                220 B          86.7 kB
+├ ○ /services/shingle-roofing                                 219 B          86.7 kB
+├ ○ /services/standing-seam-metal-roofing                     220 B          86.7 kB
+├ ○ /services/vinyl-siding                                    220 B          86.7 kB
+├ ○ /services/windows                                         220 B          86.7 kB
+├ ○ /sitemap.xml                                              0 B                0 B
+└ ○ /thank-you                                                220 B          86.7 kB
++ First Load JS shared by all                                 79.8 kB
+  ├ chunks/864-6a58e7d63ceabb41.js                            26.5 kB
+  ├ chunks/fd9d1056-4247e967af11df81.js                       50.9 kB
+  ├ chunks/main-app-6ce923a0fbf8b018.js                       220 B
+  └ chunks/webpack-8da4fb5e0fc269b0.js                        2.18 kB
+
+
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+○  (Static)  automatically rendered as static HTML (uses no initial props)
+●  (SSG)     automatically generated as static HTML + JSON (uses getStaticProps)
+

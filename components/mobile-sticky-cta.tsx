@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Phone, CalendarCheck } from 'lucide-react';
+import { Phone, Zap } from 'lucide-react';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 
 export function MobileStickyCTA() {
@@ -18,12 +18,12 @@ export function MobileStickyCTA() {
         </a>
 
         <Link
-          href="/lp"
+          href="/instant-quote"
           className="flex items-center justify-center gap-2 bg-[hsl(var(--cta))] py-4 text-sm font-extrabold text-[hsl(var(--cta-foreground))] hover:bg-[hsl(var(--cta))]/90 transition-colors"
-          aria-label="Get a free estimate"
+          aria-label="Get an instant roof quote"
         >
-          <CalendarCheck className="h-4 w-4" />
-          Free Estimate
+          <Zap className="h-4 w-4" />
+          Instant Quote
         </Link>
       </div>
     </div>

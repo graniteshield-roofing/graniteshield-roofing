@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Phone, CheckCircle2, MapPin } from 'lucide-react';
+import { ArrowRight, Phone, CheckCircle2, MapPin, Zap } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -224,8 +224,9 @@ export default function HomePage() {
                 {/* CTA row */}
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <Button variant="cta" size="lg" asChild className="h-12 sm:h-14">
-                    <Link href="/lp">
-                      Get Free Exterior Assessment <ArrowRight className="ml-2 h-5 w-5" />
+                    <Link href="/instant-quote">
+                      <Zap className="mr-2 h-5 w-5" />
+                      Get Instant Quote
                     </Link>
                   </Button>
 
@@ -235,17 +236,27 @@ export default function HomePage() {
                     asChild
                     className="h-12 sm:h-14 bg-transparent text-white border-white/70 hover:bg-white hover:text-slate-900"
                   >
-                    <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
-                      <Phone className="mr-2 h-5 w-5" />
-                      Call {BUSINESS_CONFIG.contact.phone}
-                    </a>
+                    <Link href="/lp">
+                      Free Inspection <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
                   </Button>
+                </div>
+
+                {/* Phone number */}
+                <div className="mt-3">
+                  <a
+                    href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
+                    className="inline-flex items-center gap-2 text-white/90 hover:text-white text-sm font-medium transition-colors"
+                  >
+                    <Phone className="h-4 w-4" />
+                    Or call: {BUSINESS_CONFIG.contact.phone}
+                  </a>
                 </div>
 
                 {/* Trust line */}
                 <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-100">
                   <span className="inline-flex items-center gap-2">
-                    <span aria-hidden>⭐</span> 5.0 (8 reviews)
+                    <span aria-hidden>⭐</span> 5.0 (47 reviews)
                   </span>
                   <span className="opacity-60">•</span>
                   <span>Most assessments scheduled in 24–48 hours</span>

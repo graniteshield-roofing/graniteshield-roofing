@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, Phone, ChevronRight } from 'lucide-react';
+import { Menu, X, Phone, ChevronRight, Zap } from 'lucide-react';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 import { Button } from '@/components/ui/button';
 
@@ -13,7 +13,6 @@ export function SiteHeader() {
     { name: 'Services', href: '/services' },
     { name: 'Service Areas', href: '/areas' },
     { name: 'About', href: '/about' },
-
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -50,7 +49,7 @@ export function SiteHeader() {
           </div>
 
           {/* Desktop CTAs */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
               className="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition-colors"
@@ -60,7 +59,16 @@ export function SiteHeader() {
               <span>{BUSINESS_CONFIG.contact.phone}</span>
             </a>
 
-            <Button asChild size="sm" variant="cta">
+            {/* Primary CTA - Instant Quote */}
+            <Button asChild size="sm" variant="cta" className="gap-1.5">
+              <Link href="/instant-quote">
+                <Zap className="h-4 w-4" />
+                Instant Quote
+              </Link>
+            </Button>
+
+            {/* Secondary CTA - Free Inspection */}
+            <Button asChild size="sm" variant="outline" className="border-slate-300">
               <Link href="/lp">Free Inspection</Link>
             </Button>
           </div>
@@ -108,6 +116,14 @@ export function SiteHeader() {
               ))}
 
               <div className="mt-2 grid grid-cols-1 gap-3 px-1">
+                {/* Primary Mobile CTA - Instant Quote */}
+                <Button asChild size="lg" variant="cta" className="w-full gap-2">
+                  <Link href="/instant-quote" onClick={() => setMobileMenuOpen(false)}>
+                    <Zap className="h-5 w-5" />
+                    Get Instant Quote
+                  </Link>
+                </Button>
+
                 <a
                   href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
                   className="flex items-center justify-center gap-2 rounded-xl border border-border bg-white py-3 text-base font-bold text-slate-900 hover:bg-slate-50 transition-colors"
@@ -117,9 +133,9 @@ export function SiteHeader() {
                   {BUSINESS_CONFIG.contact.phone}
                 </a>
 
-                <Button asChild size="lg" variant="cta" className="w-full">
+                <Button asChild size="lg" variant="outline" className="w-full border-slate-300">
                   <Link href="/lp" onClick={() => setMobileMenuOpen(false)}>
-                    Free Inspection
+                    Schedule Free Inspection
                   </Link>
                 </Button>
               </div>
