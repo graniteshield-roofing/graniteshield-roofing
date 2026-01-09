@@ -10,6 +10,7 @@ import { MEDIA, getResponsiveSizes } from '@/lib/media';
 import { FeaturedProject } from '@/components/featured-project';
 import { SystemAnatomy } from '@/components/system-anatomy';
 import { MetalMacroGallery } from '@/components/metal-macro-gallery';
+import { ProjectGallery } from '@/components/project-gallery';
 import { SEOSchema } from '@/components/SEOSchema';
 
 export default function HomePage() {
@@ -341,6 +342,9 @@ export default function HomePage() {
 
       {/* METAL MACRO GALLERY - Craftsmanship Close-Ups */}
       <MetalMacroGallery />
+
+      {/* PROJECT GALLERY - Real Project Photos */}
+      <ProjectGallery />
     </>
   );
 }
