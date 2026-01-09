@@ -119,6 +119,11 @@ export default function IceDamRemovalPage() {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Button variant="cta" size="lg" asChild className="h-12 px-6">
+                <Link href="/instant-quote">
+                  Get Instant Quote <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="default" size="lg" asChild className="h-12 px-6">
                 <Link href="/lp/free-roof-estimate">
                   Request Help <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

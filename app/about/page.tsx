@@ -11,6 +11,7 @@ import {
   FAQSchema,
   PersonSchema,
 } from '@/components/schema-markup';
+import { getServiceAreaNames } from '@/lib/towns-data';
 
 export const metadata: Metadata = {
   title:
@@ -35,23 +36,9 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const baseUrl = 'https://graniteshieldroofing.com';
 
-  // Keep tight + real (no spam list)
-  const serviceAreas = [
-    'Cumberland',
-    'Cumberland Center',
-    'Falmouth',
-    'Yarmouth',
-    'Freeport',
-    'Scarborough',
-    'Portland',
-    'South Portland',
-    'Cape Elizabeth',
-    'Westbrook',
-    'Biddeford',
-    'Saco',
-  ];
+  // ✅ Get service areas from towns-data.ts (single source of truth)
+  const serviceAreas = getServiceAreaNames();
 
   const corePoints = [
     'Owner-operated: the person you speak with stays involved through completion.',
@@ -95,8 +82,8 @@ export default function AboutPage() {
       {/* ✅ Breadcrumb + FAQ schema (clean SEO/AI signal) */}
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: baseUrl },
-          { name: 'About', url: `${baseUrl}/about` },
+          { name: 'Home', url: SITE_URL },
+          { name: 'About', url: `${SITE_URL}/about` },
         ]}
       />
       <FAQSchema faqs={faqs} />

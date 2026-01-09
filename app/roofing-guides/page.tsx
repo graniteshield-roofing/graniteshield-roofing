@@ -18,7 +18,7 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { BUSINESS_CONFIG } from '@/lib/business-config';
+import { BUSINESS_CONFIG, SITE_URL } from '@/lib/business-config';
 import { BreadcrumbSchema } from '@/components/schema-markup';
 
 export const metadata: Metadata = {
@@ -38,7 +38,6 @@ export const metadata: Metadata = {
 };
 
 export default function RoofingGuidesPage() {
-  const baseUrl = 'https://graniteshieldroofing.com';
 
   // Educational content organized by topic
   const guides = [
@@ -157,7 +156,7 @@ export default function RoofingGuidesPage() {
         '@type': 'ListItem',
         position: idx + 1,
         name: guide.title,
-        url: `${baseUrl}${guide.href}`,
+        url: `${SITE_URL}${guide.href}`,
       })),
   };
 
@@ -165,8 +164,8 @@ export default function RoofingGuidesPage() {
     <>
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: baseUrl },
-          { name: 'Roofing Guides', url: `${baseUrl}/roofing-guides` },
+          { name: 'Home', url: SITE_URL },
+          { name: 'Roofing Guides', url: `${SITE_URL}/roofing-guides` },
         ]}
       />
 
@@ -196,6 +195,11 @@ export default function RoofingGuidesPage() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="cta" size="lg" asChild>
+                <Link href="/instant-quote">
+                  Get Instant Quote <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="default" size="lg" asChild>
                 <Link href="/lp">
                   Get Free Estimate <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

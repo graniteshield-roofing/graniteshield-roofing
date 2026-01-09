@@ -1,3 +1,6 @@
+// Site URL constant (single source of truth)
+export const SITE_URL = 'https://graniteshieldroofing.com';
+
 export const BUSINESS_CONFIG = {
   /* ========================
      CORE BUSINESS IDENTITY

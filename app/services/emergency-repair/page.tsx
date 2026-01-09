@@ -11,6 +11,7 @@ import {
   FAQSchema,
 } from '@/components/schema-markup';
 import { RelatedServices } from '@/components/related-services';
+import { getServiceAreaNames } from '@/lib/towns-data';
 
 
 export const metadata: Metadata = {
@@ -63,19 +64,8 @@ export default function EmergencyRepairPage() {
     },
   ];
 
-  // Light geo relevance (not spammy)
-  const serviceAreas = [
-    'Scarborough',
-    'Portland',
-    'South Portland',
-    'Westbrook',
-    'Cape Elizabeth',
-    'Falmouth',
-    'Yarmouth',
-    'Biddeford',
-    'Saco',
-    'Old Orchard Beach',
-  ];
+  // ✅ Get service areas from towns-data.ts (single source of truth)
+  const serviceAreas = getServiceAreaNames();
 
   return (
     <>
@@ -133,7 +123,18 @@ export default function EmergencyRepairPage() {
                 </a>
               </Button>
 
-              {/* FIX: send to the actual estimate form */}
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-white text-white hover:bg-white hover:text-slate-900"
+                asChild
+              >
+                <Link href="/instant-quote">
+                  Get Instant Quote{' '}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+
               <Button
                 size="lg"
                 variant="outline"

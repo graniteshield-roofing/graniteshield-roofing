@@ -21,6 +21,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 import { BreadcrumbSchema } from '@/components/schema-markup';
+import { getServiceAreaNames } from '@/lib/towns-data';
 
 export const metadata: Metadata = {
   title: `Roofing, Siding & Window Services in Southern Maine | ${BUSINESS_CONFIG.name}`,
@@ -38,22 +39,9 @@ type ServiceCard = {
 };
 
 export default function ServicesPage() {
-  const baseUrl = 'https://graniteshieldroofing.com';
 
-  // Light geo reinforcement (keep short + real)
-  const serviceAreas = [
-    'Portland',
-    'Scarborough',
-    'South Portland',
-    'Westbrook',
-    'Cape Elizabeth',
-    'Falmouth',
-    'Yarmouth',
-    'Biddeford',
-    'Saco',
-    'Auburn',
-    'Turner',
-  ];
+  // ✅ Get service areas from towns-data.ts (single source of truth)
+  const serviceAreas = getServiceAreaNames();
 
   // ✅ Best conversion order for Maine (highest-intent first)
   const services: ServiceCard[] = [
@@ -184,7 +172,7 @@ export default function ServicesPage() {
       '@type': 'ListItem',
       position: idx + 1,
       name: s.title,
-      url: `${baseUrl}${s.href}`,
+      url: `${SITE_URL}${s.href}`,
     })),
   };
 
@@ -193,13 +181,13 @@ export default function ServicesPage() {
     '@context': 'https://schema.org',
     '@type': 'OfferCatalog',
     name: 'GraniteShield Roofing & Exteriors — Services',
-    url: `${baseUrl}/services`,
+    url: `${SITE_URL}/services`,
     provider: {
       '@type': 'RoofingContractor',
       name: BUSINESS_CONFIG.name,
       // ✅ Use raw phone for structured data
       telephone: BUSINESS_CONFIG.contact.phoneRaw,
-      url: baseUrl,
+      url: SITE_URL,
     },
     areaServed: [
       { '@type': 'AdministrativeArea', name: 'Southern Maine' },
@@ -210,7 +198,7 @@ export default function ServicesPage() {
       itemOffered: {
         '@type': 'Service',
         name: s.title,
-        url: `${baseUrl}${s.href}`,
+        url: `${SITE_URL}${s.href}`,
         description: s.description,
       },
     })),
@@ -220,8 +208,8 @@ export default function ServicesPage() {
     <>
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: baseUrl },
-          { name: 'Services', url: `${baseUrl}/services` },
+          { name: 'Home', url: SITE_URL },
+          { name: 'Services', url: `${SITE_URL}/services` },
         ]}
       />
 
