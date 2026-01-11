@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import Script from 'next/script';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { EnhancedSchemaMarkup } from '@/components/enhanced-schema';
@@ -170,6 +171,20 @@ export default function RootLayout({
         
         {/* DNS prefetch for APIs */}
         <link rel="dns-prefetch" href="https://api.mapbox.com" />
+        
+        {/* Google Ads Tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17830178932"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17830178932');
+          `}
+        </Script>
       </head>
 
       <body className={`${inter.className} pb-16 md:pb-0 scroll-smooth`}>
