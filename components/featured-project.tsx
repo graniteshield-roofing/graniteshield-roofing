@@ -9,11 +9,6 @@ type ProjectPhase = 'before' | 'during' | 'after';
 
 const phases: { key: ProjectPhase; label: string; caption: string }[] = [
   {
-    key: 'before',
-    label: 'Before',
-    caption: 'Weathered roof showing signs of Maine winter wear',
-  },
-  {
     key: 'during',
     label: 'During',
     caption: 'Precision installation with owner oversight',
@@ -26,7 +21,7 @@ const phases: { key: ProjectPhase; label: string; caption: string }[] = [
 ];
 
 export function FeaturedProject() {
-  const [activePhase, setActivePhase] = useState<ProjectPhase>('before');
+  const [activePhase, setActivePhase] = useState<ProjectPhase>('during');
 
   const images = {
     before: MEDIA.projects.featured1.before,
@@ -40,7 +35,7 @@ export function FeaturedProject() {
         {/* Title */}
         <div className="mb-8 sm:mb-12 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-slate-900">
-            Before. During. After.
+            During. After.
           </h2>
         </div>
 
