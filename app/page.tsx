@@ -185,40 +185,41 @@ export default function HomePage() {
 
       {/* ✅ HERO - Cumberland Center Metal Roof */}
       <section className="relative overflow-hidden bg-slate-950">
-        {/* Mobile-first: taller on mobile to show more of the beautiful roof */}
-        <div className="relative min-h-[85vh] sm:min-h-[80vh] lg:min-h-[700px]">
-          {/* Background image - positioned to show the roof prominently */}
-          <div className="absolute inset-0">
+        {/* Mobile: Split layout - image on top, content below */}
+        {/* Desktop: Traditional overlay layout */}
+        <div className="relative min-h-[100vh] sm:min-h-[80vh] lg:min-h-[700px] flex flex-col sm:block">
+          
+          {/* Background image - full on desktop, top portion on mobile */}
+          <div className="relative h-[45vh] sm:h-auto sm:absolute sm:inset-0">
             <Image
               src={heroImg.src}
               alt={heroImg.alt}
               fill
               priority
               sizes={getResponsiveSizes('hero')}
-              className="object-cover object-[center_60%] sm:object-center"
+              className="object-cover object-[center_65%] sm:object-center"
             />
-            {/* Optimized overlays for mobile readability while showing the roof */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/60 sm:from-black/50 sm:via-black/25 sm:to-black/50" />
+            {/* Lighter overlay on mobile to show the roof, darker on desktop for text */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 sm:from-black/50 sm:via-black/25 sm:to-black/50" />
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-            {/* Tighter padding on mobile for more content visibility */}
-            <div className="pt-8 sm:pt-20 lg:pt-24 pb-6 sm:pb-14">
-              {/* Enhanced glass panel - stronger blur and contrast on mobile */}
-              <div className="max-w-xl sm:max-w-2xl rounded-2xl border border-white/20 bg-slate-900/70 sm:bg-white/10 backdrop-blur-2xl shadow-2xl p-4 sm:p-8">
-                <Badge className="mb-4 bg-blue-600 text-white border-0">
-                  Owner-Operated • Southern Maine • Licensed & Insured
+          {/* Content - solid dark background on mobile, glass on desktop */}
+          <div className="relative z-10 flex-1 sm:flex-none sm:mx-auto sm:max-w-7xl sm:px-6 lg:px-8">
+            <div className="h-full sm:pt-20 lg:pt-24 sm:pb-14">
+              {/* Mobile: solid dark panel at bottom | Desktop: glass overlay */}
+              <div className="h-full sm:h-auto sm:max-w-2xl sm:rounded-2xl sm:border sm:border-white/20 bg-slate-900 sm:bg-white/10 sm:backdrop-blur-2xl sm:shadow-2xl p-5 sm:p-8">
+                
+                <Badge className="mb-3 sm:mb-4 bg-blue-600 text-white border-0 text-xs">
+                  Owner-Operated • Southern Maine
                 </Badge>
 
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] drop-shadow-lg">
+                <h1 className="text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
                   Roofing & Exteriors Built for{' '}
                   <span className="text-blue-300">Southern Maine</span>
                 </h1>
 
-                <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-white/95 leading-relaxed font-medium drop-shadow-md">
-                  Standing seam metal roofing, shingle systems, roof replacements, repairs, siding, and windows —
-                  clean installs, tight detailing, and real accountability from the owner on-site.
+                <p className="mt-2 sm:mt-4 text-sm sm:text-lg text-slate-300 sm:text-white/95 leading-relaxed">
+                  Standing seam metal roofing, shingle systems, repairs & more — owner on-site.
                 </p>
 
                 {/* CTA row */}
@@ -234,7 +235,7 @@ export default function HomePage() {
                     size="lg"
                     variant="outline"
                     asChild
-                    className="h-12 sm:h-14 bg-transparent text-white border-white/70 hover:bg-white hover:text-slate-900"
+                    className="h-11 sm:h-14 bg-transparent text-white border-white/70 hover:bg-white hover:text-slate-900"
                   >
                     <Link href="/lp">
                       Free Inspection <ArrowRight className="ml-2 h-5 w-5" />
@@ -246,35 +247,36 @@ export default function HomePage() {
                 <div className="mt-3">
                   <a
                     href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}
-                    className="inline-flex items-center gap-2 text-white/90 hover:text-white text-sm font-medium transition-colors"
+                    className="inline-flex items-center gap-2 text-slate-300 sm:text-white/90 hover:text-white text-sm font-medium transition-colors"
                   >
                     <Phone className="h-4 w-4" />
                     Or call: {BUSINESS_CONFIG.contact.phone}
                   </a>
                 </div>
 
-                {/* Trust line */}
-                <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 sm:gap-y-2 text-xs sm:text-sm text-white/95 font-medium">
-                  <span className="inline-flex items-center gap-2">
+                {/* Trust line - simplified on mobile */}
+                <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 text-xs sm:text-sm text-slate-300 sm:text-white/95">
+                  <span className="inline-flex items-center gap-1">
                     <span aria-hidden>⭐</span> 5.0 (47 reviews)
                   </span>
                   <span className="opacity-60">•</span>
-                  <span>Most assessments scheduled in 24–48 hours</span>
+                  <span>24–48hr scheduling</span>
                   <span className="opacity-60">•</span>
-                  <span>$0 assessment fee</span>
+                  <span>$0 assessment</span>
                 </div>
 
-                {/* Bullets */}
-                <div className="mt-3 sm:mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 text-xs sm:text-sm text-white/95 font-medium">
-                  {['Licensed & Insured', 'Clean Install + Cleanup', 'Owner Oversight'].map((text) => (
-                    <div key={text} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-amber-300" />
+                {/* Bullets - horizontal on mobile */}
+                <div className="mt-3 sm:mt-5 flex flex-wrap sm:grid sm:grid-cols-3 gap-x-4 gap-y-1 sm:gap-2 text-xs sm:text-sm text-slate-300 sm:text-white/95">
+                  {['Licensed & Insured', 'Clean Install', 'Owner Oversight'].map((text) => (
+                    <div key={text} className="flex items-center gap-1.5 sm:gap-2">
+                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-amber-400" />
                       {text}
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-3 sm:mt-4 flex items-start gap-2 text-white/90 text-xs sm:text-sm">
+                {/* Service areas - hidden on mobile, shown on desktop */}
+                <div className="hidden sm:flex mt-4 items-start gap-2 text-white/90 text-sm">
                   <MapPin className="h-4 w-4 mt-0.5 text-slate-200" />
                   <p className="leading-relaxed">
                     Serving Southern Maine: {serviceAreas.join(', ')} and surrounding towns.
@@ -284,8 +286,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* subtle bottom fade into white section */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white" />
+          {/* subtle bottom fade into white section - desktop only */}
+          <div className="hidden sm:block absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white" />
         </div>
       </section>
 
