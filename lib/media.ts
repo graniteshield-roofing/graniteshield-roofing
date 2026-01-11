@@ -116,8 +116,8 @@ export const MEDIA: MediaLibrary = {
   systems: {
     integrity: {
       underlayment: {
-        src: '/images/systems/integrity/system-diamonddeck-macro.webp',
-        alt: 'Close-up of DiamondDeck synthetic roofing underlayment showing moisture barrier protection',
+        src: '/images/systems/integrity/certainteed-roofrunner-underlayment.webp',
+        alt: 'CertainTeed RoofRunner synthetic roofing underlayment - premium moisture barrier protection',
         width: 2000,
         height: 1333,
       },
