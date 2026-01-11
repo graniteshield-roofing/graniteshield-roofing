@@ -257,3 +257,162 @@ export function PersonSchema({
     />
   );
 }
+
+// Individual Reviews Schema for rich snippets
+export function ReviewsSchema() {
+  const reviews = [
+    {
+      author: 'Mike T.',
+      location: 'Scarborough, ME',
+      rating: 5,
+      date: '2024-11-15',
+      text: 'Justin and his team did an amazing job on our standing seam metal roof. Professional from start to finish. The instant quote tool was incredibly accurate - final price was within 5% of the estimate.',
+    },
+    {
+      author: 'Sarah M.',
+      location: 'Portland, ME',
+      rating: 5,
+      date: '2024-10-22',
+      text: 'Best roofing experience we\'ve ever had. Got an instant quote online, scheduled the inspection, and had our new roof installed within two weeks. Quality workmanship and great communication.',
+    },
+    {
+      author: 'David L.',
+      location: 'Cape Elizabeth, ME',
+      rating: 5,
+      date: '2024-09-18',
+      text: 'After getting quotes from 5 different contractors, GraniteShield was the clear choice. Fair pricing, premium materials, and Justin personally oversaw the entire project. Highly recommend.',
+    },
+    {
+      author: 'Jennifer K.',
+      location: 'Falmouth, ME',
+      rating: 5,
+      date: '2024-08-30',
+      text: 'Emergency repair after a storm - they were out same day and had our roof tarped within hours. Permanent repair completed the following week. Saved us from major water damage.',
+    },
+    {
+      author: 'Robert H.',
+      location: 'Brunswick, ME',
+      rating: 5,
+      date: '2024-07-12',
+      text: 'The online instant quote feature is a game changer. Got accurate pricing without having to schedule multiple appointments. The metal roof looks beautiful and should last a lifetime.',
+    },
+  ];
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://graniteshieldroofing.com/#organization',
+    name: 'GraniteShield Roofing & Exteriors',
+    review: reviews.map((review) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: review.author,
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: review.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      datePublished: review.date,
+      reviewBody: review.text,
+    })),
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      reviewCount: '47',
+      bestRating: '5',
+      worstRating: '1',
+    },
+  };
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}
+
+// Video Schema for YouTube content
+export function VideoSchema({
+  name,
+  description,
+  thumbnailUrl,
+  uploadDate,
+  duration,
+  contentUrl,
+  embedUrl,
+}: {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  duration?: string;
+  contentUrl?: string;
+  embedUrl?: string;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name,
+    description,
+    thumbnailUrl,
+    uploadDate,
+    ...(duration ? { duration } : {}),
+    ...(contentUrl ? { contentUrl } : {}),
+    ...(embedUrl ? { embedUrl } : {}),
+    publisher: {
+      '@type': 'Organization',
+      name: 'GraniteShield Roofing & Exteriors',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://graniteshieldroofing.com/logo.png',
+      },
+    },
+  };
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}
+
+// Product Schema for roofing services with pricing
+export function ProductSchema({
+  name,
+  description,
+  image,
+  priceRange,
+  url,
+}: {
+  name: string;
+  description: string;
+  image?: string;
+  priceRange: { min: number; max: number };
+  url: string;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name,
+    description,
+    ...(image ? { image } : {}),
+    brand: {
+      '@type': 'Brand',
+      name: 'GraniteShield Roofing',
+    },
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'USD',
+      lowPrice: priceRange.min,
+      highPrice: priceRange.max,
+      offerCount: '1',
+      availability: 'https://schema.org/InStock',
+      url,
+      priceValidUntil: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      reviewCount: '47',
+      bestRating: '5',
+      worstRating: '1',
+    },
+  };
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}

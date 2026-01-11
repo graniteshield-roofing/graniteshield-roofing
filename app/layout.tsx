@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { EnhancedSchemaMarkup } from '@/components/enhanced-schema';
+import { ReviewsSchema } from '@/components/schema-markup';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 import { MobileStickyCTA } from '@/components/mobile-sticky-cta';
 
@@ -147,6 +148,9 @@ export default function RootLayout({
       <head>
         {/* Enhanced Schema Markup for SEO/AI */}
         <EnhancedSchemaMarkup />
+        
+        {/* Individual Reviews Schema for rich snippets */}
+        <ReviewsSchema />
 
         {/* Facebook Domain Verification */}
         <meta

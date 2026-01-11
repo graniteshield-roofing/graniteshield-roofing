@@ -188,6 +188,26 @@ export function EnhancedSchemaMarkup() {
       BUSINESS_CONFIG.social.facebook,
       BUSINESS_CONFIG.social.instagram,
     ],
+    // Online Estimates - Critical for Google's new filter
+    makesOffer: [
+      {
+        '@type': 'Offer',
+        name: 'Instant Online Roof Estimate',
+        description: 'Get an instant, accurate roof quote online in under 60 seconds. No appointment needed.',
+        url: `${baseUrl}/instant-quote`,
+        availability: 'https://schema.org/InStock',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'USD',
+          price: '0',
+          description: 'Free instant estimate',
+        },
+        eligibleRegion: {
+          '@type': 'State',
+          name: 'Maine',
+        },
+      },
+    ],
     potentialAction: [
       {
         '@type': 'ReserveAction',
@@ -206,6 +226,8 @@ export function EnhancedSchemaMarkup() {
       },
       {
         '@type': 'QuoteAction',
+        name: 'Get Instant Online Estimate',
+        description: 'Get an instant roof quote online - no appointment needed',
         target: {
           '@type': 'EntryPoint',
           urlTemplate: `${baseUrl}/instant-quote`,
@@ -217,6 +239,22 @@ export function EnhancedSchemaMarkup() {
         result: {
           '@type': 'Order',
           name: 'Instant Roofing Quote',
+          description: 'Receive accurate roof pricing in under 60 seconds',
+        },
+      },
+      {
+        '@type': 'OrderAction',
+        name: 'Request Online Estimate',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${baseUrl}/instant-quote`,
+          inLanguage: 'en-US',
+          actionPlatform: [
+            'http://schema.org/DesktopWebPlatform',
+            'http://schema.org/MobileWebPlatform',
+            'http://schema.org/IOSPlatform',
+            'http://schema.org/AndroidPlatform',
+          ],
         },
       },
     ],
