@@ -65,10 +65,10 @@ export const MEDIA: MediaLibrary = {
   // ─────────────────────────────────────────────────────────────
   heroes: {
     main: {
-      src: '/images/hero/metal-barn-sunset-maine-hero.webp',
-      alt: 'Stunning aerial view of standing seam metal roofing on Maine barn at sunset with cupolas and fall foliage - GraniteShield Roofing',
+      src: '/images/hero-cumberland-center.webp',
+      alt: 'Aerial drone view of premium standing seam metal roofing installation in Cumberland Center, Maine - GraniteShield Roofing',
       width: 1920,
-      height: 1280,
+      height: 2560,
     },
   },
 

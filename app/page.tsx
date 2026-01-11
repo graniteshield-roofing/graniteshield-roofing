@@ -183,11 +183,11 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* ✅ HERO */}
+      {/* ✅ HERO - Cumberland Center Metal Roof */}
       <section className="relative overflow-hidden bg-slate-950">
-        {/* Better mobile height + desktop height */}
-        <div className="relative min-h-[78vh] sm:min-h-[74vh] lg:min-h-[640px]">
-          {/* Background image */}
+        {/* Mobile-first: taller on mobile to show more of the beautiful roof */}
+        <div className="relative min-h-[85vh] sm:min-h-[80vh] lg:min-h-[700px]">
+          {/* Background image - positioned to show the roof prominently */}
           <div className="absolute inset-0">
             <Image
               src={heroImg.src}
@@ -195,36 +195,35 @@ export default function HomePage() {
               fill
               priority
               sizes={getResponsiveSizes('hero')}
-              className="object-cover object-center"
+              className="object-cover object-[center_60%] sm:object-center"
             />
-            {/* Stronger contrast so text is crisp */}
-            <div className="absolute inset-0 bg-black/45" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/20 to-black/70" />
+            {/* Optimized overlays for mobile readability while showing the roof */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/60 sm:from-black/50 sm:via-black/25 sm:to-black/50" />
           </div>
 
           {/* Content */}
-          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* This keeps content off the edges on mobile and centered on desktop */}
-            <div className="pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14">
-              {/* Glass panel for readability */}
-              <div className="max-w-xl sm:max-w-2xl rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-2xl p-5 sm:p-8">
+          <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+            {/* Tighter padding on mobile for more content visibility */}
+            <div className="pt-8 sm:pt-20 lg:pt-24 pb-6 sm:pb-14">
+              {/* Enhanced glass panel - stronger blur and contrast on mobile */}
+              <div className="max-w-xl sm:max-w-2xl rounded-2xl border border-white/20 bg-slate-900/70 sm:bg-white/10 backdrop-blur-2xl shadow-2xl p-4 sm:p-8">
                 <Badge className="mb-4 bg-blue-600 text-white border-0">
                   Owner-Operated • Southern Maine • Licensed & Insured
                 </Badge>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] drop-shadow-lg">
                   Roofing & Exteriors Built for{' '}
                   <span className="text-blue-300">Southern Maine</span>
                 </h1>
 
-                <p className="mt-4 text-base sm:text-lg text-slate-100 leading-relaxed">
+                <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-white/95 leading-relaxed font-medium drop-shadow-md">
                   Standing seam metal roofing, shingle systems, roof replacements, repairs, siding, and windows —
                   clean installs, tight detailing, and real accountability from the owner on-site.
                 </p>
 
                 {/* CTA row */}
-                <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <Button variant="cta" size="lg" asChild className="h-12 sm:h-14">
+                <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row gap-2 sm:gap-3">
+                  <Button variant="cta" size="lg" asChild className="h-11 sm:h-14 text-base">
                     <Link href="/instant-quote">
                       <Zap className="mr-2 h-5 w-5" />
                       Get Instant Quote
@@ -255,7 +254,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Trust line */}
-                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-100">
+                <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 sm:gap-y-2 text-xs sm:text-sm text-white/95 font-medium">
                   <span className="inline-flex items-center gap-2">
                     <span aria-hidden>⭐</span> 5.0 (47 reviews)
                   </span>
@@ -266,7 +265,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Bullets */}
-                <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-slate-100">
+                <div className="mt-3 sm:mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 text-xs sm:text-sm text-white/95 font-medium">
                   {['Licensed & Insured', 'Clean Install + Cleanup', 'Owner Oversight'].map((text) => (
                     <div key={text} className="flex items-center gap-2">
                       <CheckCircle2 className="h-5 w-5 text-amber-300" />
@@ -275,7 +274,7 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                <div className="mt-4 flex items-start gap-2 text-slate-100 text-sm">
+                <div className="mt-3 sm:mt-4 flex items-start gap-2 text-white/90 text-xs sm:text-sm">
                   <MapPin className="h-4 w-4 mt-0.5 text-slate-200" />
                   <p className="leading-relaxed">
                     Serving Southern Maine: {serviceAreas.join(', ')} and surrounding towns.
