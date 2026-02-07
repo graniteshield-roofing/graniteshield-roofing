@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Call GraniteShield Roofing — Speak Directly With the Owner',
+  title: 'GraniteShield Roofing — Southern Maine Roofing Contractor',
   description:
-    'Talk to Justin, the owner of GraniteShield Roofing. Standing seam metal roofing, roof replacement, emergency repairs in Southern Maine. No call center, no voicemail maze.',
+    'GraniteShield Roofing serves Southern Maine with standing seam metal roofing, roof replacement, and emergency repairs. Licensed, insured, and owner-supervised. Call for a consultation.',
   robots: {
     index: false, // Don't index the ads landing page
     follow: false,
@@ -15,7 +15,5 @@ export default function CallLandingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // This layout wraps the call LP but still inherits the root layout
-  // The page itself handles hiding the default sticky CTA
   return <>{children}</>;
 }

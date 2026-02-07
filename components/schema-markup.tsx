@@ -266,7 +266,7 @@ export function ReviewsSchema() {
       location: 'Scarborough, ME',
       rating: 5,
       date: '2024-11-15',
-      text: 'Justin and his team did an amazing job on our standing seam metal roof. Professional from start to finish. The instant quote tool was incredibly accurate - final price was within 5% of the estimate.',
+      text: 'The GraniteShield team did an amazing job on our standing seam metal roof. Professional from start to finish. The instant quote tool was incredibly accurate — final price was within 5% of the estimate.',
     },
     {
       author: 'Sarah M.',
@@ -280,7 +280,7 @@ export function ReviewsSchema() {
       location: 'Cape Elizabeth, ME',
       rating: 5,
       date: '2024-09-18',
-      text: 'After getting quotes from 5 different contractors, GraniteShield was the clear choice. Fair pricing, premium materials, and Justin personally oversaw the entire project. Highly recommend.',
+      text: 'After getting quotes from 5 different contractors, GraniteShield was the clear choice. Fair pricing, premium materials, and the owner personally oversaw the entire project. Highly recommend.',
     },
     {
       author: 'Jennifer K.',

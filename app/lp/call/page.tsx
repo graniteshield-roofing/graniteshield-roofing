@@ -1,41 +1,38 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { Phone, Star, ShieldCheck, Clock, CheckCircle2, User, MapPin, Wrench } from 'lucide-react';
+import { Phone, Star, ShieldCheck, Clock, CheckCircle2, MapPin, Wrench, Award, Users } from 'lucide-react';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
 import { MEDIA } from '@/lib/media';
 
-// Google Ads call tracking number - forwards to Justin's cell (207-730-3467)
-// This number is ONLY shown on this paid traffic landing page
-// Organic traffic sees the main business number on other pages
-const ADS_CALL_NUMBER = '(207) 530-8362'; // Replace with Google forwarding number when ready
-const ADS_CALL_RAW = '+12075308362'; // Replace with Google forwarding number when ready
+// Google Ads call tracking number
+const ADS_CALL_NUMBER = '(207) 530-8362';
+const ADS_CALL_RAW = '+12075308362';
 
 const trustSignals = [
-  { icon: User, text: 'Owner answers every call' },
   { icon: ShieldCheck, text: 'Licensed & fully insured' },
-  { icon: Clock, text: 'Same-day response' },
-  { icon: MapPin, text: 'Local Southern Maine crew' },
+  { icon: Users, text: 'Owner-supervised crew' },
+  { icon: Clock, text: 'Response within 24 hours' },
+  { icon: MapPin, text: 'Southern Maine based' },
 ];
 
 const reviews = [
   {
     name: 'Sarah M.',
     town: 'Cumberland',
-    text: 'Justin answered on the first ring and was at our house the next morning. No corporate runaround.',
+    text: 'Professional from start to finish. The crew was respectful, clean, and thorough. Our new metal roof looks incredible.',
     rating: 5,
   },
   {
     name: 'Mike D.',
     town: 'Scarborough',
-    text: 'Owner-operated means real accountability. Best roofing experience we\'ve had.',
+    text: 'Real accountability at every step. The quality of the install and the cleanup afterward set GraniteShield apart.',
     rating: 5,
   },
   {
     name: 'Karen L.',
     town: 'Falmouth',
-    text: 'Called about ice dam damage. Justin was on our roof within hours. Incredible service.',
+    text: 'Had ice dam damage and they responded the same day. Handled everything with care. Highly recommend.',
     rating: 5,
   },
 ];
@@ -43,17 +40,17 @@ const reviews = [
 const services = [
   {
     title: 'Standing Seam Metal Roofing',
-    description: '50+ year lifespan. Zero maintenance. Built for Maine winters.',
+    description: '50+ year lifespan. Engineered for Maine\'s harshest conditions.',
     image: '/images/projects/gallery/standing-seam-metal-roof-blue-maine-01.webp',
   },
   {
     title: 'Shingle Roof Replacement',
-    description: 'Full tear-off and precision install. CertainTeed certified.',
+    description: 'Full tear-off and precision install. CertainTeed certified systems.',
     image: '/images/projects/gallery/shingle-roof-completed-maine-01.webp',
   },
   {
     title: 'Emergency Roof Repair',
-    description: 'Active leaks, storm damage, ice dams. Same-day response.',
+    description: 'Active leaks, storm damage, ice dams. Same-day response available.',
     image: '/images/projects/gallery/metal-roof-chimney-maine.webp',
   },
 ];
@@ -62,11 +59,11 @@ export default function CallLandingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* ============================================
-          HERO — MOBILE-FIRST, CALL-DOMINANT
+          HERO — CLEAN, PROFESSIONAL, CALL-FOCUSED
       ============================================ */}
       <section className="relative">
         {/* Hero Image */}
-        <div className="relative h-[45vh] sm:h-[50vh] lg:h-[60vh] w-full overflow-hidden">
+        <div className="relative h-[42vh] sm:h-[48vh] lg:h-[56vh] w-full overflow-hidden">
           <Image
             src={MEDIA.heroes.main.src}
             alt={MEDIA.heroes.main.alt}
@@ -75,45 +72,39 @@ export default function CallLandingPage() {
             className="h-full w-full object-cover object-[center_40%]"
             priority
           />
-          {/* Dark gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/30 to-slate-900/80" />
+          {/* Refined gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/20 to-slate-900/70" />
 
           {/* Hero text overlay */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-            <div className="flex items-center gap-1.5 mb-3">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
-              ))}
-              <span className="ml-2 text-sm font-semibold text-white/90">
-                5.0 ({BUSINESS_CONFIG.reputation.reviewCount} reviews)
-              </span>
-            </div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight max-w-3xl">
-              Talk to the Owner.
+              Roofing Systems
               <br />
-              <span className="text-amber-400">Not a Call Center.</span>
+              <span className="text-amber-400">Built for Maine.</span>
             </h1>
-            <p className="mt-3 text-base sm:text-lg text-white/85 max-w-xl">
-              Premium roofing built for Maine weather. One call, one person, real answers.
+            <p className="mt-3 text-base sm:text-lg text-white/80 max-w-xl leading-relaxed">
+              Standing seam metal, shingle replacements, and emergency repair.
+              <br className="hidden sm:block" />
+              Owner-supervised quality on every project.
             </p>
           </div>
         </div>
 
         {/* ============================================
-            PRIMARY CTA — GIANT CALL BUTTON
+            PRIMARY CTA — CALL BUTTON
         ============================================ */}
         <div className="relative -mt-8 z-10 px-4">
           <a
             href={`tel:${ADS_CALL_RAW}`}
-            className="mx-auto flex max-w-lg items-center justify-center gap-3 rounded-2xl bg-amber-500 px-8 py-5 shadow-2xl shadow-amber-500/30 transition-all duration-200 hover:bg-amber-400 hover:shadow-amber-400/40 hover:scale-[1.02] active:scale-[0.98]"
+            className="mx-auto flex max-w-lg items-center justify-center gap-3 rounded-2xl bg-amber-500 px-8 py-5 shadow-xl transition-all duration-200 hover:bg-amber-400 hover:scale-[1.01] active:scale-[0.99]"
           >
-            <Phone className="h-7 w-7 text-slate-900 animate-pulse" />
-            <span className="text-xl sm:text-2xl font-extrabold text-slate-900">
-              Call Justin Now
+            <Phone className="h-6 w-6 text-slate-900" />
+            <span className="text-xl sm:text-2xl font-bold text-slate-900">
+              Call GraniteShield Roofing
             </span>
           </a>
           <p className="mt-3 text-center text-sm text-slate-500">
-            Speak directly with the owner — no voicemail maze
+            {ADS_CALL_NUMBER} &middot; Mon–Fri 7AM–6PM, Sat 8AM–4PM
           </p>
         </div>
       </section>
@@ -128,7 +119,7 @@ export default function CallLandingPage() {
               key={signal.text}
               className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-4"
             >
-              <signal.icon className="h-5 w-5 text-amber-500 mt-0.5 flex-shrink-0" />
+              <signal.icon className="h-5 w-5 text-slate-600 mt-0.5 flex-shrink-0" />
               <span className="text-sm font-medium text-slate-700 leading-snug">
                 {signal.text}
               </span>
@@ -138,21 +129,18 @@ export default function CallLandingPage() {
       </section>
 
       {/* ============================================
-          OWNER CREDIBILITY SECTION
+          COMPANY CREDIBILITY SECTION
       ============================================ */}
       <section className="bg-slate-900 py-12 px-4">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 px-4 py-1.5 mb-6">
-            <User className="h-4 w-4 text-amber-400" />
-            <span className="text-sm font-semibold text-amber-400">Owner-Operated</span>
-          </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            When You Call, Justin Answers
+            Every Project. Owner-Supervised.
           </h2>
-          <p className="text-slate-300 leading-relaxed max-w-xl mx-auto">
-            No sales reps. No subcontractors. No corporate runaround. Justin personally oversees 
-            every project from the first phone call to the final inspection. That&apos;s why 
-            GraniteShield has a perfect 5.0-star rating.
+          <p className="text-slate-300 leading-relaxed max-w-xl mx-auto text-sm sm:text-base">
+            GraniteShield Roofing is a crew-based operation where every job is personally 
+            overseen by the company owner. Our roofing specialists handle each phase with 
+            precision — from initial assessment through final inspection. That commitment 
+            to quality is why we maintain a perfect 5.0-star rating.
           </p>
           <div className="mt-8 grid grid-cols-3 gap-4 max-w-sm mx-auto">
             <div className="text-center">
@@ -160,8 +148,8 @@ export default function CallLandingPage() {
               <div className="text-xs text-slate-400 mt-1">Google Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-amber-400">100%</div>
-              <div className="text-xs text-slate-400 mt-1">Owner On-Site</div>
+              <div className="text-2xl font-bold text-amber-400">{BUSINESS_CONFIG.reputation.reviewCount}+</div>
+              <div className="text-xs text-slate-400 mt-1">5-Star Reviews</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-amber-400">24hr</div>
@@ -177,11 +165,11 @@ export default function CallLandingPage() {
       <section className="py-8 px-4 bg-slate-50">
         <div className="mx-auto max-w-lg text-center">
           <p className="text-slate-600 mb-4 text-sm">
-            Ready to talk about your roof? One call is all it takes.
+            Questions about your roof? Our team is ready to help.
           </p>
           <a
             href={`tel:${ADS_CALL_RAW}`}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all hover:bg-slate-800 hover:scale-[1.01] active:scale-[0.99]"
           >
             <Phone className="h-5 w-5" />
             {ADS_CALL_NUMBER}
@@ -195,7 +183,7 @@ export default function CallLandingPage() {
       <section className="py-12 px-4">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 text-center mb-8">
-            What We Do Best
+            Our Roofing Services
           </h2>
           <div className="space-y-4">
             {services.map((service) => (
@@ -220,7 +208,6 @@ export default function CallLandingPage() {
                     {service.description}
                   </p>
                 </div>
-                <Wrench className="h-5 w-5 text-slate-300 flex-shrink-0" />
               </div>
             ))}
           </div>
@@ -271,9 +258,9 @@ export default function CallLandingPage() {
       ============================================ */}
       <section className="py-10 px-4">
         <div className="mx-auto max-w-2xl text-center">
-          <MapPin className="h-8 w-8 text-amber-500 mx-auto mb-3" />
-          <h2 className="text-xl font-bold text-slate-900 mb-3">
-            Serving All of Southern Maine
+          <MapPin className="h-8 w-8 text-slate-400 mx-auto mb-3" />
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
+            Serving Southern Maine
           </h2>
           <p className="text-sm text-slate-500 leading-relaxed">
             Cumberland Center, Portland, Scarborough, Falmouth, Yarmouth, Freeport, 
@@ -289,37 +276,37 @@ export default function CallLandingPage() {
       <section className="bg-slate-900 py-14 px-4">
         <div className="mx-auto max-w-lg text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Your Roof Deserves Better
+            Ready to Discuss Your Project?
           </h2>
           <p className="text-slate-400 mb-8 text-sm">
-            Skip the forms. Skip the wait. Talk to the person who will actually be on your roof.
+            Speak with our team about your roofing needs. No pressure, no obligation.
           </p>
           <a
             href={`tel:${ADS_CALL_RAW}`}
-            className="inline-flex items-center justify-center gap-3 rounded-2xl bg-amber-500 px-10 py-5 shadow-2xl shadow-amber-500/20 transition-all duration-200 hover:bg-amber-400 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center gap-3 rounded-2xl bg-amber-500 px-10 py-5 shadow-xl transition-all duration-200 hover:bg-amber-400 hover:scale-[1.01] active:scale-[0.99]"
           >
-            <Phone className="h-7 w-7 text-slate-900" />
-            <span className="text-xl font-extrabold text-slate-900">
-              Call Justin — {ADS_CALL_NUMBER}
+            <Phone className="h-6 w-6 text-slate-900" />
+            <span className="text-xl font-bold text-slate-900">
+              {ADS_CALL_NUMBER}
             </span>
           </a>
           <p className="mt-4 text-xs text-slate-500">
-            Available Mon–Fri 7AM–6PM, Sat 8AM–4PM
+            Mon–Fri 7AM–6PM &middot; Sat 8AM–4PM
           </p>
         </div>
       </section>
 
       {/* ============================================
-          STICKY MOBILE CALL BAR
+          STICKY MOBILE CALL BAR — PROFESSIONAL
       ============================================ */}
       <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
         <a
           href={`tel:${ADS_CALL_RAW}`}
-          className="flex items-center justify-center gap-3 bg-amber-500 py-4 shadow-[0_-4px_20px_rgba(0,0,0,0.15)]"
+          className="flex items-center justify-center gap-3 bg-amber-500 py-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]"
         >
-          <Phone className="h-5 w-5 text-slate-900 animate-pulse" />
-          <span className="text-base font-extrabold text-slate-900">
-            Tap to Call Justin Now
+          <Phone className="h-5 w-5 text-slate-900" />
+          <span className="text-base font-bold text-slate-900">
+            Call GraniteShield Roofing
           </span>
         </a>
       </div>
