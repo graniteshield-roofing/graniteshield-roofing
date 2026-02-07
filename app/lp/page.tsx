@@ -255,7 +255,7 @@ export default function LandingPage() {
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 items-center justify-center text-sm text-slate-600">
             <span className="inline-flex items-center gap-2">
               <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />{' '}
-              <span className="font-semibold">5.0</span> (8 reviews)
+              <span className="font-semibold">5.0</span> (50+ reviews)
             </span>
             <span className="text-slate-300">•</span>
             <span className="inline-flex items-center gap-2">

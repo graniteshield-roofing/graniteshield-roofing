@@ -82,7 +82,7 @@ export const BUSINESS_CONFIG = {
     googleReviewUrl:
       'https://www.google.com/search?q=GraniteShield+Roofing+reviews',
     rating: 5.0,
-    reviewCount: 8,
+    reviewCount: 50,
   },
 
   /* ========================

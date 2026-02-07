@@ -91,8 +91,8 @@ export function SEOSchema({ type = 'home', service, article, faqs }: SEOSchemaPr
     ],
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '500',
+      ratingValue: '5.0',
+      reviewCount: '50',
       bestRating: '5',
       worstRating: '1',
     },

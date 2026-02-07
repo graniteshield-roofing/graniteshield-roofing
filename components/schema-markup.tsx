@@ -52,7 +52,7 @@ export function OrganizationSchema() {
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: config.reputation?.rating || 5.0,
-      reviewCount: config.reputation?.reviewCount || 8,
+      reviewCount: config.reputation?.reviewCount || 50,
       bestRating: '5',
       worstRating: '1',
     },
@@ -321,7 +321,7 @@ export function ReviewsSchema() {
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '5.0',
-      reviewCount: '47',
+      reviewCount: '50',
       bestRating: '5',
       worstRating: '1',
     },
@@ -408,7 +408,7 @@ export function ProductSchema({
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '5.0',
-      reviewCount: '47',
+      reviewCount: '50',
       bestRating: '5',
       worstRating: '1',
     },

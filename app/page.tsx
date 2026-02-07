@@ -257,7 +257,7 @@ export default function HomePage() {
                 {/* Trust line - simplified on mobile */}
                 <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 text-xs sm:text-sm text-slate-300 sm:text-white/95">
                   <span className="inline-flex items-center gap-1">
-                    <span aria-hidden>⭐</span> 5.0 (47 reviews)
+                    <span aria-hidden>⭐</span> 5.0 (50+ reviews)
                   </span>
                   <span className="opacity-60">•</span>
                   <span>24–48hr scheduling</span>
