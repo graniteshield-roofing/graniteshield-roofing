@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ArrowRight, Phone, CheckCircle2, MapPin } from 'lucide-react';
 
@@ -6,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BUSINESS_CONFIG } from '@/lib/business-config';
+import { MEDIA, getResponsiveSizes } from '@/lib/media';
 import {
   BreadcrumbSchema,
   FAQSchema,
@@ -36,6 +38,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const baseUrl = 'https://graniteshieldroofing.com';
+  const ownerImg = MEDIA.about.ownerOnRoof;
 
   // Keep tight + real (no spam list)
   const serviceAreas = [
@@ -81,7 +84,7 @@ export default function AboutPage() {
     {
       question: 'What areas do you serve?',
       answer:
-        'We serve Southern Maine, including towns across Cumberland County, York County, and nearby areas. If you’re unsure, contact us and we’ll confirm your location.',
+        'We serve Southern Maine, including towns across Cumberland County, York County, and nearby areas. If you\u2019re unsure, contact us and we\u2019ll confirm your location.',
     },
     {
       question: 'What makes your installs different?',
@@ -113,7 +116,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:py-20 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <Badge className="mb-6 bg-blue-600 text-white border-0">
-              Owner-Operated • Southern Maine
+              Owner-Operated &bull; Southern Maine
             </Badge>
 
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
@@ -157,8 +160,74 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* OWNER SECTION — Photo + Bio (Mobile-first) */}
+      <section className="bg-white py-0 sm:py-16">
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-12 items-center">
+
+            {/* Photo — full-bleed on mobile, rounded on desktop */}
+            <div className="relative w-full aspect-[3/2] lg:aspect-[4/3] overflow-hidden lg:rounded-2xl">
+              <Image
+                src={ownerImg.src}
+                alt={ownerImg.alt}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-[35%_40%]"
+              />
+              {/* Subtle gradient for mobile text readability if needed */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent lg:from-transparent" />
+            </div>
+
+            {/* Bio content */}
+            <div className="px-4 py-10 sm:px-6 lg:px-0 lg:py-0">
+              <Badge className="mb-4 bg-amber-100 text-amber-800 border-amber-200">
+                Founder & Owner
+              </Badge>
+
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+                Justin Laflamme
+              </h2>
+
+              <div className="mt-6 space-y-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+                <p>
+                  GraniteShield exists because too many homeowners get
+                  overpromised and underdelivered. The focus here is
+                  craftsmanship, water management, and clear communication —
+                  with the owner staying accountable from start to finish.
+                </p>
+                <p>
+                  Every project is owner-supervised. Homeowners get a clear plan,
+                  clean work, and a contractor who stays involved — not a handoff
+                  to strangers.
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Button size="lg" variant="cta" asChild className="h-12 px-6">
+                  <Link href="/lp">
+                    Get Free Estimate <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="h-12 px-6"
+                >
+                  <a href={`tel:${BUSINESS_CONFIG.contact.phoneRaw}`}>
+                    <Phone className="mr-2 h-5 w-5" />
+                    {BUSINESS_CONFIG.contact.phone}
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* STORY + PRINCIPLES */}
-      <section className="bg-white py-16">
+      <section className="bg-slate-50 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
@@ -166,7 +235,7 @@ export default function AboutPage() {
                 What We Stand For
               </h2>
               <p className="mt-3 text-slate-600">
-                We’re not trying to look flashy. We’re built to feel safe,
+                We&apos;re not trying to look flashy. We&apos;re built to feel safe,
                 established, and accountable — because roofing is a risk
                 purchase.
               </p>
@@ -174,7 +243,7 @@ export default function AboutPage() {
               <ul className="mt-6 space-y-3 text-slate-700">
                 {corePoints.map((x) => (
                   <li key={x} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-amber-600 mt-0.5" />
+                    <CheckCircle2 className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
                     <span>{x}</span>
                   </li>
                 ))}
@@ -183,14 +252,14 @@ export default function AboutPage() {
               <p className="mt-6 text-slate-600">
                 Our work is designed for New England conditions — snow loads,
                 ice, wind-driven rain, and coastal exposure. If you want it done
-                correctly, you’re in the right place.
+                correctly, you&apos;re in the right place.
               </p>
             </div>
 
             <Card className="border-slate-200">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold text-slate-900">
-                  Services We’re Known For
+                  Services We&apos;re Known For
                 </h3>
                 <p className="mt-2 text-slate-600">
                   Explore details, FAQs, and what to expect for each service.
@@ -201,7 +270,7 @@ export default function AboutPage() {
                     <Link
                       key={s.href}
                       href={s.href}
-                      className="rounded-lg border border-slate-200 px-4 py-3 text-slate-800 hover:border-slate-300 hover:bg-slate-50 transition"
+                      className="rounded-lg border border-slate-200 px-4 py-3 text-slate-800 hover:border-slate-300 hover:bg-white transition"
                     >
                       {s.label}
                     </Link>
@@ -230,44 +299,6 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
-
-      {/* OWNER SECTION (no images for now) */}
-      <section className="bg-slate-50 py-16">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900">Owner Oversight</h2>
-          <p className="mt-3 text-slate-600">
-            GraniteShield is founded and led by{' '}
-            <span className="font-semibold">Justin Laflamme</span>. Homeowners
-            get a clear plan, clean work, and a contractor who stays involved —
-            not a handoff to strangers.
-          </p>
-
-          <div className="mt-8">
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold text-slate-900">
-                  Justin Laflamme
-                </h3>
-                <p className="mt-1 text-sm text-blue-700 font-semibold uppercase tracking-wide">
-                  Founder & Owner
-                </p>
-                <p className="mt-4 text-slate-700">
-                  GraniteShield exists because too many homeowners get
-                  overpromised and underdelivered. The focus here is
-                  craftsmanship, water management, and clear communication —
-                  with the owner staying accountable from start to finish.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <p className="mt-8 text-slate-600">
-            Want to talk through options? Start with an inspection and we’ll
-            give you a clear recommendation based on your home and Maine
-            conditions.
-          </p>
         </div>
       </section>
 

@@ -22,6 +22,9 @@ interface MediaLibrary {
   proof: {
     owner: MediaItem;
   };
+  about: {
+    ownerOnRoof: MediaItem;
+  };
   projects: {
     featured1: {
       before: MediaItem;
@@ -69,6 +72,18 @@ export const MEDIA: MediaLibrary = {
       alt: 'Aerial drone view of premium standing seam metal roofing installation in Cumberland Center, Maine - GraniteShield Roofing',
       width: 1920,
       height: 2560,
+    },
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // ABOUT - Owner / Team Photos
+  // ─────────────────────────────────────────────────────────────
+  about: {
+    ownerOnRoof: {
+      src: '/images/owner-justin-metal-roof-install.webp',
+      alt: 'GraniteShield Roofing owner installing standing seam metal roofing panels during a Maine winter project at dusk',
+      width: 2048,
+      height: 1367,
     },
   },
 
