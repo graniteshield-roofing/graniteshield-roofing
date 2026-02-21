@@ -236,9 +236,12 @@ export function LeadCaptureForm({
         estimatedPrice: estimatedPrice || undefined,
         latitude: quoteData.coordinates?.latitude,
         longitude: quoteData.coordinates?.longitude,
-        measurementSource: quoteData.calibration?.measurement_source === 'lidar'
-          ? 'GOOGLE_SOLAR' as const
-          : 'ESTIMATE' as const,
+        measurementSource: (() => {
+          const ms = quoteData.calibration?.measurement_source as string | undefined;
+          return (ms === 'hover' || ms === 'synthetic' || ms === 'synthetic_clamped')
+            ? 'GOOGLE_SOLAR' as const
+            : 'ESTIMATE' as const;
+        })(),
         measurementConfidence: quoteData.calibration?.calibration_status === 'within_range'
           ? 'HIGH' as const
           : 'LOW' as const,
