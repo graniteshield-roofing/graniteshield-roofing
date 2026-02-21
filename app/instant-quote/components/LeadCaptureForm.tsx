@@ -82,6 +82,15 @@ function getUtmParams(): Record<string, string> {
 }
 
 /**
+ * Get a browser cookie value by name.
+ */
+function getCookie(name: string): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()\[\]\\/+^])/g, '\\$1') + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : undefined;
+}
+
+/**
  * Extract town from a normalized address string.
  * Expects format: "123 Main St, Portland, ME 04101"
  * Returns the city/town component.
@@ -253,6 +262,12 @@ export function LeadCaptureForm({
 
         // Consent
         smsConsent: phoneDigits.length >= 10 ? true : false,
+
+        // Tracking — Meta Pixel / Google Ads (Phase 2)
+        fbp: getCookie('_fbp') || undefined,
+        fbc: getCookie('_fbc') || (utmParams.fbclid ? `fb.1.${Date.now()}.${utmParams.fbclid}` : undefined),
+        gclid: utmParams.gclid || undefined,
+        clientUserAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
       };
 
       // ── Send to unified lead engine (REST wrapper) ─────────────────
@@ -276,17 +291,44 @@ export function LeadCaptureForm({
       if (data?.success) {
         setSubmitStatus('success');
 
-        // Fire client-side tracking event (for GTM / Meta Pixel)
-        if (typeof window !== 'undefined' && (window as any).dataLayer) {
-          (window as any).dataLayer.push({
-            event: 'lead_submitted',
-            leadId: data.leadId,
-            leadScore: data.score,
-            leadTier: data.tier,
-            packageSelected: selectedPackage,
-            estimatedPrice,
-            town,
-          });
+        // Fire client-side tracking events
+        if (typeof window !== 'undefined') {
+          // GTM dataLayer push
+          if ((window as any).dataLayer) {
+            (window as any).dataLayer.push({
+              event: 'lead_submitted',
+              leadId: data.leadId,
+              leadScore: data.score,
+              leadTier: data.tier,
+              packageSelected: selectedPackage,
+              estimatedPrice,
+              town,
+            });
+          }
+
+          // Meta Pixel — fire with eventID for deduplication with server CAPI
+          // The server sends the same eventId (submissionId) to Meta CAPI.
+          // Meta deduplicates using event_id + event_name within 48 hours.
+          if (typeof (window as any).fbq === 'function') {
+            (window as any).fbq('track', 'Lead', {
+              value: estimatedPrice || 0,
+              currency: 'USD',
+              content_name: selectedPackage,
+              content_category: town,
+            }, {
+              eventID: submissionId,
+            });
+          }
+
+          // Google Ads — fire gtag conversion event if available
+          if (typeof (window as any).gtag === 'function' && utmParams.gclid) {
+            (window as any).gtag('event', 'conversion', {
+              send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL', // TODO: Replace with actual conversion ID
+              value: estimatedPrice || 0,
+              currency: 'USD',
+              transaction_id: submissionId,
+            });
+          }
         }
 
         if (onSuccess) {
