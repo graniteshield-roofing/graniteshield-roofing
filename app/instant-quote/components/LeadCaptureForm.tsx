@@ -28,7 +28,8 @@ const LEAD_ENGINE_BASE_URL =
   process.env.NEXT_PUBLIC_LEAD_ENGINE_URL ||
   'https://quote-graniteshieldroofing.com';
 
-const LEAD_INGEST_URL = `${LEAD_ENGINE_BASE_URL}/api/trpc/leads.ingestFromWebsite`;
+// Use the REST wrapper for stable external POST transport (Phase 1.5)
+const LEAD_INGEST_URL = `${LEAD_ENGINE_BASE_URL}/api/leads/ingest`;
 
 // ============================================================================
 // TYPES
@@ -114,6 +115,22 @@ export function LeadCaptureForm({
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Honeypot field — hidden from real users, filled by bots
+  const [honeypot, setHoneypot] = useState('');
+
+  // Idempotency: generate a unique submissionId per form mount (UUID v4)
+  const [submissionId] = useState(() => {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    // Fallback for older browsers
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  });
+
   // UTM params captured once on mount
   const [utmParams, setUtmParams] = useState<Record<string, string>>({});
 
@@ -186,6 +203,11 @@ export function LeadCaptureForm({
 
       // ── Build unified payload ───────────────────────────────────────
       const payload = {
+        // Idempotency
+        submissionId,
+
+        // Honeypot (should be empty for real users)
+        website: honeypot || undefined,
         // PII
         firstName: firstName.trim() || undefined,
         lastName: lastName.trim() || undefined,
@@ -233,7 +255,7 @@ export function LeadCaptureForm({
         smsConsent: phoneDigits.length >= 10 ? true : false,
       };
 
-      // ── Send to unified lead engine ─────────────────────────────────
+      // ── Send to unified lead engine (REST wrapper) ─────────────────
       const response = await fetch(LEAD_INGEST_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -243,16 +265,13 @@ export function LeadCaptureForm({
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         const errMsg =
+          errorData?.error ||
           errorData?.error?.message ||
-          errorData?.error?.json?.message ||
           'Failed to submit your information';
         throw new Error(errMsg);
       }
 
-      const result = await response.json();
-
-      // tRPC wraps the response in { result: { data: ... } }
-      const data = result?.result?.data;
+      const data = await response.json();
 
       if (data?.success) {
         setSubmitStatus('success');
@@ -411,6 +430,32 @@ export function LeadCaptureForm({
               onChange={(e) => setEmail(e.target.value)}
               disabled={isSubmitting}
               required
+            />
+          </div>
+
+          {/* Honeypot — hidden from real users, catches bots */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              top: '-9999px',
+              width: 0,
+              height: 0,
+              overflow: 'hidden',
+              opacity: 0,
+              tabIndex: -1,
+            } as React.CSSProperties}
+          >
+            <label htmlFor="website">Website</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              autoComplete="off"
+              tabIndex={-1}
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
             />
           </div>
 
