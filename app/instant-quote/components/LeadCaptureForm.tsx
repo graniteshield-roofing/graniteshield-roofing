@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,6 +9,30 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import { QuoteResponse } from '@/lib/api/quote';
 import { PackageSelection } from '../types';
+
+// ============================================================================
+// CONFIGURATION
+// ============================================================================
+
+/**
+ * Unified Lead Engine Backend URL
+ * 
+ * The quote-frontend backend is the SINGLE source of truth for lead storage,
+ * GHL webhook, lead scoring, and notifications. This replaces the old
+ * /api/leads → Supabase path.
+ * 
+ * tRPC mutation endpoints use POST with JSON body to:
+ *   {BASE}/api/trpc/leads.ingestFromWebsite
+ */
+const LEAD_ENGINE_BASE_URL =
+  process.env.NEXT_PUBLIC_LEAD_ENGINE_URL ||
+  'https://quote-graniteshieldroofing.com';
+
+const LEAD_INGEST_URL = `${LEAD_ENGINE_BASE_URL}/api/trpc/leads.ingestFromWebsite`;
+
+// ============================================================================
+// TYPES
+// ============================================================================
 
 interface LeadCaptureFormProps {
   quoteData: QuoteResponse;
@@ -23,12 +47,64 @@ interface LeadCaptureFormProps {
   onSuccess?: () => void;
 }
 
+// ============================================================================
+// UTM HELPERS
+// ============================================================================
+
+/**
+ * Extract UTM parameters and ad tracking data from the current URL.
+ * These are captured once on mount and sent with the lead payload.
+ */
+function getUtmParams(): Record<string, string> {
+  if (typeof window === 'undefined') return {};
+
+  const params = new URLSearchParams(window.location.search);
+  const utm: Record<string, string> = {};
+
+  const keys = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+    'ad_id',
+    'fbclid',
+    'gclid',
+  ];
+
+  for (const key of keys) {
+    const val = params.get(key);
+    if (val) utm[key] = val;
+  }
+
+  return utm;
+}
+
+/**
+ * Extract town from a normalized address string.
+ * Expects format: "123 Main St, Portland, ME 04101"
+ * Returns the city/town component.
+ */
+function extractTown(address: string): string {
+  if (!address) return '';
+  const parts = address.split(',').map((s) => s.trim());
+  // Town is typically the second part: "Street, Town, State ZIP"
+  if (parts.length >= 2) {
+    return parts[1];
+  }
+  return '';
+}
+
+// ============================================================================
+// COMPONENT
+// ============================================================================
+
 export function LeadCaptureForm({
   quoteData,
   initialData,
   onSuccess,
 }: LeadCaptureFormProps) {
-  const [name, setName] = useState(initialData?.name || '');
+  // Form state
   const [firstName, setFirstName] = useState(initialData?.firstName || '');
   const [lastName, setLastName] = useState(initialData?.lastName || '');
   const [email, setEmail] = useState(initialData?.email || '');
@@ -38,6 +114,14 @@ export function LeadCaptureForm({
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // UTM params captured once on mount
+  const [utmParams, setUtmParams] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    setUtmParams(getUtmParams());
+  }, []);
+
+  // ── Phone formatting ──────────────────────────────────────────────────
   const formatPhoneNumber = (value: string): string => {
     const digits = value.replace(/\D/g, '');
     if (digits.length <= 3) return digits;
@@ -45,24 +129,40 @@ export function LeadCaptureForm({
     return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
   };
 
+  // ── Validation ────────────────────────────────────────────────────────
   const validateEmail = (email: string): boolean => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
+  // ── Derive pricing from quoteData ─────────────────────────────────────
+  function getEstimatedPrice(): number {
+    // Use the selected package price, or fall back to the "good" package
+    const pkg = selectedPackage === 'best'
+      ? quoteData.packages?.metal?.best
+      : quoteData.packages?.metal?.good;
+
+    if (!pkg?.priceEstimate) return 0;
+
+    const pe = pkg.priceEstimate;
+    if (pe.type === 'exact' && pe.exact) return pe.exact;
+    if (pe.type === 'range' && pe.min && pe.max) return Math.round((pe.min + pe.max) / 2);
+    return pe.min || pe.max || pe.exact || 0;
+  }
+
+  // ── Submit handler ────────────────────────────────────────────────────
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setErrorMessage(null);
 
-    // Validate email
+    // Validate email (required)
     if (!email.trim()) {
       setErrorMessage('Email is required');
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
     }
-
     if (!validateEmail(email)) {
       setErrorMessage('Please enter a valid email address');
       setSubmitStatus('error');
@@ -70,48 +170,111 @@ export function LeadCaptureForm({
       return;
     }
 
-    // Build name from first + last if available, otherwise use name field
-    const fullName = [firstName.trim(), lastName.trim()].filter(Boolean).join(' ') || name.trim();
+    // Phone validation: 0 digits OK, 1-9 invalid, 10+ valid
+    const phoneDigits = phone.replace(/\D/g, '');
+    if (phoneDigits.length > 0 && phoneDigits.length < 10) {
+      setErrorMessage('Phone number must be at least 10 digits');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      const phoneDigits = phone ? phone.replace(/\D/g, '') : '';
-      const normalizedPhone = phoneDigits.length >= 10 ? phoneDigits : undefined;
+      const address = initialData?.address || quoteData.normalizedAddress || '';
+      const estimatedPrice = getEstimatedPrice();
+      const town = extractTown(address);
 
-      const response = await fetch('/api/leads', {
+      // ── Build unified payload ───────────────────────────────────────
+      const payload = {
+        // PII
+        firstName: firstName.trim() || undefined,
+        lastName: lastName.trim() || undefined,
+        email: email.trim().toLowerCase(),
+        phone: phoneDigits.length >= 10 ? phoneDigits : undefined,
+
+        // Property
+        address,
+        town: town || undefined,
+
+        // Roof measurement
+        areaSquareFeet: quoteData.measurement?.calibratedSquares
+          ? quoteData.measurement.calibratedSquares * 100  // squares → sqft
+          : (quoteData.estimatedSquares ? quoteData.estimatedSquares * 100 : undefined),
+        pitch: undefined, // Not collected in this form
+        material: 'metal', // Standing seam focus
+        estimatedPrice: estimatedPrice || undefined,
+        latitude: quoteData.coordinates?.latitude,
+        longitude: quoteData.coordinates?.longitude,
+        measurementSource: quoteData.calibration?.measurement_source === 'lidar'
+          ? 'GOOGLE_SOLAR' as const
+          : 'ESTIMATE' as const,
+        measurementConfidence: quoteData.calibration?.calibration_status === 'within_range'
+          ? 'HIGH' as const
+          : 'LOW' as const,
+
+        // Package & Pricing
+        packageSelected: selectedPackage,
+        predictedRevenue: estimatedPrice || undefined,
+
+        // Financing (stub — will be enhanced in Phase 2)
+        financingIntent: false,
+
+        // Attribution — UTM + Ad tracking
+        utmSource: utmParams.utm_source || undefined,
+        utmMedium: utmParams.utm_medium || undefined,
+        utmCampaign: utmParams.utm_campaign || undefined,
+        utmTerm: utmParams.utm_term || undefined,
+        utmContent: utmParams.utm_content || undefined,
+        adId: utmParams.ad_id || utmParams.fbclid || utmParams.gclid || undefined,
+        referrer: typeof document !== 'undefined' ? document.referrer || undefined : undefined,
+        landingPage: typeof window !== 'undefined' ? window.location.href : undefined,
+
+        // Consent
+        smsConsent: phoneDigits.length >= 10 ? true : false,
+      };
+
+      // ── Send to unified lead engine ─────────────────────────────────
+      const response = await fetch(LEAD_INGEST_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          address: initialData?.address || quoteData.normalizedAddress,
-          normalizedAddress: quoteData.normalizedAddress,
-          name: fullName || undefined,
-          firstName: firstName.trim() || undefined,
-          lastName: lastName.trim() || undefined,
-          email: email.trim(),
-          phone: normalizedPhone,
-          roofTypes: ['standing_seam_roof_over', 'standing_seam_tear_off'], // Focus on standing seam
-          estimatedSquares: quoteData.measurement?.calibratedSquares || quoteData.estimatedSquares,
-          measurementMethod: quoteData.measurement?.method || quoteData.measurementMethod,
-          coordinates: quoteData.coordinates,
-          pricing: quoteData.pricing,
-          metadata: {
-            ...quoteData.metadata,
-            selectedPackage, // Include package selection
-            calibration: quoteData.calibration ? {
-              measurement_source: quoteData.calibration.measurement_source,
-              calibration_status: quoteData.calibration.calibration_status,
-            } : undefined,
-          },
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Failed to submit your information');
+        const errMsg =
+          errorData?.error?.message ||
+          errorData?.error?.json?.message ||
+          'Failed to submit your information';
+        throw new Error(errMsg);
       }
 
-      setSubmitStatus('success');
-      if (onSuccess) {
-        setTimeout(() => onSuccess(), 1500);
+      const result = await response.json();
+
+      // tRPC wraps the response in { result: { data: ... } }
+      const data = result?.result?.data;
+
+      if (data?.success) {
+        setSubmitStatus('success');
+
+        // Fire client-side tracking event (for GTM / Meta Pixel)
+        if (typeof window !== 'undefined' && (window as any).dataLayer) {
+          (window as any).dataLayer.push({
+            event: 'lead_submitted',
+            leadId: data.leadId,
+            leadScore: data.score,
+            leadTier: data.tier,
+            packageSelected: selectedPackage,
+            estimatedPrice,
+            town,
+          });
+        }
+
+        if (onSuccess) {
+          setTimeout(() => onSuccess(), 1500);
+        }
+      } else {
+        throw new Error('Unexpected response from server');
       }
     } catch (error) {
       console.error('Error submitting lead:', error);
@@ -126,6 +289,7 @@ export function LeadCaptureForm({
     }
   };
 
+  // ── Success state ─────────────────────────────────────────────────────
   if (submitStatus === 'success') {
     return (
       <Card className="border-green-200 bg-green-50">
@@ -144,6 +308,7 @@ export function LeadCaptureForm({
     );
   }
 
+  // ── Form ──────────────────────────────────────────────────────────────
   return (
     <Card className="shadow-xl border-slate-200">
       <CardHeader>
@@ -293,4 +458,3 @@ export function LeadCaptureForm({
     </Card>
   );
 }
-
