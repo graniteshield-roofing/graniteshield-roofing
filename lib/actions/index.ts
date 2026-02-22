@@ -22,7 +22,7 @@ export function initializeActionHandlers(): void {
   // SMS actions
   registerActionHandler('openphone.sms.send', handleOpenPhoneSMS);
 
-  // AI calling actions
+  // AI calling actions (legacy — will be replaced by GHL Voice AI)
   registerActionHandler('bland_ai.call.initiate', handleBlandAICall);
 
   // Attribution actions
