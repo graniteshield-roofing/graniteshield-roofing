@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import { QuoteResponse } from '@/lib/api/quote';
 import { PackageSelection } from '../types';
+import Link from 'next/link';
 
 // ============================================================================
 // CONFIGURATION
@@ -123,6 +124,10 @@ export function LeadCaptureForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // ── A2P 10DLC Compliance: SMS Consent ──────────────────────────────────
+  // Checkbox MUST be unchecked by default per carrier requirements
+  const [smsConsent, setSmsConsent] = useState(false);
 
   // Honeypot field — hidden from real users, filled by bots
   const [honeypot, setHoneypot] = useState('');
@@ -263,8 +268,12 @@ export function LeadCaptureForm({
         referrer: typeof document !== 'undefined' ? document.referrer || undefined : undefined,
         landingPage: typeof window !== 'undefined' ? window.location.href : undefined,
 
-        // Consent
-        smsConsent: phoneDigits.length >= 10 ? true : false,
+        // ── A2P 10DLC Compliance: Consent fields ──────────────────────
+        // smsConsent is TRUE only when checkbox is explicitly checked
+        // Form submission still works when unchecked — SMS automation must
+        // only trigger when smsConsent === true
+        smsConsent: smsConsent,
+        smsConsentTimestamp: smsConsent ? new Date().toISOString() : undefined,
 
         // Tracking — Meta Pixel / Google Ads (Phase 2)
         fbp: getCookie('_fbp') || undefined,
@@ -283,7 +292,6 @@ export function LeadCaptureForm({
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         const errMsg =
-          errorData?.error ||
           errorData?.error?.message ||
           'Failed to submit your information';
         throw new Error(errMsg);
@@ -521,6 +529,22 @@ export function LeadCaptureForm({
             </p>
           </div>
 
+          {/* ── A2P 10DLC Compliance: SMS Consent Checkbox ─────────────── */}
+          <div className="space-y-2">
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={smsConsent}
+                onChange={(e) => setSmsConsent(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="text-sm text-slate-600 leading-relaxed">
+                I agree to receive SMS updates from GraniteShield Roofing LLC related to my
+                estimate, appointments, and service notifications.
+              </span>
+            </label>
+          </div>
+
           {/* Submit Button */}
           <Button
             type="submit"
@@ -539,9 +563,20 @@ export function LeadCaptureForm({
             )}
           </Button>
 
-          <p className="text-xs text-center text-slate-500">
-            By submitting, you agree to be contacted by GraniteShield Roofing. We respect your
-            privacy and will never share your information.
+          {/* ── A2P 10DLC Compliance: Disclosure Text ──────────────────── */}
+          <p className="text-xs text-center text-slate-500 leading-relaxed">
+            By submitting this form, you agree to receive SMS messages from GraniteShield
+            Roofing LLC related to your quote, appointments, and service updates. Message
+            frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP
+            for assistance. View our{' '}
+            <Link href="/privacy-policy" className="underline hover:text-slate-700">
+              Privacy Policy
+            </Link>{' '}
+            and{' '}
+            <Link href="/terms-of-service" className="underline hover:text-slate-700">
+              Terms of Service
+            </Link>
+            .
           </p>
         </form>
       </CardContent>

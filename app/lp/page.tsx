@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ArrowRight,
@@ -31,6 +32,7 @@ type FormData = {
   name: string;
   phone: string;
   notes: string;
+  smsConsent: boolean;
 };
 
 export default function LandingPage() {
@@ -45,6 +47,7 @@ export default function LandingPage() {
     name: '',
     phone: '',
     notes: '',
+    smsConsent: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -487,7 +490,7 @@ export default function LandingPage() {
 
                       <div>
                         <Label htmlFor="notes">
-                          Optional: What’s going on?
+                          Optional: What's going on?
                         </Label>
                         <Input
                           id="notes"
@@ -498,6 +501,22 @@ export default function LandingPage() {
                           placeholder="Leak near chimney / replacing in spring / etc."
                         />
                       </div>
+
+                      {/* A2P 10DLC Compliance: SMS Consent Checkbox */}
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.smsConsent}
+                          onChange={(e) =>
+                            setFormData({ ...formData, smsConsent: e.target.checked })
+                          }
+                          className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="text-sm text-slate-600 leading-relaxed">
+                          I agree to receive SMS updates from GraniteShield Roofing LLC related to my
+                          estimate, appointments, and service notifications.
+                        </span>
+                      </label>
                     </div>
                   </div>
 
@@ -524,6 +543,22 @@ export default function LandingPage() {
                       )}
                     </Button>
                   </div>
+
+                  {/* A2P 10DLC Compliance: Disclosure Text */}
+                  <p className="text-xs text-center text-slate-500 leading-relaxed">
+                    By submitting this form, you agree to receive SMS messages from GraniteShield
+                    Roofing LLC related to your quote, appointments, and service updates. Message
+                    frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP
+                    for assistance. View our{' '}
+                    <Link href="/privacy-policy" className="underline hover:text-slate-700">
+                      Privacy Policy
+                    </Link>{' '}
+                    and{' '}
+                    <Link href="/terms-of-service" className="underline hover:text-slate-700">
+                      Terms of Service
+                    </Link>
+                    .
+                  </p>
 
                   <div className="flex items-center justify-center gap-2 text-sm text-slate-600">
                     <Clock className="h-4 w-4 text-blue-600" />

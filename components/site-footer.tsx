@@ -265,7 +265,16 @@ export function SiteFooter() {
 
           <p className="mt-2">
             Licensed & Insured Maine Roofing Contractor
-            
+          </p>
+
+          <p className="mt-3 flex items-center justify-center gap-2">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors underline">
+              Privacy Policy
+            </Link>
+            <span>&bull;</span>
+            <Link href="/terms-of-service" className="hover:text-white transition-colors underline">
+              Terms of Service
+            </Link>
           </p>
         </div>
       </div>
