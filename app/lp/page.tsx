@@ -490,7 +490,7 @@ export default function LandingPage() {
 
                       <div>
                         <Label htmlFor="notes">
-                          Optional: What's going on?
+                          Optional: What&apos;s going on?
                         </Label>
                         <Input
                           id="notes"
