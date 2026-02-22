@@ -110,6 +110,11 @@ export default function TermsOfServicePage() {
         <strong>We will not sell, rent, or share your phone number or SMS opt-in data with any third parties
         for their marketing purposes.</strong>
       </p>
+      <p className="mb-4 font-semibold">
+        Mobile information will not be shared with third parties/affiliates for marketing/promotional
+        purposes. All the above categories exclude text messaging originator opt-in data and consent;
+        this information will not be shared with any third parties.
+      </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">6. Financing</h2>
       <p className="mb-4">

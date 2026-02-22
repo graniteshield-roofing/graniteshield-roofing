@@ -113,6 +113,11 @@ export default function PrivacyPolicyPage() {
         for their marketing purposes.</strong> Your phone number and opt-in status are used solely for the
         purposes described in this policy and are stored securely in our systems.
       </p>
+      <p className="mb-4 font-semibold">
+        Mobile information will not be shared with third parties/affiliates for marketing/promotional
+        purposes. All the above categories exclude text messaging originator opt-in data and consent;
+        this information will not be shared with any third parties.
+      </p>
 
       <h3 className="text-lg font-semibold mt-4 mb-2">5.7 Consent is Not Required for Purchase</h3>
       <p className="mb-4">
